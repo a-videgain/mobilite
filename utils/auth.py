@@ -7,6 +7,8 @@ CODES_ACCES = {
     f"GROUPE{i:02d}": hashlib.md5(f"PB2050_G{i:02d}".encode()).hexdigest()[:8].upper() 
     for i in range(1, 51)
 }
+# ➕ AJOUT D'UN CODE SPÉCIAL POUR TEST
+CODES_ACCES["TEST"] = "LOUVRE"
 
 def verifier_login(code_groupe, mot_de_passe):
     """Vérifie si le code groupe et mot de passe sont valides"""
