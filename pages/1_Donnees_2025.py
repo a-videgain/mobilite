@@ -217,5 +217,3 @@ col1, col2, col3 = st.columns([1, 1, 1])
 with col2:
     if st.button("✅ Valider et voir le bilan 2025", type="primary", use_container_width=True):
         st.success("✅ Données enregistrées ! Passez à la page suivante 👉")
-    if st.button("Voir le bilan 2025", use_container_width=True):
-        st.switch_page("pages/2_Bilan_2025.py")
