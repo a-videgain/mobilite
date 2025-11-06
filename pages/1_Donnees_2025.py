@@ -9,7 +9,7 @@ if not st.session_state.get('logged_in', False):
 st.title("🚗 Mobilité Pays Basque 2050")
 st.header("📝 Étape 1 : Saisie des données 2025")
 st.info("**Sources** : EMD Pays Basque, PCAET, ENTD 2019")
-
+st.info("**consignes** : cette étape consiste à faire le bilan mobilités des habitants du Pays Basque")
 # Saisie km territoire
 st.subheader("🛣️ Mobilités du territoire (millions de km/an)")
 
