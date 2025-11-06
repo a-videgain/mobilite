@@ -6,9 +6,9 @@ from utils.auth import enregistrer_scenario
 
 st.set_page_config(page_title="🎯 Scénario 2050", page_icon="🎯", layout="wide")
 
-st.title("🚗 Mobilité Pays Basque 2050")
-st.header("🎯 Construire le scénario 2050")
-
+#st.title("🚗 Mobilité Pays Basque 2050")
+st.title("🎯 Construire le scénario 2050")
+st.header ("A vous de jouer!")
 st.warning("**🎯 Objectif SNBC : Réduire d'environ 80% les émissions du secteur transport d'ici 2050** (par rapport à 1990-2015)")
 
 st.info("""
