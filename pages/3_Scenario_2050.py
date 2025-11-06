@@ -17,6 +17,7 @@ st.info("""
 - Le **report modal** transfère des km vers des modes moins émetteurs
 - La **sobriété** réduit le nombre total de km parcourus
 - Le **taux de remplissage** améliore l’efficacité d’usage des véhicules
+- Les scénarios se limitent aux modes de transport suivants: voiture, vélo, train, bus, marche à pied et avion
 """)
 
 # Vérification
