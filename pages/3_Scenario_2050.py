@@ -13,8 +13,7 @@ st.warning("**🎯 Objectif SNBC : Réduire d'environ 80% les émissions du sect
 
 st.info("""
 **💡 Hypothèses du scénario 2050 :**
-- Les **émissions par km par véhicule restent constantes** (sauf voitures via allègement)
-- Seuls l'**électrification** et l'**allègement des véhicules** réduisent les émissions par km
+- Seuls l'**électrification** et l'**allègement des voitures** réduisent les émissions par km des voitures
 - Le **report modal** transfère des km vers des modes moins émetteurs
 - La **sobriété** réduit le nombre total de km parcourus
 - Le **taux de remplissage** améliore l’efficacité d’usage des véhicules
