@@ -6,10 +6,11 @@ if not st.session_state.get('logged_in', False):
     st.warning("⚠️ Veuillez vous connecter d'abord")
     st.stop()
 
-st.title("🚗 Mobilité Pays Basque 2050")
+st.title("🚗 Décarboner les mobilités au Pays Basque \n **Quelle est la situation de départ** ? ")
 st.header("📝 Étape 1 : Saisie des données 2025")
+st.info("Cette étape consiste à faire le bilan mobilités des habitants du Pays Basque")
 st.info("**Sources** : EMD Pays Basque, PCAET, ENTD 2019")
-st.info("**consignes** : cette étape consiste à faire le bilan mobilités des habitants du Pays Basque")
+
 # Saisie km territoire
 st.subheader("🛣️ Mobilités du territoire (millions de km/an)")
 
