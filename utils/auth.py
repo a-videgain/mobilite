@@ -8,6 +8,7 @@ CODES_ACCES = {
     for i in range(1, 51)
 }
 # ➕ AJOUT D'UN CODE SPÉCIAL POUR TEST
+CODES_ACCES["BENJAMIN"] = "LOREILLE"
 CODES_ACCES["TEST"] = "LOUVRE"
 
 def verifier_login(code_groupe, mot_de_passe):
