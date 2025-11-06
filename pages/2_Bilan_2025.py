@@ -123,5 +123,5 @@ col_space1, col_btn, col_space2 = st.columns([1, 1, 1])
 with col_btn:
     if st.button("➡️ Construire le scénario 2050", type="primary", use_container_width=True):
         enregistrer_scenario(st.session_state.code_groupe, 'bilan_2025')
-        st.switch_page("pages/3_🎯_Scenario_2050.py")
+        st.switch_page("pages/3_Scenario_2050.py")
 
