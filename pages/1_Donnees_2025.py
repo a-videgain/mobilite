@@ -173,16 +173,6 @@ with col3:
     )
 st.divider()
 
-# Validation
-if 'donnees_2025_validees' not in st.session_state:
-    st.session_state.donnees_2025_validees = False
-
-col1, col2, col3 = st.columns([1, 1, 1])
-with col2:
-    if st.button("✅ Valider les données 2025", type="primary", use_container_width=True):
-        st.session_state.donnees_2025_validees = True
-        st.rerun()
-
 
 
 # Parc bus
@@ -223,6 +213,15 @@ with st.expander("⚙️ Facteurs d'émission autres modes (gCO₂/km ACV)"):
 
 st.divider()
 
+# Validation
+if 'donnees_2025_validees' not in st.session_state:
+    st.session_state.donnees_2025_validees = False
+
+col1, col2, col3 = st.columns([1, 1, 1])
+with col2:
+    if st.button("✅ Valider les données 2025", type="primary", use_container_width=True):
+        st.session_state.donnees_2025_validees = True
+        st.rerun()
 
 # Si validé, afficher bouton navigation
 if st.session_state.donnees_2025_validees:
