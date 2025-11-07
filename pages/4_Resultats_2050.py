@@ -3,7 +3,17 @@
 import streamlit as st
 import plotly.graph_objects as go
 from utils.calculations import calculer_2050, format_nombre
-from utils.constants import POPULATION_PB, DISTANCE_TERRE_SOLEIL
+from utils.constants import POPULATION_PB, DISTANCE_TERRE_SOLEIL, initialiser_session
+
+# Initialisation
+if 'initialized' not in st.session_state:
+    initialiser_session()
+
+# Vérification connexion
+if not st.session_state.get('logged_in', False):
+    st.error("❌ Veuillez vous connecter")
+    st.stop()
+
 
 st.set_page_config(page_title="📈 Résultats 2050", page_icon="📈", layout="wide")
 
@@ -84,6 +94,171 @@ with col2:
 
 st.divider()
 
+# ==================== GRAPHIQUE EN CASCADE ====================
+
+with st.expander("📊 Analyse avancée : Contribution de chaque levier", expanded=False):
+    st.markdown("""
+    Ce graphique décompose la réduction totale en montrant la contribution 
+    séquentielle de chaque levier (ordre d'application du modèle).
+    """)
+    
+    import plotly.graph_objects as go
+    
+    # Scénario de référence (aucun levier)
+    co2_2025_base = resultats['bilan_2025']['co2_total_territoire']
+    
+    def calculer_scenario_partiel(modifications):
+        """Calcule un scénario avec seulement certains leviers activés"""
+        scenario_temp = {
+            'reduction_km': 0,
+            'report_velo': 0,
+            'report_bus': 0,
+            'report_train': 0,
+            'report_train_avion': 0,
+            'taux_remplissage': st.session_state.parc_2025['taux_occupation'],
+            'part_ve': st.session_state.parc_2025['part_ve'],
+            'part_thermique': st.session_state.parc_2025['part_thermique'],
+            'part_velo_elec': st.session_state.parc_velo_2025['part_elec'],
+            'part_velo_classique': st.session_state.parc_velo_2025['part_classique'],
+            'part_bus_elec': st.session_state.parc_bus_2025['part_elec'],
+            'part_bus_thermique': st.session_state.parc_bus_2025['part_thermique'],
+            'reduction_poids': 0
+        }
+        scenario_temp.update(modifications)
+        
+        # Sauvegarder scénario actuel
+        scenario_actuel = st.session_state.scenario.copy()
+        st.session_state.scenario = scenario_temp
+        resultats_temp = calculer_2050()
+        st.session_state.scenario = scenario_actuel
+        
+        return resultats_temp['bilan_2050']['co2_total_territoire']
+    
+    # Calcul des contributions
+    co2_elec_voiture = calculer_scenario_partiel({
+        'part_ve': st.session_state.scenario['part_ve'],
+        'part_thermique': st.session_state.scenario['part_thermique']
+    })
+    contrib_elec_voiture = co2_2025_base - co2_elec_voiture
+    
+    co2_elec_bus = calculer_scenario_partiel({
+        'part_ve': st.session_state.scenario['part_ve'],
+        'part_thermique': st.session_state.scenario['part_thermique'],
+        'part_bus_elec': st.session_state.scenario['part_bus_elec'],
+        'part_bus_thermique': st.session_state.scenario['part_bus_thermique']
+    })
+    contrib_elec_bus = co2_elec_voiture - co2_elec_bus
+    
+    co2_elec_velo = calculer_scenario_partiel({
+        'part_ve': st.session_state.scenario['part_ve'],
+        'part_thermique': st.session_state.scenario['part_thermique'],
+        'part_bus_elec': st.session_state.scenario['part_bus_elec'],
+        'part_bus_thermique': st.session_state.scenario['part_bus_thermique'],
+        'part_velo_elec': st.session_state.scenario['part_velo_elec'],
+        'part_velo_classique': st.session_state.scenario['part_velo_classique']
+    })
+    contrib_elec_velo = co2_elec_bus - co2_elec_velo
+    
+    co2_sobriete = calculer_scenario_partiel({
+        'part_ve': st.session_state.scenario['part_ve'],
+        'part_thermique': st.session_state.scenario['part_thermique'],
+        'part_bus_elec': st.session_state.scenario['part_bus_elec'],
+        'part_bus_thermique': st.session_state.scenario['part_bus_thermique'],
+        'part_velo_elec': st.session_state.scenario['part_velo_elec'],
+        'part_velo_classique': st.session_state.scenario['part_velo_classique'],
+        'reduction_km': st.session_state.scenario['reduction_km']
+    })
+    contrib_sobriete = co2_elec_velo - co2_sobriete
+    
+    co2_report = calculer_scenario_partiel({
+        'part_ve': st.session_state.scenario['part_ve'],
+        'part_thermique': st.session_state.scenario['part_thermique'],
+        'part_bus_elec': st.session_state.scenario['part_bus_elec'],
+        'part_bus_thermique': st.session_state.scenario['part_bus_thermique'],
+        'part_velo_elec': st.session_state.scenario['part_velo_elec'],
+        'part_velo_classique': st.session_state.scenario['part_velo_classique'],
+        'reduction_km': st.session_state.scenario['reduction_km'],
+        'report_velo': st.session_state.scenario['report_velo'],
+        'report_bus': st.session_state.scenario['report_bus'],
+        'report_train': st.session_state.scenario['report_train'],
+        'report_train_avion': st.session_state.scenario['report_train_avion']
+    })
+    contrib_report = co2_sobriete - co2_report
+    
+    co2_remplissage = calculer_scenario_partiel({
+        'part_ve': st.session_state.scenario['part_ve'],
+        'part_thermique': st.session_state.scenario['part_thermique'],
+        'part_bus_elec': st.session_state.scenario['part_bus_elec'],
+        'part_bus_thermique': st.session_state.scenario['part_bus_thermique'],
+        'part_velo_elec': st.session_state.scenario['part_velo_elec'],
+        'part_velo_classique': st.session_state.scenario['part_velo_classique'],
+        'reduction_km': st.session_state.scenario['reduction_km'],
+        'report_velo': st.session_state.scenario['report_velo'],
+        'report_bus': st.session_state.scenario['report_bus'],
+        'report_train': st.session_state.scenario['report_train'],
+        'report_train_avion': st.session_state.scenario['report_train_avion'],
+        'taux_remplissage': st.session_state.scenario['taux_remplissage']
+    })
+    contrib_remplissage = co2_report - co2_remplissage
+    
+    co2_allegement = calculer_scenario_partiel({
+        'part_ve': st.session_state.scenario['part_ve'],
+        'part_thermique': st.session_state.scenario['part_thermique'],
+        'part_bus_elec': st.session_state.scenario['part_bus_elec'],
+        'part_bus_thermique': st.session_state.scenario['part_bus_thermique'],
+        'part_velo_elec': st.session_state.scenario['part_velo_elec'],
+        'part_velo_classique': st.session_state.scenario['part_velo_classique'],
+        'reduction_km': st.session_state.scenario['reduction_km'],
+        'report_velo': st.session_state.scenario['report_velo'],
+        'report_bus': st.session_state.scenario['report_bus'],
+        'report_train': st.session_state.scenario['report_train'],
+        'report_train_avion': st.session_state.scenario['report_train_avion'],
+        'taux_remplissage': st.session_state.scenario['taux_remplissage'],
+        'reduction_poids': st.session_state.scenario['reduction_poids']
+    })
+    contrib_allegement = co2_remplissage - co2_allegement
+    
+    # Créer le graphique en cascade
+    fig_cascade = go.Figure(go.Waterfall(
+        orientation="v",
+        measure=["absolute", "relative", "relative", "relative", "relative", "relative", "relative", "relative", "total"],
+        x=["2025", "Élec. voitures", "Élec. bus", "Élec. vélos", "Sobriété", "Report modal", "Remplissage", "Allègement", "2050"],
+        y=[co2_2025_base, 
+           -contrib_elec_voiture,
+           -contrib_elec_bus,
+           -contrib_elec_velo,
+           -contrib_sobriete,
+           -contrib_report,
+           -contrib_remplissage,
+           -contrib_allegement,
+           co2_allegement],
+        text=[f"{co2_2025_base:.0f}",
+              f"-{contrib_elec_voiture:.0f}" if contrib_elec_voiture > 0 else f"+{abs(contrib_elec_voiture):.0f}",
+              f"-{contrib_elec_bus:.0f}" if contrib_elec_bus > 0 else f"+{abs(contrib_elec_bus):.0f}",
+              f"-{contrib_elec_velo:.0f}" if contrib_elec_velo > 0 else f"+{abs(contrib_elec_velo):.0f}",
+              f"-{contrib_sobriete:.0f}" if contrib_sobriete > 0 else f"+{abs(contrib_sobriete):.0f}",
+              f"-{contrib_report:.0f}" if contrib_report > 0 else f"+{abs(contrib_report):.0f}",
+              f"-{contrib_remplissage:.0f}" if contrib_remplissage > 0 else f"+{abs(contrib_remplissage):.0f}",
+              f"-{contrib_allegement:.0f}" if contrib_allegement > 0 else f"+{abs(contrib_allegement):.0f}",
+              f"{co2_allegement:.0f}"],
+        textposition="outside",
+        connector={"line": {"color": "rgb(63, 63, 63)"}},
+        decreasing={"marker": {"color": "#10b981"}},
+        increasing={"marker": {"color": "#ef4444"}},
+        totals={"marker": {"color": "#3b82f6"}}
+    ))
+    
+    fig_cascade.update_layout(
+        title="Contribution de chaque levier (tonnes CO₂/an)",
+        showlegend=False,
+        height=500,
+        yaxis_title="Émissions CO₂ (tonnes/an)"
+    )
+    
+    st.plotly_chart(fig_cascade, use_container_width=True)
+## Fin GRAPHIQUE CASCADE
+
+
 # ==================== KILOMÈTRES COMPARAISON ====================
 
 st.subheader("🛣️ Kilomètres parcourus - Comparaison")
@@ -152,16 +327,18 @@ else:
     """)
 
 st.divider()
+st.divider()
 
 # ==================== NAVIGATION ====================
 
-st.markdown("### 🔁 Navigation")
+st.markdown("### 🔁 Actions")
 col1, col2 = st.columns(2)
 
 with col1:
-    if st.button("⬅️ Revenir au scénario", use_container_width=True):
+    if st.button("⬅️ Modifier le scénario", use_container_width=True):
+        st.session_state.scenario_2050_valide = False
         st.switch_page("pages/3_Scenario_2050.py")
 
 with col2:
-    if st.button("🏁 Revenir à l'accueil", use_container_width=True):
+    if st.button("🏠 Retour accueil", use_container_width=True):
         st.switch_page("app.py")
