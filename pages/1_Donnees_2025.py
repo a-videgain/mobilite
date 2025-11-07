@@ -1,6 +1,17 @@
 import streamlit as st
 from utils.constants import POPULATION_PB
 
+# Masquer le menu hamburger et le footer
+hide_streamlit_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    </style>
+    """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+
 # Vérification connexion
 if not st.session_state.get('logged_in', False):
     st.warning("⚠️ Veuillez vous connecter d'abord")
