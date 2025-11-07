@@ -3,6 +3,17 @@
 import streamlit as st
 from utils.calculations import format_nombre
 from utils.auth import enregistrer_scenario
+from utils.constants import initialiser_session
+
+# Initialisation
+if 'initialized' not in st.session_state:
+    initialiser_session()
+
+# Vérification connexion
+if not st.session_state.get('logged_in', False):
+    st.error("❌ Veuillez vous connecter")
+    st.stop()
+
 
 st.set_page_config(page_title="🎯 Scénario 2050", page_icon="🎯", layout="wide")
 
@@ -121,10 +132,13 @@ with st.expander("🔧 **LEVIER 5 : Allègement** - Réduire le poids des véhic
         st.success(f"✅ Réduction consommation : -{reduction_conso:.1f}% (tous véhicules)")
     else:
         st.info("➡️ Pas d'allègement")
-
 # ==================== VALIDATION ET NAVIGATION ====================
 
 st.divider()
+
+if 'scenario_2050_valide' not in st.session_state:
+    st.session_state.scenario_2050_valide = False
+
 col1, col2, col3 = st.columns([1, 1, 1])
 
 with col1:
@@ -144,10 +158,11 @@ with col1:
             'part_bus_thermique': st.session_state.parc_bus_2025['part_thermique'],
             'reduction_poids': 0
         }
-        st.experimental_rerun()
+        st.session_state.scenario_2050_valide = False
+        st.rerun()
 
 with col3:
-    if st.button("✅ Valider et voir les résultats", type="primary", use_container_width=True):
+    if st.button("✅ Valider le scénario", type="primary", use_container_width=True):
         st.session_state.scenario.update({
             'part_ve': part_ve_temp,
             'part_thermique': 100 - part_ve_temp,
@@ -164,4 +179,14 @@ with col3:
             'reduction_poids': reduction_poids_temp
         })
         enregistrer_scenario(st.session_state.code_groupe, 'scenario_2050')
-        st.switch_page("pages/4_Resultats_2050.py")
+        st.session_state.scenario_2050_valide = True
+        st.rerun()
+
+# Si validé, afficher bouton navigation
+if st.session_state.scenario_2050_valide:
+    st.success("✅ Scénario validé !")
+    st.divider()
+    col1, col2, col3 = st.columns([1, 1, 1])
+    with col2:
+        if st.button("➡️ Voir les résultats 2050", type="primary", use_container_width=True):
+            st.switch_page("pages/4_Resultats_2050.py")
