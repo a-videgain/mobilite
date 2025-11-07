@@ -17,7 +17,7 @@ gatherUsageStats = false
 [ui]
 # Masquer le menu hamburger en haut à droite
 hideTopBar = false
-hideSidebarNav = false
+#hideSidebarNav = false
 
 [runner]
 # Éviter l'affichage des erreurs détaillées
