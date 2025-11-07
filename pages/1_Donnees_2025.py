@@ -171,8 +171,26 @@ with col3:
         "Émission vélo classique (gCO₂/km ACV)",
         0, 20, st.session_state.emissions['velo_classique'], 1
     )
-
 st.divider()
+
+# Validation
+if 'donnees_2025_validees' not in st.session_state:
+    st.session_state.donnees_2025_validees = False
+
+col1, col2, col3 = st.columns([1, 1, 1])
+with col2:
+    if st.button("✅ Valider les données 2025", type="primary", use_container_width=True):
+        st.session_state.donnees_2025_validees = True
+        st.rerun()
+
+# Si validé, afficher bouton navigation
+if st.session_state.donnees_2025_validees:
+    st.success("✅ Données enregistrées !")
+    st.divider()
+    col1, col2, col3 = st.columns([1, 1, 1])
+    with col2:
+        if st.button("➡️ Voir le bilan 2025", type="primary", use_container_width=True):
+            st.switch_page("pages/2_Bilan_2025.py")
 
 # Parc bus
 st.subheader("🚌 Caractéristiques parc bus 2025")
