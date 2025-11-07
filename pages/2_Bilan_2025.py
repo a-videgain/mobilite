@@ -129,9 +129,25 @@ st.divider()
 
 # ==================== VALIDATION ====================
 
+st.divider()
+
+# ==================== VALIDATION ====================
+
+if 'bilan_2025_valide' not in st.session_state:
+    st.session_state.bilan_2025_valide = False
+
 col_space1, col_btn, col_space2 = st.columns([1, 1, 1])
 with col_btn:
-    if st.button("➡️ Construire le scénario 2050", type="primary", use_container_width=True):
+    if st.button("✅ Valider le bilan 2025", type="primary", use_container_width=True):
         enregistrer_scenario(st.session_state.code_groupe, 'bilan_2025')
-        st.switch_page("pages/3_Scenario_2050.py")
+        st.session_state.bilan_2025_valide = True
+        st.rerun()
 
+# Si validé, afficher bouton navigation
+if st.session_state.bilan_2025_valide:
+    st.success("✅ Bilan validé !")
+    st.divider()
+    col1, col2, col3 = st.columns([1, 1, 1])
+    with col2:
+        if st.button("➡️ Construire le scénario 2050", type="primary", use_container_width=True):
+            st.switch_page("pages/3_Scenario_2050.py")
