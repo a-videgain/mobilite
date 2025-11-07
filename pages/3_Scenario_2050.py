@@ -5,6 +5,18 @@ from utils.calculations import format_nombre
 from utils.auth import enregistrer_scenario
 from utils.constants import initialiser_session
 
+# Masquer le menu hamburger et le footer
+hide_streamlit_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    </style>
+    """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+
+
 # Initialisation
 if 'initialized' not in st.session_state:
     initialiser_session()
