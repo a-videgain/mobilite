@@ -52,7 +52,7 @@ else:
     st.success(f"✅ Connecté : **{st.session_state.code_groupe}**")
     st.info("👈 Utilisez la navigation à gauche pour accéder aux différentes pages")
 
-    if st.button("Commencez ici:", use_container_width=True):
+    if st.button("Commencez ici!", use_container_width=True):
         st.switch_page("pages/1_Donnees_2025.py")
         
     if st.button("🚪 Se déconnecter"):
