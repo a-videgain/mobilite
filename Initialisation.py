@@ -3,6 +3,16 @@ from utils.auth import verifier_login, enregistrer_connexion, CODES_ACCES
 from utils.constants import initialiser_session
 import pandas as pd
 
+# Masquer le menu hamburger et le footer
+hide_streamlit_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    </style>
+    """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
 st.set_page_config(
     page_title="Mobilité Pays Basque 2050",
     page_icon="🚗",
