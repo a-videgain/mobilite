@@ -7,6 +7,18 @@ from utils.constants import POPULATION_PB, DISTANCE_TERRE_SOLEIL
 from utils.calculations import calculer_bilan_territoire, calculer_parts_modales, format_nombre
 from utils.auth import enregistrer_scenario
 
+# Masquer le menu hamburger et le footer
+hide_streamlit_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    </style>
+    """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+
+
 # Initialisation
 if 'initialized' not in st.session_state:
     initialiser_session()
