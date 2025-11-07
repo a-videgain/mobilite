@@ -1,32 +1,15 @@
 [client]
-# Désactiver le bouton "View source" (voir le code)
 showErrorDetails = false
 toolbarMode = "minimal"
 
 [server]
-# Configuration serveur
 headless = true
 enableCORS = false
 enableXsrfProtection = false
 port = 8080
 
 [browser]
-# Désactiver la collecte de statistiques
 gatherUsageStats = false
 
-[ui]
-# Masquer le menu hamburger en haut à droite
-hideTopBar = false
-#hideSidebarNav = false
-
 [runner]
-# Éviter l'affichage des erreurs détaillées
 magicEnabled = false
-
-[theme]
-# Optionnel : personnaliser les couleurs
-primaryColor = "#3b82f6"
-backgroundColor = "#ffffff"
-secondaryBackgroundColor = "#f1f5f9"
-textColor = "#1e293b"
-font = "sans serif"
