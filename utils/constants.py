@@ -21,7 +21,7 @@ def initialiser_session():
         
         st.session_state.parc_2025 = {
             'part_ve': 3, 'part_thermique': 97,
-            'emission_thermique': 218, 'taux_occupation': 1.3,
+            'emission_thermique': 218, 'taux_occupation': 1.1,
             'temps_stationnement': 95
         }
         
@@ -43,7 +43,7 @@ def initialiser_session():
         st.session_state.scenario = {
             'reduction_km': 0, 'report_velo': 0, 'report_bus': 0,
             'report_train': 0, 'report_train_avion': 0,
-            'taux_remplissage': 1.3, 'part_ve': 3, 'part_thermique': 97,
+            'taux_remplissage': 1.1, 'part_ve': 3, 'part_thermique': 97,
             'part_velo_elec': 15, 'part_velo_classique': 85,
             'part_bus_elec': 5, 'part_bus_thermique': 95,
             'reduction_poids': 0
