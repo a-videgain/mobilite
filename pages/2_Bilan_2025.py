@@ -7,6 +7,16 @@ from utils.constants import POPULATION_PB, DISTANCE_TERRE_SOLEIL
 from utils.calculations import calculer_bilan_territoire, calculer_parts_modales, format_nombre
 from utils.auth import enregistrer_scenario
 
+# Initialisation
+if 'initialized' not in st.session_state:
+    initialiser_session()
+
+# Vérification connexion
+if not st.session_state.get('logged_in', False):
+    st.error("❌ Veuillez vous connecter")
+    st.stop()
+
+
 # ==================== PAGE 2 : BILAN 2025 ====================
 
 st.set_page_config(page_title="📊 Bilan 2025", page_icon="📊", layout="wide")
