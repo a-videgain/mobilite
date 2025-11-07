@@ -51,7 +51,10 @@ else:
     st.title("🚗 Mobilité Pays Basque 2050")
     st.success(f"✅ Connecté : **{st.session_state.code_groupe}**")
     st.info("👈 Utilisez la navigation à gauche pour accéder aux différentes pages")
-    
+    with col1:
+    if st.button("Commencez ici:", use_container_width=True):
+        st.switch_page("pages/1_Donnees_2025.py")
+        
     if st.button("🚪 Se déconnecter"):
         st.session_state.logged_in = False
         st.rerun()
