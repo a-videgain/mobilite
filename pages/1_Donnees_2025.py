@@ -183,14 +183,7 @@ with col2:
         st.session_state.donnees_2025_validees = True
         st.rerun()
 
-# Si validé, afficher bouton navigation
-if st.session_state.donnees_2025_validees:
-    st.success("✅ Données enregistrées !")
-    st.divider()
-    col1, col2, col3 = st.columns([1, 1, 1])
-    with col2:
-        if st.button("➡️ Voir le bilan 2025", type="primary", use_container_width=True):
-            st.switch_page("pages/2_Bilan_2025.py")
+
 
 # Parc bus
 st.subheader("🚌 Caractéristiques parc bus 2025")
@@ -230,8 +223,14 @@ with st.expander("⚙️ Facteurs d'émission autres modes (gCO₂/km ACV)"):
 
 st.divider()
 
-# Validation
-col1, col2, col3 = st.columns([1, 1, 1])
-with col2:
-    if st.button("✅ Valider et voir le bilan 2025", type="primary", use_container_width=True):
-        st.success("✅ Données enregistrées ! Passez à la page suivante 👉")
+
+# Si validé, afficher bouton navigation
+if st.session_state.donnees_2025_validees:
+    st.success("✅ Données enregistrées !")
+    st.divider()
+    col1, col2, col3 = st.columns([1, 1, 1])
+    with col2:
+        if st.button("➡️ Voir le bilan 2025", type="primary", use_container_width=True):
+            st.switch_page("pages/2_Bilan_2025.py")
+            st.success("✅ Données enregistrées ! Passez à la page suivante 👉")
+
