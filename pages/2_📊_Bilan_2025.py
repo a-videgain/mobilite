@@ -63,7 +63,7 @@ nb_terre_soleil = (bilan_2025['km_total_territoire'] * 1e6) / DISTANCE_TERRE_SOL
 
 # ==================== MÉTRIQUES ====================
 
-st.subheader("🌍 Échelle territoire (350 000 habitants)")
+st.subheader("🌍 Échelle territoire (Pays Basque français)")
 col1, col2 = st.columns(2)
 with col1:
     st.metric("Km totaux/an", f"{format_nombre(bilan_2025['km_total_territoire'])} Mkm")
