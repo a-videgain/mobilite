@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Constantes globales
-POPULATION_PB = 350000
+POPULATION_PB_DEFAULT = 350000
 DISTANCE_TERRE_SOLEIL = 149.6e6
 
 def initialiser_session():
@@ -9,10 +9,21 @@ def initialiser_session():
     if 'initialized' not in st.session_state:
         st.session_state.initialized = True
         
-        st.session_state.km_2025_territoire = {
-            'voiture': 3275, 'bus': 55, 'train': 210,
-            'velo': 140, 'avion': 900, 'marche': 70
+        # Population du territoire (modifiable)
+        st.session_state.population = POPULATION_PB_DEFAULT
+        
+        # Données PAR HABITANT (en km/an/hab)
+        st.session_state.km_2025_habitant = {
+            'voiture': 9357,
+            'bus': 157,
+            'train': 600,
+            'velo': 400,
+            'avion': 2571,
+            'marche': 200
         }
+        
+        # Les km territoire seront calculés automatiquement
+        st.session_state.km_2025_territoire = {}
         
         st.session_state.nb_depl_hab = {
             'voiture': 401.5, 'bus': 219.0, 'train': 54.75,
@@ -47,6 +58,14 @@ def initialiser_session():
             'part_velo_elec': 15, 'part_velo_classique': 85,
             'part_bus_elec': 5, 'part_bus_thermique': 95,
             'reduction_poids': 0
+        }
+
+def calculer_km_territoire():
+    """Calcule les km territoire (en Mkm/an) à partir des km/hab/an et de la population"""
+    if 'km_2025_habitant' in st.session_state and 'population' in st.session_state:
+        st.session_state.km_2025_territoire = {
+            mode: (km_hab * st.session_state.population) / 1_000_000
+            for mode, km_hab in st.session_state.km_2025_habitant.items()
         }
 
 def format_nombre(n, decimales=0):
