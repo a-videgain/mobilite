@@ -162,4 +162,4 @@ if st.session_state.bilan_2025_valide:
     col1, col2, col3 = st.columns([1, 1, 1])
     with col2:
         if st.button("➡️ Construire le scénario 2050", type="primary", use_container_width=True):
-            st.switch_page("pages/3_Scenario_2050.py")
+            st.switch_page("pages/3_🎯_Scenario_2050.py")
