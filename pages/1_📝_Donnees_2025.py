@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.constants import POPULATION_PB_DEFAULT, calculer_km_territoire
+from utils.constants import POPULATION_PB, calculer_km_territoire
 
 hide_streamlit_style = """
     <style>
@@ -22,7 +22,7 @@ st.info("Cette étape consiste à établir le bilan mobilités d'un habitant moy
 st.subheader("👥 Population du territoire")
 st.session_state.population = st.number_input(
     "Nombre d'habitants", 100000, 1000000,
-    st.session_state.get('population', POPULATION_PB_DEFAULT), 10000
+    st.session_state.get('population', POPULATION_PB), 10000
 )
 
 st.divider()
