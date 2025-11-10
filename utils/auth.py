@@ -3,10 +3,16 @@ from datetime import datetime
 import streamlit as st
 
 # Génération des codes d'accès (50 groupes)
-CODES_ACCES = {
-    f"GROUPE{i:02d}": hashlib.md5(f"PB2050_G{i:02d}".encode()).hexdigest()[:8].upper() 
-    for i in range(1, 51)
-}
+# Charger depuis les secrets si disponible
+if "codes_acces" in st.secrets:
+    CODES_ACCES = dict(st.secrets["codes_acces"])
+else:
+    # Fallback : génération automatique
+    CODES_ACCES = {
+        f"GROUPE{i:02d}": hashlib.md5(...).hexdigest()[:8].upper() 
+        for i in range(1, 51)
+    }
+    
 # ➕ AJOUT D'UN CODE SPÉCIAL POUR TEST
 CODES_ACCES["BENJAMIN"] = "LOREILLE"
 CODES_ACCES["TEST"] = "LOUVRE"
