@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Constantes globales
-POPULATION_PB_DEFAULT = 350000
+POPULATION_PB = 350000
 DISTANCE_TERRE_SOLEIL = 149.6e6
 
 def initialiser_session():
