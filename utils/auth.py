@@ -9,10 +9,9 @@ if "codes_acces" in st.secrets:
 else:
     # Fallback : génération automatique
     CODES_ACCES = {
-        f"GROUPE{i:02d}": hashlib.md5(...).hexdigest()[:8].upper() 
+        f"GROUPE{i:02d}": hashlib.md5(f"PB2050_G{i:02d}".encode()).hexdigest()[:8].upper() 
         for i in range(1, 51)
     }
-    
 # ➕ AJOUT D'UN CODE SPÉCIAL POUR TEST
 CODES_ACCES["BENJAMIN"] = "LOREILLE"
 CODES_ACCES["TEST"] = "LOUVRE"
