@@ -10,7 +10,7 @@ def initialiser_session():
         st.session_state.initialized = True
         
         # Population du territoire (modifiable)
-        st.session_state.population = POPULATION_PB_DEFAULT
+        st.session_state.population = POPULATION_PB
         
         # Données PAR HABITANT (en km/an/hab)
         st.session_state.km_2025_habitant = {
