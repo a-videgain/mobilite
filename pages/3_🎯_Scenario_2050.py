@@ -201,4 +201,4 @@ if st.session_state.scenario_2050_valide:
     col1, col2, col3 = st.columns([1, 1, 1])
     with col2:
         if st.button("➡️ Voir les résultats 2050", type="primary", use_container_width=True):
-            st.switch_page("pages/4_Resultats_2050.py")
+            st.switch_page("pages/4_📈_Resultats_2050.py")
