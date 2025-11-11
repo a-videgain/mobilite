@@ -98,13 +98,13 @@ def calculer_2050():
     km_transferes_train_voiture = km_voiture * st.session_state.scenario['report_train'] / 100
     km_transferes_train_avion = km_avion * st.session_state.scenario['report_train_avion'] / 100
 
-    # 3️⃣ Nouvelles distances 2050
+    # 3️⃣ Nouvelles distances 2050 (avec protection valeurs négatives)
     km_2050 = {
-        'voiture': km_voiture - km_transferes_velo - km_transferes_bus - km_transferes_train_voiture,
+        'voiture': max(0, km_voiture - km_transferes_velo - km_transferes_bus - km_transferes_train_voiture),
         'bus': km_2025_apres_sobriete['bus'] + km_transferes_bus,
         'train': km_2025_apres_sobriete['train'] + km_transferes_train_voiture + km_transferes_train_avion,
         'velo': km_2025_apres_sobriete['velo'] + km_transferes_velo,
-        'avion': km_avion - km_transferes_train_avion,
+        'avion': max(0, km_avion - km_transferes_train_avion),
         'marche': km_2025_apres_sobriete['marche']
     }
 
