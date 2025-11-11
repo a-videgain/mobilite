@@ -42,6 +42,11 @@ if 'scenario' not in st.session_state:
 # ==================== CALCULS ====================
 
 resultats = calculer_2050()
+st.session_state.resultats_2050 = resultats  # Stocker pour persistence
+
+# Sauvegarder résultats finaux
+from utils.persistence import sauvegarder_donnees
+sauvegarder_donnees(st.session_state.code_groupe)
 
 # Calculs par habitant
 co2_par_hab_2025 = (resultats['bilan_2025']['co2_total_territoire'] ) / st.session_state.population
