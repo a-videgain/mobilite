@@ -1,7 +1,6 @@
 import streamlit as st
 
 # Constantes globales
-POPULATION_PB = 350000
 DISTANCE_TERRE_SOLEIL = 149.6e6
 
 def initialiser_session():
@@ -10,7 +9,7 @@ def initialiser_session():
         st.session_state.initialized = True
         
         # Population du territoire (modifiable)
-        st.session_state.population = POPULATION_PB
+        st.session_state.population = 350000  # Valeur par défaut
         
         # Données PAR HABITANT (en km/an/hab)
         st.session_state.km_2025_habitant = {
