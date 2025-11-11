@@ -35,9 +35,9 @@ header_cols = st.columns([2, 2, 2])
 with header_cols[0]:
     st.markdown("**Mode**")
 with header_cols[1]:
-    st.markdown("**km/an/hab**")
+    st.markdown("**km/an/habitants**")
 with header_cols[2]:
-    st.markdown("**Dépl./an/hab**")
+    st.markdown("**Déplacements/an/habitant**")
 
 # Voiture
 cols = st.columns([2, 2, 2])
@@ -209,13 +209,13 @@ with col1:
 
 with col2:
     st.session_state.emissions['bus_thermique'] = st.number_input(
-        "Émission bus thermique (gCO₂/km ACV)", 0, 300,
+        "Émission bus thermique (gCO₂/km/passager ACV)", 0, 300,
         st.session_state.emissions['bus_thermique'], 5
     )
 
 with col3:
     st.session_state.emissions['bus_electrique'] = st.number_input(
-        "Émission bus électrique (gCO₂/km ACV)", 0, 100,
+        "Émission bus électrique (gCO₂/km/passage ACV)", 0, 100,
         st.session_state.emissions['bus_electrique'], 5
     )
 
@@ -226,14 +226,14 @@ with st.expander("⚙️ Facteurs d'émission autres modes (gCO₂/km ACV)"):
     col1, col2 = st.columns(2)
     with col1:
         st.session_state.emissions['train'] = st.number_input(
-            "Train", 0.0, 50.0, st.session_state.emissions['train'], 0.5
+            "Train (gCO₂/km/passager)", 0.0, 50.0, st.session_state.emissions['train'], 0.5
         )
         st.session_state.emissions['avion'] = st.number_input(
-            "Avion", 0, 500, st.session_state.emissions['avion'], 10
+            "Avion (gCO₂/km/passager)", 0, 500, st.session_state.emissions['avion'], 10
         )
     with col2:
         st.session_state.emissions['marche'] = st.number_input(
-            "Marche", 0, 10, st.session_state.emissions['marche'], 1
+            "Marche (gCO₂/km)", 0, 10, st.session_state.emissions['marche'], 1
         )
 
 st.divider()
