@@ -2,7 +2,9 @@
 
 import streamlit as st
 import plotly.graph_objects as go
-from utils.calculations import calculer_2050, format_nombre
+import pandas as pd
+import plotly.express as px
+from utils.calculations import calculer_2050, format_nombre, calculer_parts_modales
 from utils.constants import POPULATION_PB, DISTANCE_TERRE_SOLEIL, initialiser_session
 
 # Masquer le menu hamburger et le footer
@@ -103,6 +105,61 @@ with col2:
         st.metric("CO₂/hab/an", f"{format_nombre(co2_par_hab_2050)} kg", delta=f"{format_nombre(delta_co2)} kg", delta_color="inverse")
     with c2:
         st.metric("Km/hab/jour", f"{format_nombre(km_par_hab_jour_2050, 1)} km", delta=f"{format_nombre(delta_km, 1)} km", delta_color="inverse")
+
+st.divider()
+
+# ==================== PARTS MODALES 2025 VS 2050 ====================
+
+st.subheader("🥧 Parts modales - Comparaison 2025 vs 2050")
+st.caption("En km/an/habitant")
+
+# Calcul des km par habitant par mode
+km_hab_2025 = {mode: (km_terr * 1e6) / POPULATION_PB for mode, km_terr in st.session_state.km_2025_territoire.items()}
+km_hab_2050 = {mode: (km_terr * 1e6) / POPULATION_PB for mode, km_terr in resultats['km_2050_territoire'].items()}
+
+# Mapping des noms pour l'affichage
+mode_mapping = {
+    'voiture': '🚗 Voiture',
+    'bus': '🚌 Bus',
+    'train': '🚆 Train',
+    'velo': '🚴 Vélo',
+    'avion': '✈️ Avion',
+    'marche': '🚶 Marche'
+}
+
+col1, col2 = st.columns(2)
+
+with col1:
+    df_2025 = pd.DataFrame({
+        'Mode': [mode_mapping[m] for m in km_hab_2025.keys()],
+        'km/an/hab': list(km_hab_2025.values())
+    })
+    fig_2025 = px.pie(
+        df_2025, 
+        values='km/an/hab', 
+        names='Mode', 
+        hole=0.4,
+        title="2025"
+    )
+    fig_2025.update_traces(textposition='inside', textinfo='percent+label')
+    st.plotly_chart(fig_2025, use_container_width=True)
+    st.caption(f"**Total : {format_nombre(sum(km_hab_2025.values()))} km/an/hab**")
+
+with col2:
+    df_2050 = pd.DataFrame({
+        'Mode': [mode_mapping[m] for m in km_hab_2050.keys()],
+        'km/an/hab': list(km_hab_2050.values())
+    })
+    fig_2050 = px.pie(
+        df_2050, 
+        values='km/an/hab', 
+        names='Mode', 
+        hole=0.4,
+        title="2050"
+    )
+    fig_2050.update_traces(textposition='inside', textinfo='percent+label')
+    st.plotly_chart(fig_2050, use_container_width=True)
+    st.caption(f"**Total : {format_nombre(sum(km_hab_2050.values()))} km/an/hab**")
 
 st.divider()
 
@@ -268,8 +325,8 @@ with st.expander("📊 Analyse avancée : Contribution de chaque levier", expand
     )
     
     st.plotly_chart(fig_cascade, use_container_width=True)
-## Fin GRAPHIQUE CASCADE
 
+st.divider()
 
 # ==================== KILOMÈTRES COMPARAISON ====================
 
@@ -328,13 +385,13 @@ if resultats['objectif_atteint']:
     st.success("""
     ✅ **Félicitations ! Votre scénario atteint l'objectif SNBC (-80%).**  
     Vous pouvez maintenant identifier les leviers les plus efficaces :
-    - Quelle part de l’électrification contribue le plus ?
+    - Quelle part de l'électrification contribue le plus ?
     - Quelle sobriété ou quel report modal ont été les plus décisifs ?
     """)
 else:
     st.warning("""
     ⚠️ **Objectif non atteint.**  
-    Essayez d’ajuster vos leviers : plus de sobriété, électrification accrue,
+    Essayez d'ajuster vos leviers : plus de sobriété, électrification accrue,
     ou report modal plus fort vers les modes actifs et collectifs.
     """)
 
