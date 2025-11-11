@@ -54,7 +54,7 @@ bilan_2025 = calculer_bilan_territoire(
 parts_2025 = calculer_parts_modales(st.session_state.km_2025_territoire)
 
 # Calculs par habitant
-co2_par_hab = (bilan_2025['co2_total_territoire'] * 1000) / POPULATION_PB
+co2_par_hab = (bilan_2025['co2_total_territoire'] ) / POPULATION_PB
 km_par_hab_jour = (bilan_2025['km_total_territoire'] * 1e6) / POPULATION_PB / 365
 depl_par_hab_jour = sum(st.session_state.nb_depl_hab.values()) / 365
 
@@ -66,7 +66,7 @@ nb_terre_soleil = (bilan_2025['km_total_territoire'] * 1e6) / DISTANCE_TERRE_SOL
 st.subheader("🌍 Échelle territoire (Pays Basque français)")
 col1, col2 = st.columns(2)
 with col1:
-    st.metric("Km totaux/an", f"{format_nombre(bilan_2025['km_total_territoire'])} Mkm")
+    st.metric("Km totaux/an", f"{format_nombre(bilan_2025['km_total_territoire'])} Millions de km")
     st.caption(f"Soit {nb_terre_soleil:.1f} fois la distance Terre-Soleil")
 with col2:
     st.metric("CO₂ total/an", f"{format_nombre(bilan_2025['co2_total_territoire'])} tonnes")
@@ -76,7 +76,7 @@ st.divider()
 st.subheader("👤 Échelle habitant (moyennes)")
 col1, col2, col3 = st.columns(3)
 with col3:
-    st.metric("CO₂/habitant/an", f"{format_nombre(co2_par_hab)} kg")
+    st.metric("CO₂/habitant/an", f"{format_nombre(co2_par_hab)} tonnes")
 with col1:
     st.metric("Km/habitant/jour", f"{format_nombre(km_par_hab_jour, 1)} km")
 with col2:
