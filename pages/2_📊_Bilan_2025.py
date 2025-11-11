@@ -76,7 +76,7 @@ st.divider()
 st.subheader("👤 Échelle habitant (moyennes)")
 col1, col2, col3 = st.columns(3)
 with col3:
-    st.metric("CO₂/habitant/an", f"{format_nombre(co2_par_hab,1)} tonnes")
+    st.metric("CO₂/habitant/an", f"{format_nombre(co2_par_hab,2)} tonnes")
 with col1:
     st.metric("Km/habitant/jour", f"{format_nombre(km_par_hab_jour, 1)} km")
 with col2:
