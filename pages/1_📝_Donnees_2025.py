@@ -21,7 +21,7 @@ st.info("Cette étape consiste à établir le bilan mobilités d'un habitant moy
 # Population
 st.subheader("👥 Population de la Communauté d'Agglomération Pays Basque (arrondi au millier)")
 st.session_state.population = st.number_input(
-    "Nombre d'habitant.e.s", 100000, 1000000,
+    "Nombre d'habitant.e.s", 100000, 500000,
     st.session_state.get('population', POPULATION_PB), 10000
 )
 
