@@ -11,6 +11,11 @@ def format_nombre(n, decimales=0):
     else:
         return f"{n:,.{decimales}f}".replace(',', ' ')
 
+def calculer_par_habitant():
+    """Nouvelle fonction"""
+    pop = st.session_state.population
+    co2_hab = co2_territoire / pop
+    return co2_hab
 
 def calculer_bilan_territoire(km_territoire, emissions_parc, parc_config, parc_velo_config, parc_bus_config, reduction_poids=0):
     """
