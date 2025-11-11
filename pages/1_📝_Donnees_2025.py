@@ -247,6 +247,9 @@ with col2:
     if st.button("✅ Valider les données 2025", type="primary", use_container_width=True):
         calculer_km_territoire()
         st.session_state.donnees_2025_validees = True
+        from utils.persistence import sauvegarder_donnees
+        if sauvegarder_donnees(st.session_state.code_groupe):
+            st.success("✅ Scénario enregistré !")
         st.rerun()
 
 if st.session_state.donnees_2025_validees:
