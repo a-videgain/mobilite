@@ -21,21 +21,21 @@ st.info("Cette étape consiste à établir le bilan mobilités d'un habitant moy
 # Population
 st.subheader("👥 Population de la Communauté d'Agglomération Pays Basque (arrondi au millier)")
 st.session_state.population = st.number_input(
-    "Nombre d'habitants", 100000, 1000000,
-    st.session_state.get('population', POPULATION_PB), 10000
+    "Nombre d'habitants", 200000, 400000,
+    st.session_state.get('population', POPULATION_PB), 1000
 )
 
 st.divider()
 
 # Mobilités par habitant
-st.subheader("🛣️ Mobilités d'un habitant moyen")
-st.caption("Entrez les distances parcourues PAR HABITANT et PAR AN")
+st.subheader("🛣️ Mobilités d'un.e habitant.e moyen")
+st.caption("Entrez les distances parcourues PAR HABITANT.E et PAR AN")
 
 header_cols = st.columns([2, 2, 2])
 with header_cols[0]:
     st.markdown("**Mode**")
 with header_cols[1]:
-    st.markdown("**km/an/habitants**")
+    st.markdown("**km/an/habitant**")
 with header_cols[2]:
     st.markdown("**Déplacements/an/habitant**")
 
