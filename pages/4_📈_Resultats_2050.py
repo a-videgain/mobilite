@@ -76,9 +76,9 @@ with col2:
 
 with col3:
     if resultats['objectif_atteint']:
-        st.success("🏆 **Objectif SNBC atteint !**\n\nRéduction ≥ 80% ✅")
+        st.success("🏆 **Objectif SNBC atteint !**\n\nRéduction ≥ 70% ✅")
     else:
-        st.error(f"❌ **Objectif non atteint** : {resultats['reduction_pct']:.1f}% (objectif : -80%)")
+        st.error(f"❌ **Objectif non atteint** : {resultats['reduction_pct']:.1f}% (objectif : -70%)")
 
 st.divider()
 
@@ -430,16 +430,16 @@ st.subheader("🎯 Progression vers l'objectif SNBC")
 fig_jauge = go.Figure(go.Indicator(
     mode="gauge+number+delta",
     value=resultats['reduction_pct'],
-    delta={'reference': 80, 'increasing': {'color': "green"}, 'decreasing': {'color': "red"}},
+    delta={'reference': 70, 'increasing': {'color': "green"}, 'decreasing': {'color': "red"}},
     gauge={
         'axis': {'range': [None, 100]},
-        'bar': {'color': "lightgreen" if resultats['reduction_pct'] >= 80 else "orange"},
+        'bar': {'color': "lightgreen" if resultats['reduction_pct'] >= 70 else "orange"},
         'steps': [
             {'range': [0, 50], 'color': '#fee2e2'},
-            {'range': [50, 80], 'color': '#fed7aa'},
-            {'range': [80, 100], 'color': '#d1fae5'}
+            {'range': [50, 70], 'color': '#fed7aa'},
+            {'range': [70, 100], 'color': '#d1fae5'}
         ],
-        'threshold': {'line': {'color': "red", 'width': 4}, 'value': 80}
+        'threshold': {'line': {'color': "red", 'width': 4}, 'value': 70}
     },
     title={'text': "Réduction des émissions (%)"}
 ))
@@ -454,7 +454,7 @@ st.subheader("🧩 Interprétation des résultats")
 
 if resultats['objectif_atteint']:
     st.success("""
-    ✅ **Félicitations ! Votre scénario atteint l'objectif SNBC (-80%).**  
+    ✅ **Félicitations ! Votre scénario atteint l'objectif SNBC (-70%).**  
     Vous pouvez maintenant identifier les leviers les plus efficaces :
     - Quel leviers contribue le plus ?
     - Le scénario est-il réaliste?
