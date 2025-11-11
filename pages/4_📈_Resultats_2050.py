@@ -61,27 +61,25 @@ nb_terre_soleil_2050 = (resultats['bilan_2050']['km_total_territoire'] * 1e6) / 
 
 st.subheader("📋 Résumé du scénario construit")
 
-with st.expander("🎯 **Voir le détail du scénario**", expanded=True):
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.markdown("##### 🔌 Électrification")
-        st.write(f"• Voitures électriques : **{st.session_state.scenario['part_ve']}%**")
-        st.write(f"• Bus électriques : **{st.session_state.scenario['part_bus_elec']}%**")
-        st.write(f"• Vélos électriques : **{st.session_state.scenario['part_velo_elec']}%**")
-    
-    with col2:
-        st.markdown("##### 🔄 Report modal")
-        st.write(f"• Voiture → Vélo : **{st.session_state.scenario['report_velo']}%**")
-        st.write(f"• Voiture → Bus : **{st.session_state.scenario['report_bus']}%**")
-        st.write(f"• Voiture → Train : **{st.session_state.scenario['report_train']}%**")
-        st.write(f"• Avion → Train : **{st.session_state.scenario['report_train_avion']}%**")
-    
-    with col3:
-        st.markdown("##### 📊 Autres leviers")
-        st.write(f"• Sobriété : **{st.session_state.scenario['reduction_km']:+}%**")
-        st.write(f"• Taux remplissage : **{st.session_state.scenario['taux_remplissage']:.1f}** pers/véh")
-        st.write(f"• Allègement : **{st.session_state.scenario['reduction_poids']}%**")
+with st.expander("🔧 **LEVIER 1 : Électrification**", expanded=False):
+    st.markdown(f"• **Voitures électriques** : {st.session_state.scenario['part_ve']}% (thermiques : {st.session_state.scenario['part_thermique']}%)")
+    st.markdown(f"• **Bus électriques** : {st.session_state.scenario['part_bus_elec']}% (thermiques : {st.session_state.scenario['part_bus_thermique']}%)")
+    st.markdown(f"• **Vélos électriques** : {st.session_state.scenario['part_velo_elec']}% (classiques : {st.session_state.scenario['part_velo_classique']}%)")
+
+with st.expander("🔧 **LEVIER 2 : Sobriété**", expanded=False):
+    st.markdown(f"• **Variation km totaux** : {st.session_state.scenario['reduction_km']:+}%")
+
+with st.expander("🔧 **LEVIER 3 : Report modal**", expanded=False):
+    st.markdown(f"• **Voiture → Vélo** : {st.session_state.scenario['report_velo']}%")
+    st.markdown(f"• **Voiture → Bus** : {st.session_state.scenario['report_bus']}%")
+    st.markdown(f"• **Voiture → Train** : {st.session_state.scenario['report_train']}%")
+    st.markdown(f"• **Avion → Train** : {st.session_state.scenario['report_train_avion']}%")
+
+with st.expander("🔧 **LEVIER 4 : Taux de remplissage**", expanded=False):
+    st.markdown(f"• **Occupation voiture** : {st.session_state.scenario['taux_remplissage']:.1f} pers/véhicule")
+
+with st.expander("🔧 **LEVIER 5 : Allègement**", expanded=False):
+    st.markdown(f"• **Réduction poids** : {st.session_state.scenario['reduction_poids']}%")
 
 st.divider()
 
@@ -528,83 +526,75 @@ st.divider()
 
 st.subheader("💾 Export des données")
 
-# Préparer les données d'export
-export_data = {
-    'Situation_initiale_km_hab': pd.DataFrame({
-        'Mode': list(st.session_state.km_2025_habitant.keys()),
-        'km_an_hab_2025': list(st.session_state.km_2025_habitant.values())
-    }),
-    
-    'Bilan_2025': pd.DataFrame({
-        'Indicateur': ['CO2_total_territoire_tonnes', 'CO2_par_habitant_tonnes', 'Km_total_Mkm', 'Km_par_hab_an'],
-        'Valeur_2025': [
-            resultats['bilan_2025']['co2_total_territoire'],
-            co2_par_hab_2025,
-            resultats['bilan_2025']['km_total_territoire'],
-            km_par_hab_an_2025
-        ]
-    }),
-    
-    'Scenario_leviers': pd.DataFrame({
-        'Levier': [
-            'Reduction_km_pct', 'Report_velo_pct', 'Report_bus_pct', 'Report_train_pct',
-            'Report_train_avion_pct', 'Taux_remplissage', 'Part_VE_pct', 'Part_bus_elec_pct',
-            'Part_velo_elec_pct', 'Reduction_poids_pct'
-        ],
-        'Valeur': [
-            st.session_state.scenario['reduction_km'],
-            st.session_state.scenario['report_velo'],
-            st.session_state.scenario['report_bus'],
-            st.session_state.scenario['report_train'],
-            st.session_state.scenario['report_train_avion'],
-            st.session_state.scenario['taux_remplissage'],
-            st.session_state.scenario['part_ve'],
-            st.session_state.scenario['part_bus_elec'],
-            st.session_state.scenario['part_velo_elec'],
-            st.session_state.scenario['reduction_poids']
-        ]
-    }),
-    
-    'Bilan_2050': pd.DataFrame({
-        'Indicateur': ['CO2_total_territoire_tonnes', 'CO2_par_habitant_tonnes', 'Km_total_Mkm', 'Km_par_hab_an', 'Reduction_pct'],
-        'Valeur_2050': [
-            resultats['bilan_2050']['co2_total_territoire'],
-            co2_par_hab_2050,
-            resultats['bilan_2050']['km_total_territoire'],
-            km_par_hab_an_2050,
-            resultats['reduction_pct']
-        ]
-    }),
-    
-    'Km_par_mode_2025_2050': pd.DataFrame({
-        'Mode': list(mode_mapping.values()),
-        'km_hab_an_2025': [km_hab_2025[m] for m in km_hab_2025.keys()],
-        'km_hab_an_2050': [km_hab_2050[m] for m in km_hab_2050.keys()]
-    }),
-    
-    'Emissions_par_mode_2025_2050': pd.DataFrame({
-        'Mode': list(mode_mapping.values()),
-        'CO2_kg_hab_an_2025': [emissions_hab_an_2025[m] for m in emissions_hab_an_2025.keys()],
-        'CO2_kg_hab_an_2050': [emissions_hab_an_2050[m] for m in emissions_hab_an_2050.keys()]
-    })
-}
+# Préparer le contenu texte
+export_text = f"""==============================================
+MOBILITÉ PAYS BASQUE 2050 - EXPORT DONNÉES
+Code groupe : {st.session_state.get('code_groupe', 'N/A')}
+Population territoire : {format_nombre(POPULATION_PB)} habitants
+==============================================
 
-# Créer un fichier Excel avec plusieurs feuilles
-from io import BytesIO
-output = BytesIO()
-with pd.ExcelWriter(output, engine='openpyxl') as writer:
-    for sheet_name, df in export_data.items():
-        df.to_excel(writer, sheet_name=sheet_name, index=False)
+--- SITUATION INITIALE (km/an/habitant) ---
+Voiture : {st.session_state.km_2025_habitant['voiture']} km/an/hab
+Bus : {st.session_state.km_2025_habitant['bus']} km/an/hab
+Train : {st.session_state.km_2025_habitant['train']} km/an/hab
+Vélo : {st.session_state.km_2025_habitant['velo']} km/an/hab
+Avion : {st.session_state.km_2025_habitant['avion']} km/an/hab
+Marche : {st.session_state.km_2025_habitant['marche']} km/an/hab
 
-excel_data = output.getvalue()
+--- BILAN 2025 ---
+CO₂ territoire : {format_nombre(resultats['bilan_2025']['co2_total_territoire'])} tonnes/an
+CO₂ par habitant : {format_nombre(co2_par_hab_2025, 2)} tonnes/an
+Km totaux territoire : {format_nombre(resultats['bilan_2025']['km_total_territoire'])} Mkm/an
+Km par habitant : {format_nombre(km_par_hab_an_2025)} km/an
+
+--- SCÉNARIO 2050 - LEVIERS ---
+Électrification voitures : {st.session_state.scenario['part_ve']}% VE
+Électrification bus : {st.session_state.scenario['part_bus_elec']}% élec
+Électrification vélos : {st.session_state.scenario['part_velo_elec']}% élec
+Sobriété (variation km) : {st.session_state.scenario['reduction_km']:+}%
+Report voiture→vélo : {st.session_state.scenario['report_velo']}%
+Report voiture→bus : {st.session_state.scenario['report_bus']}%
+Report voiture→train : {st.session_state.scenario['report_train']}%
+Report avion→train : {st.session_state.scenario['report_train_avion']}%
+Taux remplissage : {st.session_state.scenario['taux_remplissage']:.1f} pers/véh
+Réduction poids : {st.session_state.scenario['reduction_poids']}%
+
+--- BILAN 2050 ---
+CO₂ territoire : {format_nombre(resultats['bilan_2050']['co2_total_territoire'])} tonnes/an
+CO₂ par habitant : {format_nombre(co2_par_hab_2050, 2)} tonnes/an
+Km totaux territoire : {format_nombre(resultats['bilan_2050']['km_total_territoire'])} Mkm/an
+Km par habitant : {format_nombre(km_par_hab_an_2050)} km/an
+Réduction CO₂ : {resultats['reduction_pct']:.1f}%
+Objectif SNBC atteint : {"OUI ✓" if resultats['objectif_atteint'] else "NON ✗"}
+
+--- KM PAR MODE (km/an/habitant) ---
+                    2025        2050
+Voiture :      {km_hab_2025['voiture']:>10.0f}  {km_hab_2050['voiture']:>10.0f}
+Bus :          {km_hab_2025['bus']:>10.0f}  {km_hab_2050['bus']:>10.0f}
+Train :        {km_hab_2025['train']:>10.0f}  {km_hab_2050['train']:>10.0f}
+Vélo :         {km_hab_2025['velo']:>10.0f}  {km_hab_2050['velo']:>10.0f}
+Avion :        {km_hab_2025['avion']:>10.0f}  {km_hab_2050['avion']:>10.0f}
+Marche :       {km_hab_2025['marche']:>10.0f}  {km_hab_2050['marche']:>10.0f}
+
+--- ÉMISSIONS PAR MODE (kg CO₂/an/habitant) ---
+                    2025        2050
+Voiture :      {emissions_hab_an_2025['voiture']:>10.1f}  {emissions_hab_an_2050['voiture']:>10.1f}
+Bus :          {emissions_hab_an_2025['bus']:>10.1f}  {emissions_hab_an_2050['bus']:>10.1f}
+Train :        {emissions_hab_an_2025['train']:>10.1f}  {emissions_hab_an_2050['train']:>10.1f}
+Vélo :         {emissions_hab_an_2025['velo']:>10.1f}  {emissions_hab_an_2050['velo']:>10.1f}
+Avion :        {emissions_hab_an_2025['avion']:>10.1f}  {emissions_hab_an_2050['avion']:>10.1f}
+Marche :       {emissions_hab_an_2025['marche']:>10.1f}  {emissions_hab_an_2050['marche']:>10.1f}
+
+==============================================
+"""
 
 col1, col2 = st.columns([2, 1])
 with col1:
     st.download_button(
-        label="📥 Télécharger toutes les données (Excel)",
-        data=excel_data,
-        file_name=f"mobilite_PB_2050_{st.session_state.get('code_groupe', 'export')}.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        label="📥 Télécharger toutes les données (TXT)",
+        data=export_text,
+        file_name=f"mobilite_PB_2050_{st.session_state.get('code_groupe', 'export')}.txt",
+        mime="text/plain",
         use_container_width=True
     )
 
