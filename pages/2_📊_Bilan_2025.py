@@ -103,7 +103,7 @@ with col1:
         'avion': '✈️ Avion',
         'marche': '🚶 Marche'
     })
-    fig_parts = px.pie(df_parts, values='Part (%)', names='Mode', hole=0.4, title="Répartition des km parcourus")
+    fig_parts = px.pie(df_parts, values='Part (%)', names='Mode', hole=0.4, title="Répartition des km parcourus en 2025")
     fig_parts.update_traces(textposition='inside', textinfo='percent+label')
     st.plotly_chart(fig_parts, use_container_width=True)
 
