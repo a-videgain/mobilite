@@ -57,6 +57,34 @@ km_par_hab_an_2050 = km_par_hab_jour_2050 * 365
 nb_terre_soleil_2025 = (resultats['bilan_2025']['km_total_territoire'] * 1e6) / DISTANCE_TERRE_SOLEIL
 nb_terre_soleil_2050 = (resultats['bilan_2050']['km_total_territoire'] * 1e6) / DISTANCE_TERRE_SOLEIL
 
+# ==================== RÉSUMÉ DU SCÉNARIO ====================
+
+st.subheader("📋 Résumé du scénario construit")
+
+with st.expander("🎯 **Voir le détail du scénario**", expanded=True):
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("##### 🔌 Électrification")
+        st.write(f"• Voitures électriques : **{st.session_state.scenario['part_ve']}%**")
+        st.write(f"• Bus électriques : **{st.session_state.scenario['part_bus_elec']}%**")
+        st.write(f"• Vélos électriques : **{st.session_state.scenario['part_velo_elec']}%**")
+    
+    with col2:
+        st.markdown("##### 🔄 Report modal")
+        st.write(f"• Voiture → Vélo : **{st.session_state.scenario['report_velo']}%**")
+        st.write(f"• Voiture → Bus : **{st.session_state.scenario['report_bus']}%**")
+        st.write(f"• Voiture → Train : **{st.session_state.scenario['report_train']}%**")
+        st.write(f"• Avion → Train : **{st.session_state.scenario['report_train_avion']}%**")
+    
+    with col3:
+        st.markdown("##### 📊 Autres leviers")
+        st.write(f"• Sobriété : **{st.session_state.scenario['reduction_km']:+}%**")
+        st.write(f"• Taux remplissage : **{st.session_state.scenario['taux_remplissage']:.1f}** pers/véh")
+        st.write(f"• Allègement : **{st.session_state.scenario['reduction_poids']}%**")
+
+st.divider()
+
 # ==================== MÉTRIQUES PRINCIPALES ====================
 
 col1, col2, col3 = st.columns(3)
@@ -198,19 +226,17 @@ with col1:
         'CO₂ (kg/hab/an)': list(emissions_hab_an_2025.values())
     })
     df_emissions_2025 = df_emissions_2025.sort_values('CO₂ (kg/hab/an)', ascending=False)
+    
     fig_emissions_2025 = px.bar(
         df_emissions_2025,
         x='Mode',
         y='CO₂ (kg/hab/an)',
-        text='CO₂ (kg/hab/an)',
+        title="2025",
         color='Mode',
-        color_discrete_map=color_map,
-        title="2025"
+        color_discrete_map=color_map
     )
-    fig_emissions_2025.update_traces(texttemplate='%{text:.0f} kg', textposition='outside')
     fig_emissions_2025.update_layout(showlegend=False, yaxis_range=[0, y_max])
     st.plotly_chart(fig_emissions_2025, use_container_width=True)
-    st.caption(f"**Total : {format_nombre(sum(emissions_hab_an_2025.values()))} kg/hab/an**")
 
 with col2:
     df_emissions_2050 = pd.DataFrame({
@@ -218,63 +244,92 @@ with col2:
         'CO₂ (kg/hab/an)': list(emissions_hab_an_2050.values())
     })
     df_emissions_2050 = df_emissions_2050.sort_values('CO₂ (kg/hab/an)', ascending=False)
+    
     fig_emissions_2050 = px.bar(
         df_emissions_2050,
         x='Mode',
         y='CO₂ (kg/hab/an)',
-        text='CO₂ (kg/hab/an)',
+        title="2050",
         color='Mode',
-        color_discrete_map=color_map,
-        title="2050"
+        color_discrete_map=color_map
     )
-    fig_emissions_2050.update_traces(texttemplate='%{text:.0f} kg', textposition='outside')
     fig_emissions_2050.update_layout(showlegend=False, yaxis_range=[0, y_max])
     st.plotly_chart(fig_emissions_2050, use_container_width=True)
-    st.caption(f"**Total : {format_nombre(sum(emissions_hab_an_2050.values()))} kg/hab/an**")
 
 st.divider()
 
-# ==================== GRAPHIQUE EN CASCADE ====================
+# ==================== CONTRIBUTION DES LEVIERS ====================
 
-with st.expander("📊 Analyse avancée : Contribution de chaque levier", expanded=False):
-    st.markdown("""
-    Ce graphique décompose la réduction totale en montrant la contribution 
-    séquentielle de chaque levier (ordre d'application du modèle).
-    """)
+st.subheader("🔍 Contribution des leviers d'action")
+
+# Fonction pour calculer un scénario partiel
+def calculer_scenario_partiel(scenario_partiel):
+    from utils.calculations import calculer_bilan_territoire
     
-    import plotly.graph_objects as go
+    scenario_complet = {
+        'reduction_km': 0,
+        'report_velo': 0,
+        'report_bus': 0,
+        'report_train': 0,
+        'report_train_avion': 0,
+        'taux_remplissage': st.session_state.parc_2025['taux_occupation'],
+        'part_ve': st.session_state.parc_2025['part_ve'],
+        'part_thermique': 100 - st.session_state.parc_2025['part_ve'],
+        'part_velo_elec': st.session_state.parc_velo_2025['part_elec'],
+        'part_velo_classique': st.session_state.parc_velo_2025['part_classique'],
+        'part_bus_elec': st.session_state.parc_bus_2025['part_elec'],
+        'part_bus_thermique': st.session_state.parc_bus_2025['part_thermique'],
+        'reduction_poids': 0
+    }
+    scenario_complet.update(scenario_partiel)
     
-    # Scénario de référence (aucun levier)
+    facteur_sobriete = (1 + scenario_complet['reduction_km'] / 100)
+    km_apres_sobriete = {mode: km * facteur_sobriete for mode, km in st.session_state.km_2025_territoire.items()}
+    
+    km_voiture = km_apres_sobriete['voiture']
+    km_avion = km_apres_sobriete['avion']
+    
+    km_transferes_velo = km_voiture * scenario_complet['report_velo'] / 100
+    km_transferes_bus = km_voiture * scenario_complet['report_bus'] / 100
+    km_transferes_train_voiture = km_voiture * scenario_complet['report_train'] / 100
+    km_transferes_train_avion = km_avion * scenario_complet['report_train_avion'] / 100
+    
+    km_final = {
+        'voiture': max(0, km_voiture - km_transferes_velo - km_transferes_bus - km_transferes_train_voiture),
+        'bus': km_apres_sobriete['bus'] + km_transferes_bus,
+        'train': km_apres_sobriete['train'] + km_transferes_train_voiture + km_transferes_train_avion,
+        'velo': km_apres_sobriete['velo'] + km_transferes_velo,
+        'avion': max(0, km_avion - km_transferes_train_avion),
+        'marche': km_apres_sobriete['marche']
+    }
+    
+    parc = {
+        'part_thermique': scenario_complet['part_thermique'],
+        'part_ve': scenario_complet['part_ve'],
+        'taux_occupation': scenario_complet['taux_remplissage']
+    }
+    
+    parc_velo = {
+        'part_elec': scenario_complet['part_velo_elec'],
+        'part_classique': scenario_complet['part_velo_classique']
+    }
+    
+    parc_bus = {
+        'part_elec': scenario_complet['part_bus_elec'],
+        'part_thermique': scenario_complet['part_bus_thermique']
+    }
+    
+    emissions = st.session_state.emissions.copy()
+    emissions['emission_thermique'] = st.session_state.parc_2025['emission_thermique']
+    
+    bilan = calculer_bilan_territoire(km_final, emissions, parc, parc_velo, parc_bus, 
+                                      reduction_poids=scenario_complet['reduction_poids'])
+    
+    return bilan['co2_total_territoire']
+
+with st.expander("📊 **Voir la cascade des contributions**", expanded=False):
     co2_2025_base = resultats['bilan_2025']['co2_total_territoire']
     
-    def calculer_scenario_partiel(modifications):
-        """Calcule un scénario avec seulement certains leviers activés"""
-        scenario_temp = {
-            'reduction_km': 0,
-            'report_velo': 0,
-            'report_bus': 0,
-            'report_train': 0,
-            'report_train_avion': 0,
-            'taux_remplissage': st.session_state.parc_2025['taux_occupation'],
-            'part_ve': st.session_state.parc_2025['part_ve'],
-            'part_thermique': st.session_state.parc_2025['part_thermique'],
-            'part_velo_elec': st.session_state.parc_velo_2025['part_elec'],
-            'part_velo_classique': st.session_state.parc_velo_2025['part_classique'],
-            'part_bus_elec': st.session_state.parc_bus_2025['part_elec'],
-            'part_bus_thermique': st.session_state.parc_bus_2025['part_thermique'],
-            'reduction_poids': 0
-        }
-        scenario_temp.update(modifications)
-        
-        # Sauvegarder scénario actuel
-        scenario_actuel = st.session_state.scenario.copy()
-        st.session_state.scenario = scenario_temp
-        resultats_temp = calculer_2050()
-        st.session_state.scenario = scenario_actuel
-        
-        return resultats_temp['bilan_2050']['co2_total_territoire']
-    
-    # Calcul des contributions
     co2_elec_voiture = calculer_scenario_partiel({
         'part_ve': st.session_state.scenario['part_ve'],
         'part_thermique': st.session_state.scenario['part_thermique']
@@ -466,6 +521,92 @@ else:
     Essayez d'ajuster vos leviers : plus de sobriété, électrification accrue,
     ou report modal plus fort vers les modes actifs et collectifs.
     """)
+
+st.divider()
+
+# ==================== EXPORT DES DONNÉES ====================
+
+st.subheader("💾 Export des données")
+
+# Préparer les données d'export
+export_data = {
+    'Situation_initiale_km_hab': pd.DataFrame({
+        'Mode': list(st.session_state.km_2025_habitant.keys()),
+        'km_an_hab_2025': list(st.session_state.km_2025_habitant.values())
+    }),
+    
+    'Bilan_2025': pd.DataFrame({
+        'Indicateur': ['CO2_total_territoire_tonnes', 'CO2_par_habitant_tonnes', 'Km_total_Mkm', 'Km_par_hab_an'],
+        'Valeur_2025': [
+            resultats['bilan_2025']['co2_total_territoire'],
+            co2_par_hab_2025,
+            resultats['bilan_2025']['km_total_territoire'],
+            km_par_hab_an_2025
+        ]
+    }),
+    
+    'Scenario_leviers': pd.DataFrame({
+        'Levier': [
+            'Reduction_km_pct', 'Report_velo_pct', 'Report_bus_pct', 'Report_train_pct',
+            'Report_train_avion_pct', 'Taux_remplissage', 'Part_VE_pct', 'Part_bus_elec_pct',
+            'Part_velo_elec_pct', 'Reduction_poids_pct'
+        ],
+        'Valeur': [
+            st.session_state.scenario['reduction_km'],
+            st.session_state.scenario['report_velo'],
+            st.session_state.scenario['report_bus'],
+            st.session_state.scenario['report_train'],
+            st.session_state.scenario['report_train_avion'],
+            st.session_state.scenario['taux_remplissage'],
+            st.session_state.scenario['part_ve'],
+            st.session_state.scenario['part_bus_elec'],
+            st.session_state.scenario['part_velo_elec'],
+            st.session_state.scenario['reduction_poids']
+        ]
+    }),
+    
+    'Bilan_2050': pd.DataFrame({
+        'Indicateur': ['CO2_total_territoire_tonnes', 'CO2_par_habitant_tonnes', 'Km_total_Mkm', 'Km_par_hab_an', 'Reduction_pct'],
+        'Valeur_2050': [
+            resultats['bilan_2050']['co2_total_territoire'],
+            co2_par_hab_2050,
+            resultats['bilan_2050']['km_total_territoire'],
+            km_par_hab_an_2050,
+            resultats['reduction_pct']
+        ]
+    }),
+    
+    'Km_par_mode_2025_2050': pd.DataFrame({
+        'Mode': list(mode_mapping.values()),
+        'km_hab_an_2025': [km_hab_2025[m] for m in km_hab_2025.keys()],
+        'km_hab_an_2050': [km_hab_2050[m] for m in km_hab_2050.keys()]
+    }),
+    
+    'Emissions_par_mode_2025_2050': pd.DataFrame({
+        'Mode': list(mode_mapping.values()),
+        'CO2_kg_hab_an_2025': [emissions_hab_an_2025[m] for m in emissions_hab_an_2025.keys()],
+        'CO2_kg_hab_an_2050': [emissions_hab_an_2050[m] for m in emissions_hab_an_2050.keys()]
+    })
+}
+
+# Créer un fichier Excel avec plusieurs feuilles
+from io import BytesIO
+output = BytesIO()
+with pd.ExcelWriter(output, engine='openpyxl') as writer:
+    for sheet_name, df in export_data.items():
+        df.to_excel(writer, sheet_name=sheet_name, index=False)
+
+excel_data = output.getvalue()
+
+col1, col2 = st.columns([2, 1])
+with col1:
+    st.download_button(
+        label="📥 Télécharger toutes les données (Excel)",
+        data=excel_data,
+        file_name=f"mobilite_PB_2050_{st.session_state.get('code_groupe', 'export')}.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        use_container_width=True
+    )
 
 st.divider()
 st.divider()
