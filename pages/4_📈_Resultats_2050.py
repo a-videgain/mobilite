@@ -117,8 +117,10 @@ else:
     resume_lignes.append("**Pas d'allègement des voitures**")
 
 # Affichage du résumé
-for ligne in resume_lignes:
-    st.markdown(f"• {ligne}")
+#for ligne in resume_lignes:
+#    st.markdown(f"• {ligne}")
+resume_text = "  \n".join([f"• {ligne}" for ligne in resume_lignes])
+st.info(resume_text)
 
 st.divider()
 
