@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 import pandas as pd
 import plotly.express as px
 from utils.calculations import calculer_2050, format_nombre, calculer_parts_modales
-from utils.constants import POPULATION_PB, DISTANCE_TERRE_SOLEIL, initialiser_session
+from utils.constants import DISTANCE_TERRE_SOLEIL, initialiser_session
 
 # Masquer le menu hamburger et le footer
 hide_streamlit_style = """
@@ -44,11 +44,11 @@ if 'scenario' not in st.session_state:
 resultats = calculer_2050()
 
 # Calculs par habitant
-co2_par_hab_2025 = (resultats['bilan_2025']['co2_total_territoire'] ) / POPULATION_PB
-co2_par_hab_2050 = (resultats['bilan_2050']['co2_total_territoire'] ) / POPULATION_PB
+co2_par_hab_2025 = (resultats['bilan_2025']['co2_total_territoire'] ) / st.session_state.population
+co2_par_hab_2050 = (resultats['bilan_2050']['co2_total_territoire'] ) / st.session_state.population
 
-km_par_hab_jour_2025 = (resultats['bilan_2025']['km_total_territoire'] * 1e6) / POPULATION_PB / 365
-km_par_hab_jour_2050 = (resultats['bilan_2050']['km_total_territoire'] * 1e6) / POPULATION_PB / 365
+km_par_hab_jour_2025 = (resultats['bilan_2025']['km_total_territoire'] * 1e6) / st.session_state.population / 365
+km_par_hab_jour_2050 = (resultats['bilan_2050']['km_total_territoire'] * 1e6) / st.session_state.population / 365
 
 km_par_hab_an_2025 = km_par_hab_jour_2025 * 365
 km_par_hab_an_2050 = km_par_hab_jour_2050 * 365
@@ -181,8 +181,8 @@ st.subheader("🥧 Parts modales - Comparaison 2025 vs 2050")
 st.caption("En km/an/habitant")
 
 # Calcul des km par habitant par mode
-km_hab_2025 = {mode: (km_terr * 1e6) / POPULATION_PB for mode, km_terr in st.session_state.km_2025_territoire.items()}
-km_hab_2050 = {mode: (km_terr * 1e6) / POPULATION_PB for mode, km_terr in resultats['km_2050_territoire'].items()}
+km_hab_2025 = {mode: (km_terr * 1e6) / st.session_state.population for mode, km_terr in st.session_state.km_2025_territoire.items()}
+km_hab_2050 = {mode: (km_terr * 1e6) / st.session_state.population for mode, km_terr in resultats['km_2050_territoire'].items()}
 
 # Mapping des noms et couleurs cohérentes pour l'affichage
 mode_mapping = {
@@ -250,8 +250,8 @@ st.subheader("🌍 Émissions CO₂ par mode - Comparaison 2025 vs 2050")
 st.caption("En kg/habitant/an")
 
 # Calcul des émissions par habitant par mode
-emissions_hab_an_2025 = {mode: (co2 * 1000) / POPULATION_PB for mode, co2 in resultats['bilan_2025']['detail_par_mode'].items()}
-emissions_hab_an_2050 = {mode: (co2 * 1000) / POPULATION_PB for mode, co2 in resultats['bilan_2050']['detail_par_mode'].items()}
+emissions_hab_an_2025 = {mode: (co2 * 1000) / st.session_state.population for mode, co2 in resultats['bilan_2025']['detail_par_mode'].items()}
+emissions_hab_an_2050 = {mode: (co2 * 1000) / st.session_state.population for mode, co2 in resultats['bilan_2050']['detail_par_mode'].items()}
 
 # Déterminer le max pour uniformiser l'échelle
 max_emissions = max(max(emissions_hab_an_2025.values()), max(emissions_hab_an_2050.values()))
@@ -571,7 +571,7 @@ st.subheader("💾 Export des données")
 export_text = f"""==============================================
 MOBILITÉ PAYS BASQUE 2050 - EXPORT DONNÉES
 Code groupe : {st.session_state.get('code_groupe', 'N/A')}
-Population territoire : {format_nombre(POPULATION_PB)} habitants
+Population territoire : {format_nombre(st.session_state.population)} habitants
 ==============================================
 
 --- SITUATION INITIALE (km/an/habitant) ---
