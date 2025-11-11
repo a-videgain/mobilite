@@ -163,7 +163,7 @@ with col3:
         st.session_state.parc_2025['taux_occupation'], 0.1, format="%.1f"
     )
     st.session_state.parc_2025['temps_stationnement'] = st.number_input(
-        "Temps stationné (%)", 80, 99,
+        "Temps stationné (%): part du temps total où une voiture n'est pas utilisée", 80, 99,
         st.session_state.parc_2025['temps_stationnement'], 1
     )
 
