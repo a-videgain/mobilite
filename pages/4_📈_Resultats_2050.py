@@ -44,8 +44,8 @@ if 'scenario' not in st.session_state:
 resultats = calculer_2050()
 
 # Calculs par habitant
-co2_par_hab_2025 = (resultats['bilan_2025']['co2_total_territoire'] * 1000) / POPULATION_PB
-co2_par_hab_2050 = (resultats['bilan_2050']['co2_total_territoire'] * 1000) / POPULATION_PB
+co2_par_hab_2025 = (resultats['bilan_2025']['co2_total_territoire'] ) / POPULATION_PB
+co2_par_hab_2050 = (resultats['bilan_2050']['co2_total_territoire'] ) / POPULATION_PB
 
 km_par_hab_jour_2025 = (resultats['bilan_2025']['km_total_territoire'] * 1e6) / POPULATION_PB / 365
 km_par_hab_jour_2050 = (resultats['bilan_2050']['km_total_territoire'] * 1e6) / POPULATION_PB / 365
@@ -69,7 +69,7 @@ with col1:
         delta=f"{format_nombre(delta_co2_territoire)} t/an",
         delta_color="inverse"
     )
-    st.caption(f"Par habitant : {format_nombre(co2_par_hab_2050)} kg/an")
+    st.caption(f"Par habitant : {format_nombre(co2_par_hab_2050,2)} tonnes/an")
 
 with col2:
     st.metric("📉 Réduction vs 2025", f"{resultats['reduction_pct']:.1f}%")
@@ -92,7 +92,7 @@ with col1:
     st.markdown("##### 2025")
     c1, c2 = st.columns(2)
     with c1:
-        st.metric("CO₂/hab/an", f"{format_nombre(co2_par_hab_2025)} kg")
+        st.metric("CO₂/hab/an", f"{format_nombre(co2_par_hab_2025,2)} tonnes")
     with c2:
         st.metric("Km/hab/jour", f"{format_nombre(km_par_hab_jour_2025, 1)} km")
 
@@ -102,7 +102,7 @@ with col2:
     delta_co2 = co2_par_hab_2050 - co2_par_hab_2025
     delta_km = km_par_hab_jour_2050 - km_par_hab_jour_2025
     with c1:
-        st.metric("CO₂/hab/an", f"{format_nombre(co2_par_hab_2050)} kg", delta=f"{format_nombre(delta_co2)} kg", delta_color="inverse")
+        st.metric("CO₂/hab/an", f"{format_nombre(co2_par_hab_2050,2)} tonnes", delta=f"{format_nombre(delta_co2,2)} tonnes", delta_color="inverse")
     with c2:
         st.metric("Km/hab/jour", f"{format_nombre(km_par_hab_jour_2050, 1)} km", delta=f"{format_nombre(delta_km, 1)} km", delta_color="inverse")
 
