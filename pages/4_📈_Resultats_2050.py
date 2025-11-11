@@ -186,6 +186,10 @@ st.caption("En kg/habitant/an")
 emissions_hab_an_2025 = {mode: (co2 * 1000) / POPULATION_PB for mode, co2 in resultats['bilan_2025']['detail_par_mode'].items()}
 emissions_hab_an_2050 = {mode: (co2 * 1000) / POPULATION_PB for mode, co2 in resultats['bilan_2050']['detail_par_mode'].items()}
 
+# Déterminer le max pour uniformiser l'échelle
+max_emissions = max(max(emissions_hab_an_2025.values()), max(emissions_hab_an_2050.values()))
+y_max = max_emissions * 1.15  # 15% de marge pour les labels
+
 col1, col2 = st.columns(2)
 
 with col1:
@@ -204,7 +208,7 @@ with col1:
         title="2025"
     )
     fig_emissions_2025.update_traces(texttemplate='%{text:.0f} kg', textposition='outside')
-    fig_emissions_2025.update_layout(showlegend=False)
+    fig_emissions_2025.update_layout(showlegend=False, yaxis_range=[0, y_max])
     st.plotly_chart(fig_emissions_2025, use_container_width=True)
     st.caption(f"**Total : {format_nombre(sum(emissions_hab_an_2025.values()))} kg/hab/an**")
 
@@ -224,7 +228,7 @@ with col2:
         title="2050"
     )
     fig_emissions_2050.update_traces(texttemplate='%{text:.0f} kg', textposition='outside')
-    fig_emissions_2050.update_layout(showlegend=False)
+    fig_emissions_2050.update_layout(showlegend=False, yaxis_range=[0, y_max])
     st.plotly_chart(fig_emissions_2050, use_container_width=True)
     st.caption(f"**Total : {format_nombre(sum(emissions_hab_an_2050.values()))} kg/hab/an**")
 
