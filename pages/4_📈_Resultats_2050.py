@@ -61,25 +61,64 @@ nb_terre_soleil_2050 = (resultats['bilan_2050']['km_total_territoire'] * 1e6) / 
 
 st.subheader("📋 Résumé du scénario construit")
 
-with st.expander("🔧 **LEVIER 1 : Électrification**", expanded=False):
-    st.markdown(f"• **Voitures électriques** : {st.session_state.scenario['part_ve']}% (thermiques : {st.session_state.scenario['part_thermique']}%)")
-    st.markdown(f"• **Bus électriques** : {st.session_state.scenario['part_bus_elec']}% (thermiques : {st.session_state.scenario['part_bus_thermique']}%)")
-    st.markdown(f"• **Vélos électriques** : {st.session_state.scenario['part_velo_elec']}% (classiques : {st.session_state.scenario['part_velo_classique']}%)")
+# Construction du résumé intelligent
+resume_lignes = []
 
-with st.expander("🔧 **LEVIER 2 : Sobriété**", expanded=False):
-    st.markdown(f"• **Variation km totaux** : {st.session_state.scenario['reduction_km']:+}%")
+# 1. Électrification
+elec_changes = []
+if st.session_state.scenario['part_ve'] != st.session_state.parc_2025['part_ve']:
+    elec_changes.append(f"voitures {st.session_state.scenario['part_ve']}% électriques")
+if st.session_state.scenario['part_bus_elec'] != st.session_state.parc_bus_2025['part_elec']:
+    elec_changes.append(f"bus {st.session_state.scenario['part_bus_elec']}% électriques")
+if st.session_state.scenario['part_velo_elec'] != st.session_state.parc_velo_2025['part_elec']:
+    elec_changes.append(f"vélos {st.session_state.scenario['part_velo_elec']}% électriques")
 
-with st.expander("🔧 **LEVIER 3 : Report modal**", expanded=False):
-    st.markdown(f"• **Voiture → Vélo** : {st.session_state.scenario['report_velo']}%")
-    st.markdown(f"• **Voiture → Bus** : {st.session_state.scenario['report_bus']}%")
-    st.markdown(f"• **Voiture → Train** : {st.session_state.scenario['report_train']}%")
-    st.markdown(f"• **Avion → Train** : {st.session_state.scenario['report_train_avion']}%")
+if elec_changes:
+    resume_lignes.append(f"**Électrification** : {', '.join(elec_changes)}")
+else:
+    resume_lignes.append("**Pas d'électrification**")
 
-with st.expander("🔧 **LEVIER 4 : Taux de remplissage**", expanded=False):
-    st.markdown(f"• **Occupation voiture** : {st.session_state.scenario['taux_remplissage']:.1f} pers/véhicule")
+# 2. Sobriété
+if st.session_state.scenario['reduction_km'] != 0:
+    if st.session_state.scenario['reduction_km'] < 0:
+        resume_lignes.append(f"**Sobriété** : réduction des km parcourus de {abs(st.session_state.scenario['reduction_km'])}%")
+    else:
+        resume_lignes.append(f"**Sobriété** : augmentation des km parcourus de {st.session_state.scenario['reduction_km']}%")
+else:
+    resume_lignes.append("**Pas de sobriété**")
 
-with st.expander("🔧 **LEVIER 5 : Allègement**", expanded=False):
-    st.markdown(f"• **Réduction poids** : {st.session_state.scenario['reduction_poids']}%")
+# 3. Report modal
+report_changes = []
+if st.session_state.scenario['report_velo'] > 0:
+    report_changes.append(f"{st.session_state.scenario['report_velo']}% voiture→vélo")
+if st.session_state.scenario['report_bus'] > 0:
+    report_changes.append(f"{st.session_state.scenario['report_bus']}% voiture→bus")
+if st.session_state.scenario['report_train'] > 0:
+    report_changes.append(f"{st.session_state.scenario['report_train']}% voiture→train")
+if st.session_state.scenario['report_train_avion'] > 0:
+    report_changes.append(f"{st.session_state.scenario['report_train_avion']}% avion→train")
+
+if report_changes:
+    resume_lignes.append(f"**Report modal** : {', '.join(report_changes)}")
+else:
+    resume_lignes.append("**Pas de report modal**")
+
+# 4. Taux de remplissage
+if st.session_state.scenario['taux_remplissage'] != st.session_state.parc_2025['taux_occupation']:
+    variation_remplissage = ((st.session_state.scenario['taux_remplissage'] - st.session_state.parc_2025['taux_occupation']) / st.session_state.parc_2025['taux_occupation']) * 100
+    resume_lignes.append(f"**Taux de remplissage** : {st.session_state.scenario['taux_remplissage']:.1f} pers/véh ({variation_remplissage:+.0f}%)")
+else:
+    resume_lignes.append("**Pas d'amélioration du taux de remplissage**")
+
+# 5. Allègement
+if st.session_state.scenario['reduction_poids'] > 0:
+    resume_lignes.append(f"**Allègement** : réduction de {st.session_state.scenario['reduction_poids']}% du poids des voitures")
+else:
+    resume_lignes.append("**Pas d'allègement des voitures**")
+
+# Affichage du résumé
+for ligne in resume_lignes:
+    st.markdown(f"• {ligne}")
 
 st.divider()
 
