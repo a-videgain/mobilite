@@ -3,7 +3,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from utils.constants import POPULATION_PB, DISTANCE_TERRE_SOLEIL
+from utils.constants import DISTANCE_TERRE_SOLEIL
 from utils.calculations import calculer_bilan_territoire, calculer_parts_modales, format_nombre
 from utils.auth import enregistrer_scenario
 
@@ -54,8 +54,8 @@ bilan_2025 = calculer_bilan_territoire(
 parts_2025 = calculer_parts_modales(st.session_state.km_2025_territoire)
 
 # Calculs par habitant
-co2_par_hab = (bilan_2025['co2_total_territoire'] ) / POPULATION_PB
-km_par_hab_jour = (bilan_2025['km_total_territoire'] * 1e6) / POPULATION_PB / 365
+co2_par_hab = (bilan_2025['co2_total_territoire'] ) / st.session_state.population
+km_par_hab_jour = (bilan_2025['km_total_territoire'] * 1e6) / st.session_state.population / 365
 depl_par_hab_jour = sum(st.session_state.nb_depl_hab.values()) / 365
 
 # Calcul équivalent Terre-Soleil
@@ -110,7 +110,7 @@ with col1:
 # Émissions par mode
 with col2:
     st.subheader("🌍 Émissions par mode (kg/hab/an)")
-    emissions_hab_an = {mode: (co2 * 1000) / POPULATION_PB for mode, co2 in bilan_2025['detail_par_mode'].items()}
+    emissions_hab_an = {mode: (co2 * 1000) / st.session_state.population for mode, co2 in bilan_2025['detail_par_mode'].items()}
     df_emissions = pd.DataFrame({
         'Mode': list(emissions_hab_an.keys()),
         'CO₂ (kg/hab/an)': list(emissions_hab_an.values())
