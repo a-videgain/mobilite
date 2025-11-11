@@ -117,7 +117,7 @@ st.caption("En km/an/habitant")
 km_hab_2025 = {mode: (km_terr * 1e6) / POPULATION_PB for mode, km_terr in st.session_state.km_2025_territoire.items()}
 km_hab_2050 = {mode: (km_terr * 1e6) / POPULATION_PB for mode, km_terr in resultats['km_2050_territoire'].items()}
 
-# Mapping des noms pour l'affichage
+# Mapping des noms et couleurs cohérentes pour l'affichage
 mode_mapping = {
     'voiture': '🚗 Voiture',
     'bus': '🚌 Bus',
@@ -125,6 +125,16 @@ mode_mapping = {
     'velo': '🚴 Vélo',
     'avion': '✈️ Avion',
     'marche': '🚶 Marche'
+}
+
+# Palette de couleurs cohérente
+color_map = {
+    '🚗 Voiture': '#ef4444',
+    '🚌 Bus': '#f59e0b',
+    '🚆 Train': '#10b981',
+    '🚴 Vélo': '#06b6d4',
+    '✈️ Avion': '#8b5cf6',
+    '🚶 Marche': '#6b7280'
 }
 
 col1, col2 = st.columns(2)
@@ -139,7 +149,9 @@ with col1:
         values='km/an/hab', 
         names='Mode', 
         hole=0.4,
-        title="2025"
+        title="2025",
+        color='Mode',
+        color_discrete_map=color_map
     )
     fig_2025.update_traces(textposition='inside', textinfo='percent+label')
     st.plotly_chart(fig_2025, use_container_width=True)
@@ -155,11 +167,66 @@ with col2:
         values='km/an/hab', 
         names='Mode', 
         hole=0.4,
-        title="2050"
+        title="2050",
+        color='Mode',
+        color_discrete_map=color_map
     )
     fig_2050.update_traces(textposition='inside', textinfo='percent+label')
     st.plotly_chart(fig_2050, use_container_width=True)
     st.caption(f"**Total : {format_nombre(sum(km_hab_2050.values()))} km/an/hab**")
+
+st.divider()
+
+# ==================== ÉMISSIONS PAR MODE 2025 VS 2050 ====================
+
+st.subheader("🌍 Émissions CO₂ par mode - Comparaison 2025 vs 2050")
+st.caption("En kg/habitant/an")
+
+# Calcul des émissions par habitant par mode
+emissions_hab_an_2025 = {mode: (co2 * 1000) / POPULATION_PB for mode, co2 in resultats['bilan_2025']['detail_par_mode'].items()}
+emissions_hab_an_2050 = {mode: (co2 * 1000) / POPULATION_PB for mode, co2 in resultats['bilan_2050']['detail_par_mode'].items()}
+
+col1, col2 = st.columns(2)
+
+with col1:
+    df_emissions_2025 = pd.DataFrame({
+        'Mode': [mode_mapping[m] for m in emissions_hab_an_2025.keys()],
+        'CO₂ (kg/hab/an)': list(emissions_hab_an_2025.values())
+    })
+    df_emissions_2025 = df_emissions_2025.sort_values('CO₂ (kg/hab/an)', ascending=False)
+    fig_emissions_2025 = px.bar(
+        df_emissions_2025,
+        x='Mode',
+        y='CO₂ (kg/hab/an)',
+        text='CO₂ (kg/hab/an)',
+        color='Mode',
+        color_discrete_map=color_map,
+        title="2025"
+    )
+    fig_emissions_2025.update_traces(texttemplate='%{text:.0f} kg', textposition='outside')
+    fig_emissions_2025.update_layout(showlegend=False)
+    st.plotly_chart(fig_emissions_2025, use_container_width=True)
+    st.caption(f"**Total : {format_nombre(sum(emissions_hab_an_2025.values()))} kg/hab/an**")
+
+with col2:
+    df_emissions_2050 = pd.DataFrame({
+        'Mode': [mode_mapping[m] for m in emissions_hab_an_2050.keys()],
+        'CO₂ (kg/hab/an)': list(emissions_hab_an_2050.values())
+    })
+    df_emissions_2050 = df_emissions_2050.sort_values('CO₂ (kg/hab/an)', ascending=False)
+    fig_emissions_2050 = px.bar(
+        df_emissions_2050,
+        x='Mode',
+        y='CO₂ (kg/hab/an)',
+        text='CO₂ (kg/hab/an)',
+        color='Mode',
+        color_discrete_map=color_map,
+        title="2050"
+    )
+    fig_emissions_2050.update_traces(texttemplate='%{text:.0f} kg', textposition='outside')
+    fig_emissions_2050.update_layout(showlegend=False)
+    st.plotly_chart(fig_emissions_2050, use_container_width=True)
+    st.caption(f"**Total : {format_nombre(sum(emissions_hab_an_2050.values()))} kg/hab/an**")
 
 st.divider()
 
@@ -385,7 +452,8 @@ if resultats['objectif_atteint']:
     st.success("""
     ✅ **Félicitations ! Votre scénario atteint l'objectif SNBC (-80%).**  
     Vous pouvez maintenant identifier les leviers les plus efficaces :
-    - Quelle part de l'électrification contribue le plus ?
+    - Quel leviers contribue le plus ?
+    - Le scénario est-il réaliste?
     - Quelle sobriété ou quel report modal ont été les plus décisifs ?
     """)
 else:
