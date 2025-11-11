@@ -19,7 +19,7 @@ st.header("📝 Étape 1 : Saisie des données 2025")
 st.info("Cette étape consiste à établir le bilan mobilités d'un habitant moyen du Pays Basque")
 
 # Population
-st.subheader("👥 Population du territoire")
+st.subheader("👥 Population de la Communauté d'Agglomération Pays Basque (arrondi au millier)")
 st.session_state.population = st.number_input(
     "Nombre d'habitants", 100000, 1000000,
     st.session_state.get('population', POPULATION_PB), 10000
