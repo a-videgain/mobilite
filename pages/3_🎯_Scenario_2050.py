@@ -36,6 +36,7 @@ st.warning("**🎯 Objectif SNBC : Réduire d'environ 70% les émissions du sect
 
 st.info("""
 **💡 Hypothèses du scénario 2050 :**
+- Le mix énergétique français est supposé constant, malgré l'augmentation de production nécessaire à l'électrification
 - Seuls l'**électrification** et l'**allègement des voitures** réduisent les émissions par km des voitures
 - Le **report modal** transfère des km vers des modes moins émetteurs
 - La **sobriété** réduit le nombre total de km parcourus
@@ -135,7 +136,7 @@ with st.expander("🔧 **LEVIER 4 : Taux de remplissage** - Augmenter l’occupa
 
 with st.expander("🔧 **LEVIER 5 : Allègement** - Réduire le poids des véhicules", expanded=False):
     st.markdown("**Objectif :** Véhicules plus légers, moins consommateurs")
-    st.caption("Impact : -10% poids = -7% consommation (thermique ET électrique)")
+    st.caption("Impact estimé : -10% poids = -7% émissions  CO2 (thermique ET électrique)")
 
     reduction_poids_temp = st.slider("Réduction poids (%)", 0, 30, st.session_state.scenario['reduction_poids'], 5)
 
