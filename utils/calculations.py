@@ -159,5 +159,5 @@ def calculer_2050():
         'bilan_2025': bilan_2025,
         'bilan_2050': bilan_2050,
         'reduction_pct': reduction_pct,
-        'objectif_atteint': reduction_pct >= 80
+        'objectif_atteint': reduction_pct >= 70
     }
