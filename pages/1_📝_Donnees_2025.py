@@ -1,7 +1,9 @@
 import streamlit as st
 from utils.constants import calculer_km_territoire, initialiser_session
 
-
+if 'initialized' not in st.session_state:
+    initialiser_session()
+    
 hide_streamlit_style = """
     <style>
     #MainMenu {visibility: hidden;}
@@ -10,9 +12,6 @@ hide_streamlit_style = """
     </style>
     """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-
-if 'initialized' not in st.session_state:
-    initialiser_session()
     
 if not st.session_state.get('logged_in', False):
     st.warning("⚠️ Veuillez vous connecter d'abord")
