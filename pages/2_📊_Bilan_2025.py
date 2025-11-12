@@ -3,9 +3,8 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from utils.constants import DISTANCE_TERRE_SOLEIL, initialiser_session
+from utils.constants import DISTANCE_TERRE_SOLEIL
 from utils.calculations import calculer_bilan_territoire, calculer_parts_modales, format_nombre
-from utils.auth import enregistrer_scenario
 
 # Masquer le menu hamburger et le footer
 hide_streamlit_style = """
@@ -17,16 +16,6 @@ hide_streamlit_style = """
     """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-
-
-# Initialisation
-if 'initialized' not in st.session_state:
-    initialiser_session()
-
-# Vérification connexion
-if not st.session_state.get('logged_in', False):
-    st.error("❌ Veuillez vous connecter")
-    st.stop()
 
 
 # ==================== PAGE 2 : BILAN 2025 ====================
@@ -151,7 +140,6 @@ if 'bilan_2025_valide' not in st.session_state:
 col_space1, col_btn, col_space2 = st.columns([1, 1, 1])
 with col_btn:
     if st.button("✅ Valider le bilan 2025", type="primary", use_container_width=True):
-        enregistrer_scenario(st.session_state.code_groupe, 'bilan_2025')
         st.session_state.bilan_2025_valide = True
         st.rerun()
 
