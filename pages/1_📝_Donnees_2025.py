@@ -18,7 +18,7 @@ if 'initialized' not in st.session_state:
 st.title("🚗 Décarboner les mobilités au Pays Basque \n **Quelle est la situation de départ** ? ")
 st.header("📝 Étape 1 : Saisie des données 2025")
 st.info("Cette étape consiste à établir le bilan mobilités du Pays Basque")
-
+st.info("[source des émissions ACV par km et par mode: Impact CO2 ADEME](https://impactco2.fr/outils/transport)")
 # Population
 st.subheader("👥 Population de la Communauté d'Agglomération Pays Basque (arrondi au millier)")
 st.session_state.population = st.number_input(
