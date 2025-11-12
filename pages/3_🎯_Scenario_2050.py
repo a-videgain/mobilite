@@ -15,10 +15,10 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 
+
 # Initialisation
 if 'initialized' not in st.session_state:
     initialiser_session()
-
 
 st.set_page_config(page_title="🎯 Scénario 2050", page_icon="🎯", layout="wide")
 
@@ -184,7 +184,7 @@ with col3:
             'taux_remplissage': taux_remplissage_temp,
             'reduction_poids': reduction_poids_temp
         })
-         st.session_state.scenario_2050_valide = True
+        st.session_state.scenario_2050_valide = True
         st.rerun()
 
 # Si validé, afficher bouton navigation
