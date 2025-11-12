@@ -62,6 +62,9 @@ if not st.session_state.logged_in:
                     if donnees_sauvegardees:
                         # Restaurer les données
                         st.session_state.update(donnees_sauvegardees)
+                        from utils.constants import calculer_km_territoire
+                        calculer_km_territoire()
+                        st.session_state.initialized = True  # Forcer
                         st.success(f"✅ Connexion réussie ! Données restaurées.")
                     else:
                         # Initialiser avec valeurs par défaut
