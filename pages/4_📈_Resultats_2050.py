@@ -23,11 +23,6 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 if 'initialized' not in st.session_state:
     initialiser_session()
 
-# Vérification connexion
-if not st.session_state.get('logged_in', False):
-    st.error("❌ Veuillez vous connecter")
-    st.stop()
-
 
 st.set_page_config(page_title="📈 Résultats 2050", page_icon="📈", layout="wide")
 
@@ -44,9 +39,6 @@ if 'scenario' not in st.session_state:
 resultats = calculer_2050()
 st.session_state.resultats_2050 = resultats  # Stocker pour persistence
 
-# Sauvegarder résultats finaux
-from utils.persistence import sauvegarder_donnees
-sauvegarder_donnees(st.session_state.code_groupe)
 
 # Calculs par habitant
 co2_par_hab_2025 = (resultats['bilan_2025']['co2_total_territoire'] ) / st.session_state.population
