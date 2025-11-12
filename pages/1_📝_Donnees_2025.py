@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.constants import calculer_km_territoire
+from utils.constants import calculer_km_territoire, initialiser_session
 
     
 hide_streamlit_style = """
@@ -11,6 +11,10 @@ hide_streamlit_style = """
     """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
+# Initialisation
+if 'initialized' not in st.session_state:
+    initialiser_session()
+    
 st.title("🚗 Décarboner les mobilités au Pays Basque \n **Quelle est la situation de départ** ? ")
 st.header("📝 Étape 1 : Saisie des données 2025")
 st.info("Cette étape consiste à établir le bilan mobilités d'un habitant moyen du Pays Basque")
