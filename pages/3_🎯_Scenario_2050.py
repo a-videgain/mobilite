@@ -2,7 +2,6 @@
 
 import streamlit as st
 from utils.calculations import format_nombre
-from utils.auth import enregistrer_scenario
 from utils.constants import initialiser_session
 
 # Masquer le menu hamburger et le footer
@@ -16,15 +15,9 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 
-
 # Initialisation
 if 'initialized' not in st.session_state:
     initialiser_session()
-
-# Vérification connexion
-if not st.session_state.get('logged_in', False):
-    st.error("❌ Veuillez vous connecter")
-    st.stop()
 
 
 st.set_page_config(page_title="🎯 Scénario 2050", page_icon="🎯", layout="wide")
@@ -191,10 +184,7 @@ with col3:
             'taux_remplissage': taux_remplissage_temp,
             'reduction_poids': reduction_poids_temp
         })
-        enregistrer_scenario(st.session_state.code_groupe, 'scenario_2050')
-        from utils.persistence import sauvegarder_donnees
-        sauvegarder_donnees(st.session_state.code_groupe)
-        st.session_state.scenario_2050_valide = True
+         st.session_state.scenario_2050_valide = True
         st.rerun()
 
 # Si validé, afficher bouton navigation
