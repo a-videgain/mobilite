@@ -21,25 +21,24 @@ def verifier_login(code_groupe, mot_de_passe):
     return False
 
 def est_deja_connecte(code_groupe):
-    """Vérifie si le groupe est déjà connecté"""
-    # Initialiser le dictionnaire global si nécessaire
-    if 'groupes_connectes' not in st.session_state:
-        st.session_state.groupes_connectes = set()
-    
-    return code_groupe in st.session_state.groupes_connectes
+    if 'all_groups_data' not in st.session_state:
+        st.session_state.all_groups_data = {}
+    return code_groupe in st.session_state.all_groups_data
 
 def marquer_connecte(code_groupe):
-    """Marque un groupe comme connecté"""
-    if 'groupes_connectes' not in st.session_state:
-        st.session_state.groupes_connectes = set()
+    if 'all_groups_data' not in st.session_state:
+        st.session_state.all_groups_data = {}
     
-    st.session_state.groupes_connectes.add(code_groupe)
+    st.session_state.all_groups_data[code_groupe] = {
+        'connexion': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        'statut': 'connecte'
+    }
 
 def marquer_deconnecte(code_groupe):
-    """Marque un groupe comme déconnecté"""
-    if 'groupes_connectes' in st.session_state and code_groupe in st.session_state.groupes_connectes:
-        st.session_state.groupes_connectes.discard(code_groupe)
-
+    if 'all_groups_data' in st.session_state:
+        if code_groupe in st.session_state.all_groups_data:
+            st.session_state.all_groups_data[code_groupe]['statut'] = 'deconnecte'
+            
 def enregistrer_connexion(code_groupe):
     """Enregistre la connexion d'un groupe"""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
