@@ -26,7 +26,7 @@ st.markdown("""
 ### 📋 Contexte du projet
 
 Dans le cadre de la **Stratégie Nationale Bas-Carbone (SNBC)**, la France s'est fixée un objectif ambitieux : 
-**réduire d'environ 70% les émissions du secteur transport d'ici 2050** par rapport à la situation actuelle.
+**réduire d'environ 70% les émissions du secteur transport d'ici 2050** par rapport à la situation actuelle (https://www.ecologie.gouv.fr/sites/default/files/documents/Fiche%20SNBC%20Transports_0.pdf)
 
 Ce projet vous propose d'explorer les leviers d'action possibles pour atteindre cet objectif 
 sur le territoire du **Pays Basque** (350 000 habitants).
