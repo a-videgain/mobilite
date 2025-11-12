@@ -135,15 +135,16 @@ if not st.session_state.logged_in:
                     )
                 else:
                     st.info("Aucun scénario validé")
-            
+
+
+
             with tab5:
-                st.markdown("**📈 Données Google Sheets (Live)**")
+                st.markdown("**📈 Données sauvegardées (Mémoire)**")
                 
-                from utils.persistence import get_all_groups_data
-                
-                if st.button("🔄 Actualiser les données"):
+                if st.button("🔄 Actualiser"):
                     st.rerun()
                 
+                from utils.persistence import get_all_groups_data
                 all_data = get_all_groups_data()
                 
                 if all_data:
@@ -152,20 +153,18 @@ if not st.session_state.logged_in:
                     
                     st.metric("Groupes ayant sauvegardé", len(df_live))
                     
-                    # Export CSV
                     csv_live = df_live.to_csv(index=False).encode('utf-8')
                     st.download_button(
-                        "⬇️ Télécharger toutes les données (CSV)",
+                        "⬇️ Télécharger (CSV)",
                         csv_live,
-                        f"donnees_tous_groupes_{pd.Timestamp.now().strftime('%Y%m%d_%H%M')}.csv",
+                        f"donnees_{pd.Timestamp.now().strftime('%Y%m%d_%H%M')}.csv",
                         "text/csv"
                     )
                     
-                    st.info("💡 Ces données sont aussi visibles directement dans votre Google Sheet")
+                    st.warning("⚠️ Données en mémoire - Perdues au redémarrage app")
                 else:
-                    st.warning("Aucune donnée dans Google Sheets")
-    
-    st.stop()
+                    st.info("Aucune donnée sauvegardée")
+
 
 # Une fois connecté
 else:
