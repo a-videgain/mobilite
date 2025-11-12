@@ -49,7 +49,7 @@ sur le territoire du **Pays Basque** (350 000 habitants).
 ### 🚀 Démarrage
 
 Cliquez sur "Commencer" pour accéder aux données de mobilité 2025.
-"""
+""")
 
 st.info("👈 Utilisez la navigation à gauche pour accéder aux différentes pages")
 
