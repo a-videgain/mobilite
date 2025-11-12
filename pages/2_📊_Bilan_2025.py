@@ -35,14 +35,13 @@ if 'km_2025_territoire' not in st.session_state:
 
 # Calcul du bilan 2025
 bilan_2025 = calculer_bilan_territoire(
-    st.session_state.km_2025_territoire,
-    {**st.session_state.emissions, 'emission_thermique': st.session_state.parc_2025['emission_thermique']},
-    st.session_state.parc_2025,
-    st.session_state.parc_velo_2025,
-    st.session_state.parc_bus_2025,
+    tuple(st.session_state.km_2025_territoire.items()),
+    tuple({**st.session_state.emissions, 'emission_thermique': st.session_state.parc_2025['emission_thermique']}.items()),
+    tuple(st.session_state.parc_2025.items()),
+    tuple(st.session_state.parc_velo_2025.items()),
+    tuple(st.session_state.parc_bus_2025.items()),
     reduction_poids=0
 )
-
 parts_2025 = calculer_parts_modales(st.session_state.km_2025_territoire)
 
 # Calculs par habitant
