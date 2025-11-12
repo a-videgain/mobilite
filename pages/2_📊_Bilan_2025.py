@@ -17,6 +17,9 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 
+# Initialisation
+if 'initialized' not in st.session_state:
+    initialiser_session()
 
 # ==================== PAGE 2 : BILAN 2025 ====================
 
