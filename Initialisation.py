@@ -69,11 +69,9 @@ Cliquez sur "Commencer" pour accéder aux données de mobilité 2025.
 """)
 
 
-
-st.info("👈 Utilisez la navigation à gauche pour accéder aux différentes pages")
-
 if st.button("🚀 Commencer", type="primary", use_container_width=True):
     st.switch_page("pages/1_📝_Donnees_2025.py")
-    st.session_state.logged_in = False
-    st.session_state.code_groupe = None
     st.rerun()
+
+
+st.info("👈 Utilisez la navigation à gauche pour accéder aux différentes pages")
