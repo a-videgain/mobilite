@@ -133,7 +133,7 @@ st.divider()
 
 # ==================== VALIDATION ====================
 
-st.info(" ❓ Quel enseignement tirez-vous de cette situation en 2025? ") \n A titre personnel, comment vous positionnez-vous par rapport à la moyenne du territoire? ")
+st.info(" ❓ Quel enseignement tirez-vous de cette situation en 2025? ") /n A titre personnel, comment vous positionnez-vous par rapport à la moyenne du territoire? ")
 
 st.divider()
 
