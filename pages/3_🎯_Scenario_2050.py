@@ -35,6 +35,7 @@ st.info("""
 - La **sobriété** réduit le nombre total de km parcourus
 - Le **taux de remplissage** améliore l’efficacité d’usage des véhicules
 - Les scénarios se limitent aux modes de transport suivants: voiture, vélo, train, bus, marche à pied et avion
+- La décarbonation de l'aviation fait l'objet d'un autre projet. Le facteur d'émission (CO2/km) de l'avion est supposé constant.
 """)
 
 # Vérification
