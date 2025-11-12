@@ -12,27 +12,17 @@ def format_nombre(n, decimales=0):
         return f"{n:,.{decimales}f}".replace(',', ' ')
 
 
-@st.cache_data(ttl=3600)  # Cache 1h
-def calculer_bilan_territoire(
-    km_territoire_tuple,  # Converti en tuple pour le cache
-    emissions_parc_tuple,
-    parc_config_tuple,
-    parc_velo_config_tuple,
-    parc_bus_config_tuple,
-    reduction_poids=0
-):
+def calculer_bilan_territoire(km_territoire, emissions_parc, parc_config, parc_velo_config, parc_bus_config, reduction_poids=0):
     """
     Calcule le bilan CO₂ total du territoire (en tonnes) et les détails par mode.
     
-    OPTIMISÉ avec cache pour éviter recalculs identiques
+    km_territoire : dict (millions de km/an)
+    emissions_parc : dict (gCO₂/km)
+    parc_config : dict caractéristiques voitures
+    parc_velo_config : dict caractéristiques vélos
+    parc_bus_config : dict caractéristiques bus
+    reduction_poids : % de réduction de poids (impacte conso)
     """
-    # Reconvertir tuples en dicts
-    km_territoire = dict(km_territoire_tuple)
-    emissions_parc = dict(emissions_parc_tuple)
-    parc_config = dict(parc_config_tuple)
-    parc_velo_config = dict(parc_velo_config_tuple)
-    parc_bus_config = dict(parc_bus_config_tuple)
-    
     co2_total_territoire = 0
     detail_par_mode = {}
 
@@ -138,22 +128,22 @@ def calculer_2050():
     emissions_2050 = st.session_state.emissions.copy()
     emissions_2050['emission_thermique'] = st.session_state.parc_2025['emission_thermique']
 
-    # 5️⃣ Bilans comparatifs - Convertir dicts en tuples pour le cache
+    # 5️⃣ Bilans comparatifs
     bilan_2025 = calculer_bilan_territoire(
-        tuple(st.session_state.km_2025_territoire.items()),
-        tuple({**st.session_state.emissions, 'emission_thermique': st.session_state.parc_2025['emission_thermique']}.items()),
-        tuple(st.session_state.parc_2025.items()),
-        tuple(st.session_state.parc_velo_2025.items()),
-        tuple(st.session_state.parc_bus_2025.items()),
+        st.session_state.km_2025_territoire,
+        {**st.session_state.emissions, 'emission_thermique': st.session_state.parc_2025['emission_thermique']},
+        st.session_state.parc_2025,
+        st.session_state.parc_velo_2025,
+        st.session_state.parc_bus_2025,
         reduction_poids=0
     )
 
     bilan_2050 = calculer_bilan_territoire(
-        tuple(km_2050.items()),
-        tuple(emissions_2050.items()),
-        tuple(parc_2050.items()),
-        tuple(parc_velo_2050.items()),
-        tuple(parc_bus_2050.items()),
+        km_2050,
+        emissions_2050,
+        parc_2050,
+        parc_velo_2050,
+        parc_bus_2050,
         reduction_poids=st.session_state.scenario['reduction_poids']
     )
 
