@@ -46,11 +46,14 @@ sur le territoire du **Pays Basque** (350 000 habitants).
 3. **🔄 Report modal** : Transférer vers des modes moins émetteurs (vélo, bus, train)
 4. **👥 Taux de remplissage** : Augmenter l'occupation des véhicules
 5. **🪶 Allègement** : Réduire le poids des véhicules)
+### 🚀 Démarrage
 
+Cliquez sur "Commencer" pour accéder aux données de mobilité 2025.
+"""
 
 st.info("👈 Utilisez la navigation à gauche pour accéder aux différentes pages")
 
-if st.button("🚀 Commencez ici!", use_container_width=True):
+if st.button("🚀 Commencer",, type="primary", use_container_width=True):
     st.switch_page("pages/1_📝_Donnees_2025.py")
     st.session_state.logged_in = False
     st.session_state.code_groupe = None
