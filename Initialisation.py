@@ -64,7 +64,7 @@ Pensez à **sauvegarder régulièrement** vos données en exportant vos résulta
 
 ###  📰 Bibliographie
 
-[à completer... Artitz]
+[en cours...]
 
 ### 🚀 Démarrage
 
