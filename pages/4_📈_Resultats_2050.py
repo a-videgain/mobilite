@@ -23,6 +23,24 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 if 'initialized' not in st.session_state:
     initialiser_session()
 
+# ⚠️ VÉRIFICATION DES ÉTAPES PRÉCÉDENTES
+if not st.session_state.get('donnees_2025_validees', False):
+    st.error("❌ Vous devez d'abord compléter l'étape 1 : Données 2025")
+    if st.button("➡️ Aller à l'étape 1", type="primary"):
+        st.switch_page("pages/1_📝_Donnees_2025.py")
+    st.stop()
+
+if not st.session_state.get('bilan_2025_valide', False):
+    st.error("❌ Vous devez d'abord valider l'étape 2 : Bilan 2025")
+    if st.button("➡️ Aller à l'étape 2", type="primary"):
+        st.switch_page("pages/2_📊_Bilan_2025.py")
+    st.stop()
+
+if not st.session_state.get('scenario_2050_valide', False):
+    st.error("❌ Vous devez d'abord valider l'étape 3 : Scénario 2050")
+    if st.button("➡️ Aller à l'étape 3", type="primary"):
+        st.switch_page("pages/3_🎯_Scenario_2050.py")
+    st.stop()
 
 st.set_page_config(page_title="📈 Résultats 2050", page_icon="📈", layout="wide")
 
