@@ -134,8 +134,8 @@ st.divider()
 # ==================== VALIDATION ====================
 
 
-st.info(""" ❓
-- Quel enseignement tirez-vous de cette situation en 2025? 
+st.info(""" 
+- Quels enseignements tirez-vous de cette situation 2025? 
 - A titre personnel, comment vous positionnez-vous par rapport à la moyenne du territoire? 
 """)
 
