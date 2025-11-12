@@ -192,6 +192,8 @@ with col3:
             'reduction_poids': reduction_poids_temp
         })
         enregistrer_scenario(st.session_state.code_groupe, 'scenario_2050')
+        from utils.persistence import sauvegarder_donnees
+        sauvegarder_donnees(st.session_state.code_groupe)
         st.session_state.scenario_2050_valide = True
         st.rerun()
 
