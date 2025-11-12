@@ -45,11 +45,29 @@ sur le territoire du **Pays Basque** (350 000 habitants).
 2. **📉 Sobriété** : Réduire le nombre de km parcourus
 3. **🔄 Report modal** : Transférer vers des modes moins émetteurs (vélo, bus, train)
 4. **👥 Taux de remplissage** : Augmenter l'occupation des véhicules
-5. **🪶 Allègement** : Réduire le poids des véhicules)
+5. **🪶 Allègement** : Réduire le poids des véhicules
+
 ### 🚀 Démarrage
 
 Cliquez sur "Commencer" pour accéder aux données de mobilité 2025.
+
+### 📦 Livrable attendu
+
+À la fin de ce projet, vous devrez produire un rapport (format docx ou pdf) présentant :
+- **Un scénario 2050** cohérent et justifié permettant d'atteindre l'objectif de -70% d'émissions. Ce scénario sera propre au groupe de travail.
+- **Une analyse** de votre scénario : quels leviers sont les plus efficaces ? Le niveau de chaque levier est-il réaliste ?
+- **Une synthèse** présentant vos choix sur chaque levier
+- **Un plan d'action**: les actions à mettre en place par les pouvoirs publics et par les citoyen.ne.s pour parvenir à atteindre les évolutions de chaque levier.
+- **Une critique** de l'outil utilisé: les limites des hypothèses simplificatrices
+
+
+💡 L'outil permet un export des données** (fichier .txt) contenant l'ensemble des résultats.
+Pensez à **sauvegarder régulièrement** vos données en exportant vos résultats !
+
+
 """)
+
+
 
 st.info("👈 Utilisez la navigation à gauche pour accéder aux différentes pages")
 
