@@ -48,9 +48,6 @@ sur le territoire du **Pays Basque** . Consultez la [fiche INSEE CAPB](https://w
 4. **👥 Taux de remplissage** : Augmenter l'occupation des véhicules
 5. **🪶 Allègement** : Réduire le poids des véhicules
 
-### 🚀 Démarrage
-
-Cliquez sur "Commencer" pour accéder aux données de mobilité 2025.
 
 ### 📦 Livrable attendu
 
@@ -65,6 +62,9 @@ Cliquez sur "Commencer" pour accéder aux données de mobilité 2025.
 💡 L'outil permet un export des données** (fichier .txt) contenant l'ensemble des résultats.
 Pensez à **sauvegarder régulièrement** vos données en exportant vos résultats !
 
+### 🚀 Démarrage
+
+Cliquez sur "Commencer" pour accéder aux données de mobilité 2025.
 
 """)
 
