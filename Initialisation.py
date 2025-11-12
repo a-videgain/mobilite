@@ -12,15 +12,15 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 st.set_page_config(
-    page_title="Mobilité Pays Basque 2050",
+    page_title="Mobilité Pays Basque 2050 - ESTIA",
     page_icon="🚗",
     layout="wide"
 )
 
-st.title("🚗 Mobilité Pays Basque 2050")
+st.title("🚗 Mobilité Pays Basque 2050  - ESTIA")
 
 
-st.header("🎯 Projet Décarbonation des Transports")
+st.header("🎯 Projet Décarbonation des Mobilités")
 
 st.markdown("""
 ### 📋 Contexte du projet
