@@ -62,6 +62,10 @@ sur le territoire du **Pays Basque** . Consultez la [fiche INSEE CAPB](https://w
 💡 L'outil permet un export des données** (fichier .txt) contenant l'ensemble des résultats.
 Pensez à **sauvegarder régulièrement** vos données en exportant vos résultats !
 
+###  📰 Bibliographie
+
+[à completer... Artitz]
+
 ### 🚀 Démarrage
 
 Cliquez sur "Commencer" pour accéder aux données de mobilité 2025.
