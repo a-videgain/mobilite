@@ -42,8 +42,8 @@ sur le territoire du **Pays Basque** . Consultez la [fiche INSEE CAPB](https://w
 
 ### 🔧 Les 5 leviers disponibles
 
-1. **⚡ Électrification** : Remplacer les véhicules thermiques par des électriques
-2. **📉 Sobriété** : Réduire le nombre de km parcourus
+1. **⚡ Électrification** : Remplacer les véhicules thermiques (voitures, bus, vélo) par des électriques
+2. **📉 Sobriété** : Réduire le nombre total de km parcourus
 3. **🔄 Report modal** : Transférer vers des modes moins émetteurs (vélo, bus, train)
 4. **👥 Taux de remplissage** : Augmenter l'occupation des véhicules
 5. **🪶 Allègement** : Réduire le poids des véhicules
