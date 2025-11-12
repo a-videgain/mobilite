@@ -13,7 +13,7 @@ def sauvegarder_donnees(code_groupe):
         # Sauvegarder snapshot complet de la session du groupe
         st.session_state.all_groups_data[code_groupe] = {
             'timestamp': timestamp,
-            'population': st.session_state.get('population', {}).copy(),
+            'population': st.session_state.get('population', 350000),
             'km_2025_habitant': st.session_state.get('km_2025_habitant', {}).copy(),
             'nb_depl_hab': st.session_state.get('nb_depl_hab', {}).copy(),
             'km_2025_territoire': st.session_state.get('km_2025_territoire', {}).copy(),
