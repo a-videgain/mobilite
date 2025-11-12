@@ -103,7 +103,7 @@ if not st.session_state.logged_in:
             
 
             with tab2:
-                st.markdown("**🟢 Groupes actuellement connectés "données sauvegardées" **")
+                st.markdown("**🟢 Groupes actuellement connectés 'données sauvegardées'**")
                 
                 from utils.persistence import get_all_groups_data
                 all_data = get_all_groups_data()
