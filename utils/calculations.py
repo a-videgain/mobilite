@@ -11,23 +11,28 @@ def format_nombre(n, decimales=0):
     else:
         return f"{n:,.{decimales}f}".replace(',', ' ')
 
-#def calculer_par_habitant():
-#    """Nouvelle fonction"""
-#    pop = st.session_state.population
-#    co2_hab = co2_territoire / pop
-#   return co2_hab
 
-def calculer_bilan_territoire(km_territoire, emissions_parc, parc_config, parc_velo_config, parc_bus_config, reduction_poids=0):
+@st.cache_data(ttl=3600)  # Cache 1h
+def calculer_bilan_territoire(
+    km_territoire_tuple,  # Converti en tuple pour le cache
+    emissions_parc_tuple,
+    parc_config_tuple,
+    parc_velo_config_tuple,
+    parc_bus_config_tuple,
+    reduction_poids=0
+):
     """
     Calcule le bilan CO₂ total du territoire (en tonnes) et les détails par mode.
     
-    km_territoire : dict (millions de km/an)
-    emissions_parc : dict (gCO₂/km)
-    parc_config : dict caractéristiques voitures
-    parc_velo_config : dict caractéristiques vélos
-    parc_bus_config : dict caractéristiques bus
-    reduction_poids : % de réduction de poids (impacte conso)
+    OPTIMISÉ avec cache pour éviter recalculs identiques
     """
+    # Reconvertir tuples en dicts
+    km_territoire = dict(km_territoire_tuple)
+    emissions_parc = dict(emissions_parc_tuple)
+    parc_config = dict(parc_config_tuple)
+    parc_velo_config = dict(parc_velo_config_tuple)
+    parc_bus_config = dict(parc_bus_config_tuple)
+    
     co2_total_territoire = 0
     detail_par_mode = {}
 
@@ -44,24 +49,24 @@ def calculer_bilan_territoire(km_territoire, emissions_parc, parc_config, parc_v
 
             # Conversion g/km → t/an
             emission_par_personne = emission_voiture / parc_config['taux_occupation']
-            co2_mode = km_territoire[mode] * 1e6 * emission_par_personne / 1_000 / 1_000
+            co2_mode = km_territoire[mode] * 1e6 * emission_par_personne / 1_000_000
 
         elif mode == 'bus':
             emission_bus = (
                 parc_bus_config['part_thermique'] / 100 * emissions_parc['bus_thermique'] +
                 parc_bus_config['part_elec'] / 100 * emissions_parc['bus_electrique']
             )
-            co2_mode = km_territoire[mode] * 1e6 * emission_bus / 1_000 / 1_000
+            co2_mode = km_territoire[mode] * 1e6 * emission_bus / 1_000_000
 
         elif mode == 'velo':
             emission_velo = (
                 parc_velo_config['part_elec'] / 100 * emissions_parc['velo_elec'] +
                 parc_velo_config['part_classique'] / 100 * emissions_parc['velo_classique']
             )
-            co2_mode = km_territoire[mode] * 1e6 * emission_velo / 1_000 / 1_000
+            co2_mode = km_territoire[mode] * 1e6 * emission_velo / 1_000_000
 
         elif mode in ['train', 'avion', 'marche']:
-            co2_mode = km_territoire[mode] * 1e6 * emissions_parc[mode] / 1_000 / 1_000
+            co2_mode = km_territoire[mode] * 1e6 * emissions_parc[mode] / 1_000_000
 
         else:
             co2_mode = 0
@@ -133,22 +138,22 @@ def calculer_2050():
     emissions_2050 = st.session_state.emissions.copy()
     emissions_2050['emission_thermique'] = st.session_state.parc_2025['emission_thermique']
 
-    # 5️⃣ Bilans comparatifs
+    # 5️⃣ Bilans comparatifs - Convertir dicts en tuples pour le cache
     bilan_2025 = calculer_bilan_territoire(
-        st.session_state.km_2025_territoire,
-        {**st.session_state.emissions, 'emission_thermique': st.session_state.parc_2025['emission_thermique']},
-        st.session_state.parc_2025,
-        st.session_state.parc_velo_2025,
-        st.session_state.parc_bus_2025,
+        tuple(st.session_state.km_2025_territoire.items()),
+        tuple({**st.session_state.emissions, 'emission_thermique': st.session_state.parc_2025['emission_thermique']}.items()),
+        tuple(st.session_state.parc_2025.items()),
+        tuple(st.session_state.parc_velo_2025.items()),
+        tuple(st.session_state.parc_bus_2025.items()),
         reduction_poids=0
     )
 
     bilan_2050 = calculer_bilan_territoire(
-        km_2050,
-        emissions_2050,
-        parc_2050,
-        parc_velo_2050,
-        parc_bus_2050,
+        tuple(km_2050.items()),
+        tuple(emissions_2050.items()),
+        tuple(parc_2050.items()),
+        tuple(parc_velo_2050.items()),
+        tuple(parc_bus_2050.items()),
         reduction_poids=st.session_state.scenario['reduction_poids']
     )
 
