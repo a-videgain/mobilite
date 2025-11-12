@@ -1,8 +1,6 @@
 import streamlit as st
-from utils.constants import calculer_km_territoire, initialiser_session
+from utils.constants import calculer_km_territoire
 
-if 'initialized' not in st.session_state:
-    initialiser_session()
     
 hide_streamlit_style = """
     <style>
@@ -12,10 +10,6 @@ hide_streamlit_style = """
     </style>
     """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-    
-if not st.session_state.get('logged_in', False):
-    st.warning("⚠️ Veuillez vous connecter d'abord")
-    st.stop()
 
 st.title("🚗 Décarboner les mobilités au Pays Basque \n **Quelle est la situation de départ** ? ")
 st.header("📝 Étape 1 : Saisie des données 2025")
@@ -250,13 +244,9 @@ with col2:
     if st.button("✅ Valider les données 2025", type="primary", use_container_width=True):
         calculer_km_territoire()
         st.session_state.donnees_2025_validees = True
-        from utils.persistence import sauvegarder_donnees
-        if sauvegarder_donnees(st.session_state.code_groupe):
-            st.success("✅ Scénario enregistré !")
         st.rerun()
 
 if st.session_state.donnees_2025_validees:
-    st.success("✅ Données enregistrées !")
     col1, col2, col3 = st.columns([1, 1, 1])
     with col2:
         if st.button("➡️ Voir le bilan 2025", type="primary", use_container_width=True):
