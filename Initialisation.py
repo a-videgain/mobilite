@@ -28,8 +28,9 @@ st.markdown("""
 Dans le cadre de la **Stratégie Nationale Bas-Carbone (SNBC)**, la France s'est fixée un objectif ambitieux : 
 **réduire d'environ 70% les émissions du secteur transport d'ici 2050** par rapport à la situation actuelle. [Stratégie SNBC Transports](https://www.ecologie.gouv.fr/sites/default/files/documents/Fiche%20SNBC%20Transports_0.pdf).
 
-Ce projet vous propose d'explorer les leviers d'action possibles pour atteindre cet objectif 
-sur le territoire du **Pays Basque** . Consultez la [fiche INSEE CAPB](https://www.insee.fr/fr/statistiques/2011101?geo=EPCI-200067106).
+Vous êtes des **consultant.e.s en mobilités**.
+Votre mission : construire un scénario de décarbonation cohérent pour le territoire Pays Basque en mobilisant différents leviers d'action et évaluer la capacité de votre scénario à atteindre l'objectif national.
+Consultez la [fiche INSEE CAPB](https://www.insee.fr/fr/statistiques/2011101?geo=EPCI-200067106).
 
 
 ### 🎓 Objectifs pédagogiques
