@@ -101,13 +101,22 @@ if not st.session_state.logged_in:
                     "text/csv"
                 )
             
+
             with tab2:
-                st.markdown("**🟢 Groupes actuellement connectés**")
-                if 'groupes_connectes' in st.session_state and st.session_state.groupes_connectes:
-                    for groupe in sorted(st.session_state.groupes_connectes):
+                st.markdown("**🟢 Groupes actuellement connectés "données sauvegardées" **")
+                
+                from utils.persistence import get_all_groups_data
+                all_data = get_all_groups_data()
+                
+                if all_data:
+                    groupes = [d['groupe'] for d in all_data]
+                    for groupe in sorted(groupes):
                         st.write(f"- {groupe}")
+                    st.metric("Total", len(groupes))
                 else:
                     st.info("Aucun groupe connecté")
+
+
             
             with tab3:
                 st.markdown("**📊 Historique des connexions**")
