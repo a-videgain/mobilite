@@ -58,7 +58,7 @@ nb_terre_soleil = (bilan_2025['km_total_territoire'] * 1e6) / DISTANCE_TERRE_SOL
 st.subheader("🌍 Échelle territoire (Pays Basque français)")
 col1, col2 = st.columns(2)
 with col1:
-    st.metric("Km totaux/an", f"{format_nombre(bilan_2025['km_total_territoire'])} Millions de km")
+    st.metric("Km totaux/an", f"{format_nombre(bilan_2025['km_total_territoire'])} millions de km")
     st.caption(f"Soit {nb_terre_soleil:.1f} fois la distance Terre-Soleil")
 with col2:
     st.metric("CO₂ total/an", f"{format_nombre(bilan_2025['co2_total_territoire'])} tonnes")
