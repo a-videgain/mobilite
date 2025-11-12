@@ -3,7 +3,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from utils.constants import DISTANCE_TERRE_SOLEIL
+from utils.constants import DISTANCE_TERRE_SOLEIL, initialiser_session
 from utils.calculations import calculer_bilan_territoire, calculer_parts_modales, format_nombre
 
 # Masquer le menu hamburger et le footer
