@@ -508,7 +508,7 @@ bilan_elec = calculer_bilan_territoire(
     reduction_poids=0
 )
 
-co2_elec = bilan_elec['co2_total']
+co2_elec = bilan_elec['co2_total_territoire']
 contrib_elec_voiture = co2_2025_base - co2_elec
 
 # 2️⃣ Électrification bus
@@ -525,7 +525,7 @@ bilan_sans_elec_bus = calculer_bilan_territoire(
     parc_bus_only_thermique,
     reduction_poids=0
 )
-co2_sans_elec_bus = bilan_sans_elec_bus['co2_total']
+co2_sans_elec_bus = bilan_sans_elec_bus['co2_total_territoire']
 contrib_elec_bus = co2_sans_elec_bus - co2_elec
 
 # 3️⃣ Électrification vélo
@@ -541,21 +541,38 @@ bilan_sans_elec_velo = calculer_bilan_territoire(
     parc_bus_elec,
     reduction_poids=0
 )
-co2_sans_elec_velo = bilan_sans_elec_velo['co2_total']
+co2_sans_elec_velo = bilan_sans_elec_velo['co2_total_territoire']
 contrib_elec_velo = co2_sans_elec_velo - co2_elec
 
 # 4️⃣ Sobriété
-from utils.calculations import calculer_km_2050_avec_scenario
-km_sans_sobriete = calculer_km_2050_avec_scenario(
-    st.session_state.km_2025_territoire,
-    reduction_km_voiture=0,
-    reduction_km_avion=0,
-    report_velo=st.session_state.scenario['report_velo'],
-    report_marche=st.session_state.scenario['report_marche'],
-    report_bus=st.session_state.scenario['report_bus'],
-    report_train=st.session_state.scenario['report_train'],
-    report_train_avion=st.session_state.scenario['report_train_avion']
-)
+# Calcul des km sans sobriété (avec report modal)
+km_2025_apres_report_seulement = {}
+for mode, km in st.session_state.km_2025_territoire.items():
+    if mode == 'voiture':
+        km_2025_apres_report_seulement[mode] = km  # Sans réduction
+    elif mode == 'avion':
+        km_2025_apres_report_seulement[mode] = km  # Sans réduction
+    else:
+        km_2025_apres_report_seulement[mode] = km
+
+# Appliquer le report modal
+km_voiture_temp = km_2025_apres_report_seulement['voiture']
+km_avion_temp = km_2025_apres_report_seulement['avion']
+
+km_transferes_velo = km_voiture_temp * st.session_state.scenario['report_velo'] / 100
+km_transferes_bus = km_voiture_temp * st.session_state.scenario['report_bus'] / 100
+km_transferes_train_voiture = km_voiture_temp * st.session_state.scenario['report_train'] / 100
+km_transferes_marche = km_voiture_temp * st.session_state.scenario.get('report_marche', 0) / 100
+km_transferes_train_avion = km_avion_temp * st.session_state.scenario['report_train_avion'] / 100
+
+km_sans_sobriete = {
+    'voiture': max(0, km_voiture_temp - km_transferes_velo - km_transferes_bus - km_transferes_train_voiture - km_transferes_marche),
+    'bus': km_2025_apres_report_seulement['bus'] + km_transferes_bus,
+    'train': km_2025_apres_report_seulement['train'] + km_transferes_train_voiture + km_transferes_train_avion,
+    'velo': km_2025_apres_report_seulement['velo'] + km_transferes_velo,
+    'avion': max(0, km_avion_temp - km_transferes_train_avion),
+    'marche': km_2025_apres_report_seulement['marche'] + km_transferes_marche
+}
 
 bilan_sans_sobriete = calculer_bilan_territoire(
     km_sans_sobriete,
@@ -566,20 +583,23 @@ bilan_sans_sobriete = calculer_bilan_territoire(
     reduction_poids=st.session_state.scenario['reduction_poids']
 )
 
-co2_sans_sobriete = bilan_sans_sobriete['co2_total']
+co2_sans_sobriete = bilan_sans_sobriete['co2_total_territoire']
 contrib_sobriete = co2_sans_sobriete - resultats['bilan_2050']['co2_total_territoire']
 
 # 5️⃣ Report modal
-km_sans_report = calculer_km_2050_avec_scenario(
-    st.session_state.km_2025_territoire,
-    reduction_km_voiture=st.session_state.scenario['reduction_km_voiture'],
-    reduction_km_avion=st.session_state.scenario['reduction_km_avion'],
-    report_velo=0,
-    report_marche=0,
-    report_bus=0,
-    report_train=0,
-    report_train_avion=0
-)
+# Calcul des km avec sobriété mais sans report modal
+km_2025_apres_sobriete_seulement = {}
+for mode, km in st.session_state.km_2025_territoire.items():
+    if mode == 'voiture':
+        facteur = (1 + st.session_state.scenario.get('reduction_km_voiture', 0) / 100)
+        km_2025_apres_sobriete_seulement[mode] = km * facteur
+    elif mode == 'avion':
+        facteur = (1 + st.session_state.scenario.get('reduction_km_avion', 0) / 100)
+        km_2025_apres_sobriete_seulement[mode] = km * facteur
+    else:
+        km_2025_apres_sobriete_seulement[mode] = km
+
+km_sans_report = km_2025_apres_sobriete_seulement  # Pas de report modal
 
 bilan_sans_report = calculer_bilan_territoire(
     km_sans_report,
@@ -590,7 +610,7 @@ bilan_sans_report = calculer_bilan_territoire(
     reduction_poids=st.session_state.scenario['reduction_poids']
 )
 
-co2_sans_report = bilan_sans_report['co2_total']
+co2_sans_report = bilan_sans_report['co2_total_territoire']
 contrib_report = co2_sans_report - resultats['bilan_2050']['co2_total_territoire']
 
 # 6️⃣ Taux de remplissage
@@ -609,7 +629,7 @@ bilan_sans_remplissage = calculer_bilan_territoire(
     reduction_poids=st.session_state.scenario['reduction_poids']
 )
 
-co2_sans_remplissage = bilan_sans_remplissage['co2_total']
+co2_sans_remplissage = bilan_sans_remplissage['co2_total_territoire']
 contrib_remplissage = co2_sans_remplissage - resultats['bilan_2050']['co2_total_territoire']
 
 # 7️⃣ Allègement
@@ -626,7 +646,7 @@ bilan_sans_allegement = calculer_bilan_territoire(
     reduction_poids=0
 )
 
-co2_sans_allegement = bilan_sans_allegement['co2_total']
+co2_sans_allegement = bilan_sans_allegement['co2_total_territoire']
 contrib_allegement = co2_sans_allegement - resultats['bilan_2050']['co2_total_territoire']
 
 co2_allegement = resultats['bilan_2050']['co2_total_territoire']
