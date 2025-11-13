@@ -39,7 +39,7 @@ st.header("A vous de jouer!")
 # Avertissement de non-navigation
 st.warning("⚠️ **IMPORTANT : Ne quittez pas cette page avant d'avoir validé votre scénario** (bouton en bas de page)")
 
-st.warning("**🎯 Objectif SNBC : Réduire d'environ 70% les émissions du secteur transport d'ici 2050** (par rapport à la situation actuelle)")
+st.warning("**🎯 Objectif SNBC : Réduire d'environ 70% les émissions du secteur transport au Pays Basque d'ici 2050** (par rapport à la situation actuelle)")
 
 st.info("""
 **💡 Hypothèses du scénario 2050 :**
