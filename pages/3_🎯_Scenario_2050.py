@@ -150,8 +150,9 @@ with st.expander("🔧 **LEVIER 3 : Report modal** - Transférer vers modes déc
     report_velo_temp = st.slider("🚴 Voiture → Vélo (%)", 0, 50, st.session_state.scenario['report_velo'], 1)
     report_bus_temp = st.slider("🚌 Voiture → Bus (%)", 0, 50, st.session_state.scenario['report_bus'], 1)
     report_train_temp = st.slider("🚆 Voiture → Train (%)", 0, 50, st.session_state.scenario['report_train'], 1)
+    report_marche_temp = st.slider("🚶 Voiture → Marche (%)", 0, 50, st.session_state.scenario.get('report_marche', 0), 1)  # NOUVEAU
 
-    report_total_voiture = report_velo_temp + report_bus_temp + report_train_temp
+    report_total_voiture = report_velo_temp + report_bus_temp + report_train_temp + report_marche_temp  # MODIFIÉ
     if report_total_voiture > 0:
         st.success(f"✅ **Report total depuis voiture : {report_total_voiture}%**")
     else:
@@ -218,6 +219,7 @@ with col1:
             'report_velo': 0,
             'report_bus': 0,
             'report_train': 0,
+            'report_marche': 0,  # NOUVEAU
             'report_train_avion': 0,
             'taux_remplissage': st.session_state.parc_2025['taux_occupation'],
             'part_ve': st.session_state.parc_2025['part_ve'],
@@ -230,7 +232,7 @@ with col1:
         }
         st.session_state.scenario_2050_valide = False
         st.rerun()
-
+        
 with col3:
     if st.button("✅ Valider le scénario", type="primary", use_container_width=True):
         st.session_state.scenario.update({
@@ -245,13 +247,14 @@ with col3:
             'report_velo': report_velo_temp,
             'report_bus': report_bus_temp,
             'report_train': report_train_temp,
+            'report_marche': report_marche_temp,  # NOUVEAU
             'report_train_avion': report_train_avion_temp,
             'taux_remplissage': taux_remplissage_temp,
             'reduction_poids': reduction_poids_temp
         })
         st.session_state.scenario_2050_valide = True
         st.rerun()
-
+    
 # Si validé, afficher bouton navigation
 if st.session_state.scenario_2050_valide:
     st.success("✅ Scénario validé !")
