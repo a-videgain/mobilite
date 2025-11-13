@@ -652,49 +652,47 @@ contrib_allegement = co2_sans_allegement - resultats['bilan_2050']['co2_total_te
 co2_allegement = resultats['bilan_2050']['co2_total_territoire']
 
 # Affichage
-col1, col2 = st.columns([2, 1])
 
-with col1:
-    # Graphique en cascade
-    fig_cascade = go.Figure(go.Waterfall(
-        name="Contribution",
-        orientation="v",
-        measure=["absolute",
-                 "relative", "relative", "relative",
-                 "relative", "relative", "relative", "relative",
-                 "total"],
-        x=["2025",
-           "Élec. voitures", "Élec. bus", "Élec. vélos",
-           "Sobriété", "Report modal", "Remplissage", "Allègement",
-           "2050"],
-        y=[co2_2025_base,
-           -contrib_elec_voiture, -contrib_elec_bus, -contrib_elec_velo,
-           -contrib_sobriete, -contrib_report, -contrib_remplissage, -contrib_allegement,
-           co2_allegement],
-        text=[f"{co2_2025_base:.0f}",
-              f"-{contrib_elec_voiture:.0f}" if contrib_elec_voiture > 0 else f"+{abs(contrib_elec_voiture):.0f}",
-              f"-{contrib_elec_bus:.0f}" if contrib_elec_bus > 0 else f"+{abs(contrib_elec_bus):.0f}",
-              f"-{contrib_elec_velo:.0f}" if contrib_elec_velo > 0 else f"+{abs(contrib_elec_velo):.0f}",
-              f"-{contrib_sobriete:.0f}" if contrib_sobriete > 0 else f"+{abs(contrib_sobriete):.0f}",
-              f"-{contrib_report:.0f}" if contrib_report > 0 else f"+{abs(contrib_report):.0f}",
-              f"-{contrib_remplissage:.0f}" if contrib_remplissage > 0 else f"+{abs(contrib_remplissage):.0f}",
-              f"-{contrib_allegement:.0f}" if contrib_allegement > 0 else f"+{abs(contrib_allegement):.0f}",
-              f"{co2_allegement:.0f}"],
-        textposition="outside",
-        connector={"line": {"color": "rgb(63, 63, 63)"}},
-        decreasing={"marker": {"color": "#10b981"}},
-        increasing={"marker": {"color": "#ef4444"}},
-        totals={"marker": {"color": "#3b82f6"}}
-    ))
-    
-    fig_cascade.update_layout(
-        title="Contribution de chaque levier (tonnes CO₂/an)",
-        showlegend=False,
-        height=500,
-        yaxis_title="Émissions CO₂ (tonnes/an)"
-    )
-    
-    st.plotly_chart(fig_cascade, use_container_width=True, key="fig_cascade")
+# Graphique en cascade
+fig_cascade = go.Figure(go.Waterfall(
+    name="Contribution",
+    orientation="v",
+    measure=["absolute",
+             "relative", "relative", "relative",
+             "relative", "relative", "relative", "relative",
+             "total"],
+    x=["2025",
+       "Élec. voitures", "Élec. bus", "Élec. vélos",
+       "Sobriété", "Report modal", "Remplissage", "Allègement",
+       "2050"],
+    y=[co2_2025_base,
+       -contrib_elec_voiture, -contrib_elec_bus, -contrib_elec_velo,
+       -contrib_sobriete, -contrib_report, -contrib_remplissage, -contrib_allegement,
+       co2_allegement],
+    text=[f"{co2_2025_base:.0f}",
+          f"-{contrib_elec_voiture:.0f}" if contrib_elec_voiture > 0 else f"+{abs(contrib_elec_voiture):.0f}",
+          f"-{contrib_elec_bus:.0f}" if contrib_elec_bus > 0 else f"+{abs(contrib_elec_bus):.0f}",
+          f"-{contrib_elec_velo:.0f}" if contrib_elec_velo > 0 else f"+{abs(contrib_elec_velo):.0f}",
+          f"-{contrib_sobriete:.0f}" if contrib_sobriete > 0 else f"+{abs(contrib_sobriete):.0f}",
+          f"-{contrib_report:.0f}" if contrib_report > 0 else f"+{abs(contrib_report):.0f}",
+          f"-{contrib_remplissage:.0f}" if contrib_remplissage > 0 else f"+{abs(contrib_remplissage):.0f}",
+          f"-{contrib_allegement:.0f}" if contrib_allegement > 0 else f"+{abs(contrib_allegement):.0f}",
+          f"{co2_allegement:.0f}"],
+    textposition="outside",
+    connector={"line": {"color": "rgb(63, 63, 63)"}},
+    decreasing={"marker": {"color": "#10b981"}},
+    increasing={"marker": {"color": "#ef4444"}},
+    totals={"marker": {"color": "#3b82f6"}}
+))
+
+fig_cascade.update_layout(
+    title="Contribution de chaque levier (tonnes CO₂/an)",
+    showlegend=False,
+    height=500,
+    yaxis_title="Émissions CO₂ (tonnes/an)"
+)
+
+st.plotly_chart(fig_cascade, use_container_width=True, key="fig_cascade")
 
 st.divider()
 
