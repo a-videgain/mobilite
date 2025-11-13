@@ -97,22 +97,24 @@ def calculer_2050():
     # 2️⃣ Report modal
     km_voiture = km_2025_apres_sobriete['voiture']
     km_avion = km_2025_apres_sobriete['avion']
-
+    
     km_transferes_velo = km_voiture * st.session_state.scenario['report_velo'] / 100
     km_transferes_bus = km_voiture * st.session_state.scenario['report_bus'] / 100
     km_transferes_train_voiture = km_voiture * st.session_state.scenario['report_train'] / 100
+    km_transferes_marche = km_voiture * st.session_state.scenario.get('report_marche', 0) / 100  # NOUVEAU
     km_transferes_train_avion = km_avion * st.session_state.scenario['report_train_avion'] / 100
-
+    
     # 3️⃣ Nouvelles distances 2050 (avec protection valeurs négatives)
     km_2050 = {
-        'voiture': max(0, km_voiture - km_transferes_velo - km_transferes_bus - km_transferes_train_voiture),
+        'voiture': max(0, km_voiture - km_transferes_velo - km_transferes_bus - km_transferes_train_voiture - km_transferes_marche),  # MODIFIÉ
         'bus': km_2025_apres_sobriete['bus'] + km_transferes_bus,
         'train': km_2025_apres_sobriete['train'] + km_transferes_train_voiture + km_transferes_train_avion,
         'velo': km_2025_apres_sobriete['velo'] + km_transferes_velo,
         'avion': max(0, km_avion - km_transferes_train_avion),
-        'marche': km_2025_apres_sobriete['marche']
+        'marche': km_2025_apres_sobriete['marche'] + km_transferes_marche  # MODIFIÉ
     }
 
+    
     # 4️⃣ Nouvelles caractéristiques
     parc_2050 = {
         'part_thermique': st.session_state.scenario['part_thermique'],
