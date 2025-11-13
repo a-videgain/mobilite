@@ -51,21 +51,24 @@ def initialiser_session():
         }
         
         st.session_state.scenario = {
-            'reduction_km_voiture': 0,  # NOUVEAU
-            'reduction_km_avion': 0,    # NOUVEAU
-            'report_velo': 0, 
+            'reduction_km_voiture': 0,
+            'reduction_km_avion': 0,
+            'report_velo': 0,
             'report_bus': 0,
-            'report_train': 0, 
+            'report_train': 0,
+            'report_marche': 0,  # NOUVEAU
             'report_train_avion': 0,
-            'taux_remplissage': 1.1, 
-            'part_ve': 3, 
+            'taux_remplissage': 1.1,
+            'part_ve': 3,
             'part_thermique': 97,
-            'part_velo_elec': 15, 
+            'part_velo_elec': 15,
             'part_velo_classique': 85,
-            'part_bus_elec': 5, 
+            'part_bus_elec': 5,
             'part_bus_thermique': 95,
             'reduction_poids': 0
         }
+
+
 
 def calculer_km_territoire():
     """Calcule les km territoire (en Mkm/an) à partir des km/hab/an et de la population"""
