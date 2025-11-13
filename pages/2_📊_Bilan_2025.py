@@ -31,7 +31,7 @@ if not st.session_state.get('donnees_2025_validees', False):
 
 # ==================== PAGE 2 : BILAN 2025 ====================
 
-st.set_page_config(page_title="📊 Bilan 2025", page_icon="📊", layout="wide")
+st.set_page_config(page_title="📊 Bilan 2025", page_icon="", layout="wide")
 
 st.title("🚗 Mobilité Pays Basque 2050")
 st.header("📊 Bilan 2025")
