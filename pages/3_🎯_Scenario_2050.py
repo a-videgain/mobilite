@@ -14,13 +14,11 @@ hide_streamlit_style = """
     """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-
-
 # Initialisation
 if 'initialized' not in st.session_state:
     initialiser_session()
 
-# ⚠️ VÉRIFICATION DES ÉTAPES PRÉCÉDENTES
+# Vérification des étapes précédentes
 if not st.session_state.get('donnees_2025_validees', False):
     st.error("❌ Vous devez d'abord compléter l'étape 1 : Données 2025")
     if st.button("➡️ Aller à l'étape 1", type="primary"):
@@ -32,12 +30,15 @@ if not st.session_state.get('bilan_2025_valide', False):
     if st.button("➡️ Aller à l'étape 2", type="primary"):
         st.switch_page("pages/2_📊_Bilan_2025.py")
     st.stop()
-    
+
 st.set_page_config(page_title="🎯 Scénario 2050", page_icon="🎯", layout="wide")
 
-#st.title("🚗 Mobilité Pays Basque 2050")
 st.title("🎯 Construire le scénario 2050")
-st.header ("A vous de jouer!")
+st.header("A vous de jouer!")
+
+# Avertissement de non-navigation
+st.warning("⚠️ **IMPORTANT : Ne quittez pas cette page avant d'avoir validé votre scénario** (bouton en bas de page)")
+
 st.warning("**🎯 Objectif SNBC : Réduire d'environ 70% les émissions du secteur transport d'ici 2050** (par rapport à la situation actuelle)")
 
 st.info("""
@@ -46,9 +47,8 @@ st.info("""
 - Seuls l'**électrification** et l'**allègement des voitures** réduisent les émissions par km des voitures
 - Le **report modal** transfère des km vers des modes moins émetteurs
 - La **sobriété** réduit le nombre total de km parcourus
-- Le **taux de remplissage** améliore l’efficacité d’usage des véhicules
+- Le **taux de remplissage** améliore l'efficacité d'usage des véhicules
 - Les scénarios se limitent aux modes de transport suivants: voiture, vélo, train, bus, marche à pied et avion
-- La décarbonation de l'aviation fait l'objet d'un autre projet. Le facteur d'émission (CO2/km) de l'avion est supposé constant.
 """)
 
 # Vérification
@@ -66,41 +66,79 @@ with st.expander("🔧 **LEVIER 1 : Électrification** - Décarboner les parcs",
         "Part véhicules électriques (%)",
         0, 100, st.session_state.scenario['part_ve'], 5
     )
-    st.info(f"Part thermique : **{100 - part_ve_temp}%**")
+    st.success(f"✅ Part thermique : **{100 - part_ve_temp}%**")
 
     st.markdown("##### 🚌 Parc bus")
     part_bus_elec_temp = st.slider(
         "Part bus électriques (%)",
         0, 100, st.session_state.scenario.get('part_bus_elec', 5), 5
     )
-    st.info(f"Part bus thermiques : **{100 - part_bus_elec_temp}%**")
+    st.success(f"✅ Part bus thermiques : **{100 - part_bus_elec_temp}%**")
 
     st.markdown("##### 🚴 Parc vélo")
     part_velo_elec_temp = st.slider(
         "Part vélos électriques (%)",
         0, 100, st.session_state.scenario['part_velo_elec'], 5
     )
-    st.info(f"Part vélos classiques : **{100 - part_velo_elec_temp}%**")
+    st.success(f"✅ Part vélos classiques : **{100 - part_velo_elec_temp}%**")
 
 # ==================== LEVIER 2 : SOBRIÉTÉ ====================
 
 with st.expander("🔧 **LEVIER 2 : Sobriété** - Réduire les km parcourus", expanded=False):
     st.markdown("**Objectif :** Diminuer le besoin de déplacement")
 
-    reduction_km_temp = st.slider(
-        "Variation des km totaux par rapport à 2025 (%)",
-        -50, 10, st.session_state.scenario['reduction_km'], 5
-    )
-
+    # Calculs références 2025
+    km_voiture_2025 = st.session_state.km_2025_territoire['voiture']
+    km_avion_2025 = st.session_state.km_2025_territoire['avion']
     km_total_2025 = sum(st.session_state.km_2025_territoire.values())
-    km_total_2050_prevision = km_total_2025 * (1 + reduction_km_temp / 100)
 
-    if reduction_km_temp < 0:
-        st.success(f"✅ Réduction : {format_nombre(km_total_2025)} Mkm → {format_nombre(km_total_2050_prevision)} Mkm ({abs(reduction_km_temp)}%)")
-    elif reduction_km_temp > 0:
-        st.warning(f"⚠️ Augmentation : {format_nombre(km_total_2025)} Mkm → {format_nombre(km_total_2050_prevision)} Mkm (+{reduction_km_temp}%)")
+    # Sliders sobriété
+    st.markdown("##### 🚗 Sobriété voiture")
+    reduction_km_voiture_temp = st.slider(
+        "Variation des km voiture par rapport à 2025 (%)",
+        -50, 10, st.session_state.scenario.get('reduction_km_voiture', 0), 5
+    )
+    
+    km_voiture_2050_prevision = km_voiture_2025 * (1 + reduction_km_voiture_temp / 100)
+    
+    if reduction_km_voiture_temp < 0:
+        st.success(f"✅ Réduction : {format_nombre(km_voiture_2025)} Mkm → {format_nombre(km_voiture_2050_prevision)} Mkm ({abs(reduction_km_voiture_temp)}%)")
+    elif reduction_km_voiture_temp > 0:
+        st.error(f"⚠️ Augmentation : {format_nombre(km_voiture_2025)} Mkm → {format_nombre(km_voiture_2050_prevision)} Mkm (+{reduction_km_voiture_temp}%)")
     else:
-        st.info(f"➡️ Stabilité : {format_nombre(km_total_2025)} Mkm")
+        st.info(f"➡️ Stabilité : {format_nombre(km_voiture_2025)} Mkm")
+
+    st.markdown("##### ✈️ Sobriété avion")
+    reduction_km_avion_temp = st.slider(
+        "Variation des km avion par rapport à 2025 (%)",
+        -50, 10, st.session_state.scenario.get('reduction_km_avion', 0), 5
+    )
+    
+    km_avion_2050_prevision = km_avion_2025 * (1 + reduction_km_avion_temp / 100)
+    
+    if reduction_km_avion_temp < 0:
+        st.success(f"✅ Réduction : {format_nombre(km_avion_2025)} Mkm → {format_nombre(km_avion_2050_prevision)} Mkm ({abs(reduction_km_avion_temp)}%)")
+    elif reduction_km_avion_temp > 0:
+        st.error(f"⚠️ Augmentation : {format_nombre(km_avion_2025)} Mkm → {format_nombre(km_avion_2050_prevision)} Mkm (+{reduction_km_avion_temp}%)")
+    else:
+        st.info(f"➡️ Stabilité : {format_nombre(km_avion_2025)} Mkm")
+
+    # Calcul impact total sobriété
+    km_total_2050_prevision = (
+        km_voiture_2050_prevision + 
+        km_avion_2050_prevision + 
+        sum(v for k, v in st.session_state.km_2025_territoire.items() if k not in ['voiture', 'avion'])
+    )
+    reduction_totale = ((km_total_2025 - km_total_2050_prevision) / km_total_2025) * 100
+    
+    st.divider()
+    st.markdown("##### 📊 Impact total de la sobriété")
+    if reduction_totale > 0:
+        st.success(f"✅ **Réduction totale des km : {reduction_totale:.1f}%**")
+    elif reduction_totale < 0:
+        st.error(f"⚠️ **Augmentation totale des km : {abs(reduction_totale):.1f}%**")
+    else:
+        st.info("➡️ **Pas de changement**")
 
 # ==================== LEVIER 3 : REPORT MODAL ====================
 
@@ -114,15 +152,21 @@ with st.expander("🔧 **LEVIER 3 : Report modal** - Transférer vers modes déc
     report_train_temp = st.slider("🚆 Voiture → Train (%)", 0, 50, st.session_state.scenario['report_train'], 1)
 
     report_total_voiture = report_velo_temp + report_bus_temp + report_train_temp
-    st.info(f"**Report total depuis voiture : {report_total_voiture}%**")
+    if report_total_voiture > 0:
+        st.success(f"✅ **Report total depuis voiture : {report_total_voiture}%**")
+    else:
+        st.info("**Report total depuis voiture : 0%**")
 
     st.markdown("##### ✈️ Report depuis l'avion")
     report_train_avion_temp = st.slider("🚆 Avion → Train (%)", 0, 100, st.session_state.scenario['report_train_avion'], 1)
-    st.info(f"**{report_train_avion_temp}%** des km avion transférés vers le train")
+    if report_train_avion_temp > 0:
+        st.success(f"✅ **{report_train_avion_temp}%** des km avion transférés vers le train")
+    else:
+        st.info("**Pas de report depuis l'avion**")
 
 # ==================== LEVIER 4 : TAUX DE REMPLISSAGE ====================
 
-with st.expander("🔧 **LEVIER 4 : Taux de remplissage** - Augmenter l’occupation des véhicules", expanded=False):
+with st.expander("🔧 **LEVIER 4 : Taux de remplissage** - Augmenter l'occupation des véhicules", expanded=False):
     st.markdown("**Objectif :** Plus de personnes par véhicule")
     taux_remplissage_temp = st.slider(
         "Taux d'occupation (pers/véhicule)",
@@ -135,15 +179,15 @@ with st.expander("🔧 **LEVIER 4 : Taux de remplissage** - Augmenter l’occupa
     if gain_remplissage > 0:
         st.success(f"✅ +{gain_remplissage:.1f}% vs 2025")
     elif gain_remplissage < 0:
-        st.warning(f"⚠️ {gain_remplissage:.1f}% vs 2025")
+        st.error(f"⚠️ {gain_remplissage:.1f}% vs 2025")
     else:
         st.info("➡️ Identique à 2025")
 
 # ==================== LEVIER 5 : ALLÈGEMENT ====================
 
 with st.expander("🔧 **LEVIER 5 : Allègement** - Réduire le poids des véhicules", expanded=False):
-    st.markdown("**Objectif :** Véhicules plus légers, moins consommateurs")
-    st.caption("Impact estimé : -10% poids = -7% émissions  CO2 (thermique ET électrique)")
+    st.markdown("**Objectif :** Véhicules plus légers, moins émetteurs")
+    st.caption("Impact estimé : -10% poids = -7% émissions CO2 (thermique ET électrique)")
 
     reduction_poids_temp = st.slider("Réduction poids (%)", 0, 30, st.session_state.scenario['reduction_poids'], 5)
 
@@ -152,19 +196,25 @@ with st.expander("🔧 **LEVIER 5 : Allègement** - Réduire le poids des véhic
         st.success(f"✅ Réduction consommation : -{reduction_conso:.1f}% (tous véhicules)")
     else:
         st.info("➡️ Pas d'allègement")
+
 # ==================== VALIDATION ET NAVIGATION ====================
 
 st.divider()
 
+# Avertissement dynamique si modifications non validées
 if 'scenario_2050_valide' not in st.session_state:
     st.session_state.scenario_2050_valide = False
+
+if not st.session_state.scenario_2050_valide:
+    st.error("⚠️ **ATTENTION : Votre scénario n'est pas encore validé ! Cliquez sur le bouton vert ci-dessous.**")
 
 col1, col2, col3 = st.columns([1, 1, 1])
 
 with col1:
     if st.button("🔄 Réinitialiser les leviers", use_container_width=True, type="secondary"):
         st.session_state.scenario = {
-            'reduction_km': 0,
+            'reduction_km_voiture': 0,
+            'reduction_km_avion': 0,
             'report_velo': 0,
             'report_bus': 0,
             'report_train': 0,
@@ -190,7 +240,8 @@ with col3:
             'part_bus_thermique': 100 - part_bus_elec_temp,
             'part_velo_elec': part_velo_elec_temp,
             'part_velo_classique': 100 - part_velo_elec_temp,
-            'reduction_km': reduction_km_temp,
+            'reduction_km_voiture': reduction_km_voiture_temp,
+            'reduction_km_avion': reduction_km_avion_temp,
             'report_velo': report_velo_temp,
             'report_bus': report_bus_temp,
             'report_train': report_train_temp,
