@@ -42,7 +42,7 @@ if not st.session_state.get('scenario_2050_valide', False):
         st.switch_page("pages/3_🎯_Scenario_2050.py")
     st.stop()
 
-st.set_page_config(page_title="📈 Résultats 2050", page_icon="📈", layout="wide")
+st.set_page_config(page_title="📈 Résultats 2050", page_icon="", layout="wide")
 
 st.title("🚗 Mobilité Pays Basque 2050")
 st.header("📈 Résultats du scénario 2050")
