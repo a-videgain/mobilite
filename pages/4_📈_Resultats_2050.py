@@ -214,7 +214,7 @@ st.divider()
 
 st.subheader("📊 Comparaisons 2025 vs 2050")
 
-tab1, tab2, tab3, tab4 = st.tabs(["CO₂ par mode", "Kilomètres par mode", "Parts modales", "Émissions moyennes"])
+tab1, tab2, tab3, tab4 = st.tabs(["CO₂ par mode", "Kilomètres par mode", "Parts modales", "Émissions par km"])
 
 with tab1:
     st.markdown("#### Émissions CO₂ par mode (kg CO₂/an/habitant)")
@@ -424,7 +424,7 @@ with tab3:
         st.caption(f"**{mode.capitalize()}** : {parts_modales_2025[mode]:.1f}% → {parts_modales_2050[mode]:.1f}% ({delta_part:+.1f} pts)")
 
 with tab4:
-    st.markdown("#### Émissions moyennes (gCO₂/km)")
+    st.markdown("#### Émissions moyennes sur le cycle de vie (gCO₂/km)")
     
     # Calcul des émissions moyennes par km pour chaque mode
     emissions_moyennes_2025 = {}
