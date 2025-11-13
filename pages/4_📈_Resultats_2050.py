@@ -116,6 +116,8 @@ else:
 report_changes = []
 if st.session_state.scenario['report_velo'] > 0:
     report_changes.append(f"{st.session_state.scenario['report_velo']}% voiture→vélo")
+if st.session_state.scenario['report_marche'] > 0:
+    report_changes.append(f"{st.session_state.scenario['report_marche']}% voiture→marche")
 if st.session_state.scenario['report_bus'] > 0:
     report_changes.append(f"{st.session_state.scenario['report_bus']}% voiture→bus")
 if st.session_state.scenario['report_train'] > 0:
@@ -364,6 +366,7 @@ scenario_elec = st.session_state.scenario.copy()
 scenario_elec['reduction_km_voiture'] = 0
 scenario_elec['reduction_km_avion'] = 0
 scenario_elec['report_velo'] = 0
+scenario_elec['report_marche'] = 0
 scenario_elec['report_bus'] = 0
 scenario_elec['report_train'] = 0
 scenario_elec['report_train_avion'] = 0
@@ -611,6 +614,7 @@ Km par habitant : {format_nombre(km_par_hab_an_2025)} km/an
 Sobriété voiture (variation km) : {st.session_state.scenario['reduction_km_voiture']:+}%
 Sobriété avion (variation km) : {st.session_state.scenario['reduction_km_avion']:+}%
 Report voiture→vélo : {st.session_state.scenario['report_velo']}%
+Report voiture→marche : {st.session_state.scenario['report_marche']}%
 Report voiture→bus : {st.session_state.scenario['report_bus']}%
 Report voiture→train : {st.session_state.scenario['report_train']}%
 Report avion→train : {st.session_state.scenario['report_train_avion']}%
