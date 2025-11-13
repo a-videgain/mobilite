@@ -236,7 +236,7 @@ with tab1:
         })
         fig_co2_2050 = px.bar(df_2050, x='Mode', y='CO₂ (tonnes/an)', color='Mode')
         fig_co2_2050.update_layout(showlegend=False, height=400)
-        st.plotly_chart(fig_co2_2050, use_container_width=True, key="fig_cascade")
+        st.plotly_chart(fig_co2_2050, use_container_width=True, key="fig_co2_2050")
         
         for mode, co2 in resultats['bilan_2050']['detail_par_mode'].items():
             delta = co2 - resultats['bilan_2025']['detail_par_mode'][mode]
