@@ -223,7 +223,7 @@ with tab1:
         })
         fig_co2_2025 = px.bar(df_2025, x='Mode', y='CO₂ (tonnes/an)', color='Mode')
         fig_co2_2025.update_layout(showlegend=False, height=400)
-        st.plotly_chart(fig_co2_2025, use_container_width=True)
+        st.plotly_chart(fig_co2_2025, use_container_width=True,key="fig_co2_2025")
         
         for mode, co2 in resultats['bilan_2025']['detail_par_mode'].items():
             st.caption(f"**{mode.capitalize()}** : {format_nombre(co2)} t/an ({format_nombre(emissions_hab_an_2025[mode],1)} kg/hab/an)")
@@ -236,7 +236,7 @@ with tab1:
         })
         fig_co2_2050 = px.bar(df_2050, x='Mode', y='CO₂ (tonnes/an)', color='Mode')
         fig_co2_2050.update_layout(showlegend=False, height=400)
-        st.plotly_chart(fig_co2_2050, use_container_width=True)
+        st.plotly_chart(fig_co2_2050, use_container_width=True, key="fig_cascade")
         
         for mode, co2 in resultats['bilan_2050']['detail_par_mode'].items():
             delta = co2 - resultats['bilan_2025']['detail_par_mode'][mode]
@@ -259,7 +259,7 @@ with tab2:
         })
         fig_km_2025 = px.bar(df_km_2025, x='Mode', y='Km (Mkm/an)', color='Mode')
         fig_km_2025.update_layout(showlegend=False, height=400)
-        st.plotly_chart(fig_km_2025, use_container_width=True)
+        st.plotly_chart(fig_km_2025, use_container_width=True,key="fig_km_2025")
         
         for mode, km in st.session_state.km_2025_territoire.items():
             st.caption(f"**{mode.capitalize()}** : {format_nombre(km)} Mkm/an ({format_nombre(km_hab_2025[mode])} km/hab/an)")
@@ -272,7 +272,7 @@ with tab2:
         })
         fig_km_2050 = px.bar(df_km_2050, x='Mode', y='Km (Mkm/an)', color='Mode')
         fig_km_2050.update_layout(showlegend=False, height=400)
-        st.plotly_chart(fig_km_2050, use_container_width=True)
+        st.plotly_chart(fig_km_2050, use_container_width=True,key="fig_km_2050")
         
         for mode, km in resultats['km_2050_territoire'].items():
             delta = km - st.session_state.km_2025_territoire[mode]
@@ -294,7 +294,7 @@ with tab3:
         })
         fig_parts_2025 = px.pie(df_parts_2025, values='Part (%)', names='Mode', hole=0.3)
         fig_parts_2025.update_layout(height=400)
-        st.plotly_chart(fig_parts_2025, use_container_width=True)
+        st.plotly_chart(fig_parts_2025, use_container_width=True,key="fig_parts2025")
     
     with col2:
         st.markdown("##### 2050")
@@ -304,7 +304,7 @@ with tab3:
         })
         fig_parts_2050 = px.pie(df_parts_2050, values='Part (%)', names='Mode', hole=0.3)
         fig_parts_2050.update_layout(height=400)
-        st.plotly_chart(fig_parts_2050, use_container_width=True)
+        st.plotly_chart(fig_parts_2050, use_container_width=True,key="figparts2050")
     
     st.markdown("##### Évolution des parts modales")
     for mode in parts_modales_2025:
@@ -339,7 +339,7 @@ with tab4:
     fig_emissions.add_trace(go.Bar(name='2025', x=df_emissions_moy['Mode'], y=df_emissions_moy['2025 (gCO₂/km)']))
     fig_emissions.add_trace(go.Bar(name='2050', x=df_emissions_moy['Mode'], y=df_emissions_moy['2050 (gCO₂/km)']))
     fig_emissions.update_layout(barmode='group', height=400, yaxis_title="gCO₂/km")
-    st.plotly_chart(fig_emissions, use_container_width=True)
+    st.plotly_chart(fig_emissions, use_container_width=True,key="emission")
     
     for mode in emissions_moyennes_2025:
         delta = emissions_moyennes_2050[mode] - emissions_moyennes_2025[mode]
@@ -505,7 +505,7 @@ if True:  # Toujours afficher
         yaxis_title="Émissions CO₂ (tonnes/an)"
     )
     
-    st.plotly_chart(fig_cascade, use_container_width=True)
+    st.plotly_chart(fig_cascade, use_container_width=True,key="fig_cascade")
 
 st.divider()
 
@@ -554,7 +554,7 @@ fig_jauge = go.Figure(go.Indicator(
     title={'text': "Réduction des émissions (%)"}
 ))
 fig_jauge.update_layout(height=300, font={'size': 16})
-st.plotly_chart(fig_jauge, use_container_width=True)
+st.plotly_chart(fig_jauge, use_container_width=True,key="fig_jauge")
 
 st.divider()
 
