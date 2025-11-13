@@ -60,12 +60,57 @@ Consultez la [fiche INSEE CAPB](https://www.insee.fr/fr/statistiques/2011101?geo
 - **Une critique** de l'outil utilisé: les limites des hypothèses simplificatrices
 
 
-💡 L'outil permet un export des données** (fichier .txt) contenant l'ensemble des résultats.
+💡 L'outil permet un **export des données** (fichier .txt) contenant l'ensemble des résultats.
 Pensez à **sauvegarder régulièrement** vos données en exportant vos résultats !
 
 ###  📰 Bibliographie
 
-[en cours...]
+#### 📊 Les chiffres et objectifs nationaux
+
+- **La consommation d’énergie des transports (2022)** — Ministère de la Transition écologique et de la Cohésion des territoires  
+  👉 [Bilan énergétique 2022](https://www.statistiques.developpement-durable.gouv.fr/edition-numerique/bilan-energetique-2022/30-55-transports--poursuite-de)
+
+- **Les émissions de gaz à effet de serre du secteur des transports (février 2021)** — Ministère de la Transition écologique et de la Cohésion des territoires  
+  👉 [Article sur les émissions de GES](https://www.notre-environnement.gouv.fr/themes/climat/les-emissions-de-gaz-a-effet-de-serre-et-l-empreinte-carbone-ressources/article/les-emissions-de-gaz-a-effet-de-serre-du-secteur-des-transports)
+
+- **Stratégie Nationale Bas Carbone (SNBC)** — Ministère de la Transition écologique et de la Cohésion des territoires (octobre 2024)  
+  👉 [SNBC - Politique publique](https://www.ecologie.gouv.fr/politiques-publiques/strategie-nationale-bas-carbone-snbc)
+
+- **Voitures particulières immatriculées par commune et par type de recharge** — Agence ORE  
+  👉 [Jeu de données](https://www.data.gouv.fr/fr/datasets/voitures-particulieres-immatriculees-par-commune-et-par-type-de-recharge-jeu-de-donnees-aaadata/#/resources)
+
+- **Déplacements domicile-travail (comparateur national)** — Agence AGAM  
+  👉 [Outil en ligne](https://spot.agam.org/tb/mobilites)
+
+- **ADEME — Bouger autrement au quotidien**  
+  👉 [Guide ADEME (PDF)](https://librairie.ademe.fr/ged/7338/guide-bouger-autrement-au-quotidien.pdf)
+
+
+---
+
+#### 📰 Articles de presse
+
+- Bigo Aurélien — *La voiture électrique passée au crible de la soutenabilité*, Institut Polytechnique de Paris, Juin 2022  
+  👉 [Lire l’article](https://www.polytechnique-insights.com/tribunes/planete/la-voiture-electrique-passee-au-crible-de-la-soutenabilite/)
+
+- Bigo Aurélien — *Les véhicules intermédiaires : l’avenir de la mobilité ?*  
+  👉 [Lire sur Bon Pote](https://bonpote.com/les-vehicules-intermediaires-lavenir-de-la-mobilite/)
+
+- Chassignet Mathieu — *Assumer le choix politique de réduire l'espace de la voiture*, *Les Echos*, Septembre 2019  
+  👉 [Lire l’article](https://www.lesechos.fr/thema/mobilites-innovations/assumer-le-choix-politique-de-reduire-lespace-de-lavoiture-1131113)
+
+- Gaborit Baptiste — *Atlas des mobilités : Les Français parcourent 50 kilomètres en moyenne chaque jour*, *Radio Classique*, Juin 2022  
+  👉 [Lire l’article](https://www.radioclassique.fr/environnement/atlas-des-mobilites-les-francais-parcourent-50-kilometres-en-moyenne-chaque-jour/)
+
+- Lavadinho Sonia — *Réduire la place de la voiture ne sert à rien si l’on ne redonne pas cette place à l’humain*, *Envies de Ville*, Novembre 2022  
+  👉 [Lire l’article](https://www.enviesdeville.fr/penser-la-ville/mobilite-ville-sonia-lavadinho/)
+
+- Marqués Ricardo — *Politiques cyclables : Quelles leçons tirer de l’exemple de Séville*, *Forum Vies Mobiles*, Novembre 2021  
+  👉 [Lire l’article](https://forumviesmobiles.org/points-de-vue/15715/politiques-cyclables-quelles-lecons-tirer-de-lexemple-de-seville)
+
+- Razemon Olivier — *Le système routier, en manque, pris au piège de sa toute puissance*, *Le Monde*, Octobre 2022  
+  👉 [Lire l’article](https://www.lemonde.fr/blog/transports/2022/10/12/le-systeme-routier-en-manque-pris-au-piege-de-sa-toute-puissance/)
+
 
 ### 🚀 Démarrage
 
