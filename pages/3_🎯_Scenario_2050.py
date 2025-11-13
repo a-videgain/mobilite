@@ -31,7 +31,7 @@ if not st.session_state.get('bilan_2025_valide', False):
         st.switch_page("pages/2_📊_Bilan_2025.py")
     st.stop()
 
-st.set_page_config(page_title="🎯 Scénario 2050", page_icon="🎯", layout="wide")
+st.set_page_config(page_title="🎯 Scénario 2050", page_icon="", layout="wide")
 
 st.title("🎯 Construire le scénario 2050")
 st.header("A vous de jouer!")
