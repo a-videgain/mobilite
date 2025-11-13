@@ -137,7 +137,7 @@ st.info(f"📊 **Total par habitant : {km_total_hab:,.0f} km/an**".replace(',', 
 st.divider()
 
 # Parc automobile
-st.subheader("🚗 Caractéristiques parc automobile 2025")
+st.subheader("🚗 Caractéristiques du parc automobile 2025: voitures immatriculées dans la CAPB")
 col1, col2, col3 = st.columns(3)
 
 with col1:
