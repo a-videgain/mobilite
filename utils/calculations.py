@@ -81,13 +81,18 @@ def calculer_parts_modales(km_dict):
 
 def calculer_2050():
     """Calcule le scénario 2050 complet à partir des données stockées en session"""
-    facteur_sobriete = (1 + st.session_state.scenario['reduction_km'] / 100)
-
-    # 1️⃣ Sobriété
-    km_2025_apres_sobriete = {
-        mode: km * facteur_sobriete 
-        for mode, km in st.session_state.km_2025_territoire.items()
-    }
+    
+    # 1️⃣ Sobriété (MODIFIÉ : séparé voiture/avion)
+    km_2025_apres_sobriete = {}
+    for mode, km in st.session_state.km_2025_territoire.items():
+        if mode == 'voiture':
+            facteur = (1 + st.session_state.scenario.get('reduction_km_voiture', 0) / 100)
+            km_2025_apres_sobriete[mode] = km * facteur
+        elif mode == 'avion':
+            facteur = (1 + st.session_state.scenario.get('reduction_km_avion', 0) / 100)
+            km_2025_apres_sobriete[mode] = km * facteur
+        else:
+            km_2025_apres_sobriete[mode] = km
 
     # 2️⃣ Report modal
     km_voiture = km_2025_apres_sobriete['voiture']
@@ -156,6 +161,7 @@ def calculer_2050():
 
     return {
         'km_2050_territoire': km_2050,
+        'km_2025_apres_sobriete': km_2025_apres_sobriete,
         'bilan_2025': bilan_2025,
         'bilan_2050': bilan_2050,
         'reduction_pct': reduction_pct,
