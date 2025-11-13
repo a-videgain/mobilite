@@ -696,16 +696,6 @@ with col1:
     
     st.plotly_chart(fig_cascade, use_container_width=True, key="fig_cascade")
 
-with col2:
-    st.markdown("##### 🔍 Détail des contributions")
-    st.metric("Électrification voitures", f"-{contrib_elec_voiture:.0f} t/an")
-    st.metric("Électrification bus", f"-{contrib_elec_bus:.0f} t/an")
-    st.metric("Électrification vélos", f"-{contrib_elec_velo:.0f} t/an")
-    st.metric("Sobriété", f"-{contrib_sobriete:.0f} t/an")
-    st.metric("Report modal", f"-{contrib_report:.0f} t/an")
-    st.metric("Taux remplissage", f"-{contrib_remplissage:.0f} t/an")
-    st.metric("Allègement", f"-{contrib_allegement:.0f} t/an")
-
 st.divider()
 
 # ==================== KILOMÈTRES COMPARAISON ====================
