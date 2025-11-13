@@ -57,6 +57,16 @@ if 'scenario' not in st.session_state:
 resultats = calculer_2050()
 st.session_state.resultats_2050 = resultats  # Stocker pour persistence
 
+# ==================== DÉFINITION DES COULEURS FIXES ====================
+# Couleurs cohérentes pour tous les graphiques
+COULEURS_MODES = {
+    'voiture': '#ef4444',      # Rouge
+    'bus': '#f59e0b',          # Orange
+    'train': '#8b5cf6',        # Violet
+    'velo': '#10b981',         # Vert
+    'avion': '#3b82f6',        # Bleu
+    'marche': '#6b7280'        # Gris
+}
 
 # Calculs par habitant
 co2_par_hab_2025 = (resultats['bilan_2025']['co2_total_territoire'] ) / st.session_state.population
@@ -144,8 +154,6 @@ else:
     resume_lignes.append("**Pas d'allègement des voitures**")
 
 # Affichage du résumé
-#for ligne in resume_lignes:
-#    st.markdown(f"• {ligne}")
 resume_text = "  \n".join([f"• {ligne}" for ligne in resume_lignes])
 st.info(resume_text)
 
@@ -209,35 +217,79 @@ st.subheader("📊 Comparaisons 2025 vs 2050")
 tab1, tab2, tab3, tab4 = st.tabs(["CO₂ par mode", "Kilomètres par mode", "Parts modales", "Émissions moyennes"])
 
 with tab1:
-    st.markdown("#### Émissions CO₂ par mode (tonnes/an)")
+    st.markdown("#### Émissions CO₂ par mode (kg CO₂/an/habitant)")
     
-    # Calcul par habitant
+    # Calcul par habitant (en kg)
     emissions_hab_an_2025 = {mode: (co2/st.session_state.population) * 1000 for mode, co2 in resultats['bilan_2025']['detail_par_mode'].items()}
     emissions_hab_an_2050 = {mode: (co2/st.session_state.population) * 1000 for mode, co2 in resultats['bilan_2050']['detail_par_mode'].items()}
+    
+    # Calcul du max pour échelle commune
+    max_emissions_hab = max(
+        max(emissions_hab_an_2025.values()),
+        max(emissions_hab_an_2050.values())
+    ) * 1.1  # Marge de 10%
     
     col1, col2 = st.columns(2)
     
     with col1:
         st.markdown("##### 2025")
-        df_2025 = pd.DataFrame({
-            'Mode': list(resultats['bilan_2025']['detail_par_mode'].keys()),
-            'CO₂ (tonnes/an)': list(resultats['bilan_2025']['detail_par_mode'].values())
-        })
-        fig_co2_2025 = px.bar(df_2025, x='Mode', y='CO₂ (tonnes/an)', color='Mode')
-        fig_co2_2025.update_layout(showlegend=False, height=400)
-        st.plotly_chart(fig_co2_2025, use_container_width=True,key="fig_co2_2025")
+        
+        # Créer le graphique avec couleurs fixes
+        modes_2025 = list(emissions_hab_an_2025.keys())
+        valeurs_2025 = list(emissions_hab_an_2025.values())
+        couleurs_2025 = [COULEURS_MODES[mode] for mode in modes_2025]
+        
+        fig_co2_2025 = go.Figure()
+        fig_co2_2025.add_trace(go.Bar(
+            x=modes_2025,
+            y=valeurs_2025,
+            marker_color=couleurs_2025,
+            text=[f"{v:.1f}" for v in valeurs_2025],
+            textposition='outside',
+            showlegend=False
+        ))
+        
+        fig_co2_2025.update_layout(
+            showlegend=False,
+            height=400,
+            yaxis=dict(
+                title="kg CO₂/an/habitant",
+                range=[0, max_emissions_hab]
+            ),
+            xaxis=dict(title="Mode de transport")
+        )
+        st.plotly_chart(fig_co2_2025, use_container_width=True, key="fig_co2_2025")
         
         for mode, co2 in resultats['bilan_2025']['detail_par_mode'].items():
             st.caption(f"**{mode.capitalize()}** : {format_nombre(co2)} t/an ({format_nombre(emissions_hab_an_2025[mode],1)} kg/hab/an)")
     
     with col2:
         st.markdown("##### 2050")
-        df_2050 = pd.DataFrame({
-            'Mode': list(resultats['bilan_2050']['detail_par_mode'].keys()),
-            'CO₂ (tonnes/an)': list(resultats['bilan_2050']['detail_par_mode'].values())
-        })
-        fig_co2_2050 = px.bar(df_2050, x='Mode', y='CO₂ (tonnes/an)', color='Mode')
-        fig_co2_2050.update_layout(showlegend=False, height=400)
+        
+        # Créer le graphique avec couleurs fixes
+        modes_2050 = list(emissions_hab_an_2050.keys())
+        valeurs_2050 = list(emissions_hab_an_2050.values())
+        couleurs_2050 = [COULEURS_MODES[mode] for mode in modes_2050]
+        
+        fig_co2_2050 = go.Figure()
+        fig_co2_2050.add_trace(go.Bar(
+            x=modes_2050,
+            y=valeurs_2050,
+            marker_color=couleurs_2050,
+            text=[f"{v:.1f}" for v in valeurs_2050],
+            textposition='outside',
+            showlegend=False
+        ))
+        
+        fig_co2_2050.update_layout(
+            showlegend=False,
+            height=400,
+            yaxis=dict(
+                title="kg CO₂/an/habitant",
+                range=[0, max_emissions_hab]
+            ),
+            xaxis=dict(title="Mode de transport")
+        )
         st.plotly_chart(fig_co2_2050, use_container_width=True, key="fig_co2_2050")
         
         for mode, co2 in resultats['bilan_2050']['detail_par_mode'].items():
@@ -245,36 +297,80 @@ with tab1:
             st.caption(f"**{mode.capitalize()}** : {format_nombre(co2)} t/an ({format_nombre(emissions_hab_an_2050[mode],1)} kg/hab/an) [{delta:+.0f} t/an]")
 
 with tab2:
-    st.markdown("#### Kilomètres parcourus par mode (Mkm/an)")
+    st.markdown("#### Kilomètres parcourus par mode (km/an/habitant)")
     
     # Calcul km/hab/an pour chaque mode
     km_hab_2025 = {mode: (km_mkm * 1e6) / st.session_state.population for mode, km_mkm in st.session_state.km_2025_territoire.items()}
     km_hab_2050 = {mode: (km_mkm * 1e6) / st.session_state.population for mode, km_mkm in resultats['km_2050_territoire'].items()}
     
+    # Calcul du max pour échelle commune
+    max_km_hab = max(
+        max(km_hab_2025.values()),
+        max(km_hab_2050.values())
+    ) * 1.1  # Marge de 10%
+    
     col1, col2 = st.columns(2)
     
     with col1:
         st.markdown("##### 2025")
-        df_km_2025 = pd.DataFrame({
-            'Mode': list(st.session_state.km_2025_territoire.keys()),
-            'Km (Mkm/an)': list(st.session_state.km_2025_territoire.values())
-        })
-        fig_km_2025 = px.bar(df_km_2025, x='Mode', y='Km (Mkm/an)', color='Mode')
-        fig_km_2025.update_layout(showlegend=False, height=400)
-        st.plotly_chart(fig_km_2025, use_container_width=True,key="fig_km_2025")
+        
+        # Créer le graphique avec couleurs fixes
+        modes_km_2025 = list(km_hab_2025.keys())
+        valeurs_km_2025 = list(km_hab_2025.values())
+        couleurs_km_2025 = [COULEURS_MODES[mode] for mode in modes_km_2025]
+        
+        fig_km_2025 = go.Figure()
+        fig_km_2025.add_trace(go.Bar(
+            x=modes_km_2025,
+            y=valeurs_km_2025,
+            marker_color=couleurs_km_2025,
+            text=[f"{v:.0f}" for v in valeurs_km_2025],
+            textposition='outside',
+            showlegend=False
+        ))
+        
+        fig_km_2025.update_layout(
+            showlegend=False,
+            height=400,
+            yaxis=dict(
+                title="km/an/habitant",
+                range=[0, max_km_hab]
+            ),
+            xaxis=dict(title="Mode de transport")
+        )
+        st.plotly_chart(fig_km_2025, use_container_width=True, key="fig_km_2025")
         
         for mode, km in st.session_state.km_2025_territoire.items():
             st.caption(f"**{mode.capitalize()}** : {format_nombre(km)} Mkm/an ({format_nombre(km_hab_2025[mode])} km/hab/an)")
     
     with col2:
         st.markdown("##### 2050")
-        df_km_2050 = pd.DataFrame({
-            'Mode': list(resultats['km_2050_territoire'].keys()),
-            'Km (Mkm/an)': list(resultats['km_2050_territoire'].values())
-        })
-        fig_km_2050 = px.bar(df_km_2050, x='Mode', y='Km (Mkm/an)', color='Mode')
-        fig_km_2050.update_layout(showlegend=False, height=400)
-        st.plotly_chart(fig_km_2050, use_container_width=True,key="fig_km_2050")
+        
+        # Créer le graphique avec couleurs fixes
+        modes_km_2050 = list(km_hab_2050.keys())
+        valeurs_km_2050 = list(km_hab_2050.values())
+        couleurs_km_2050 = [COULEURS_MODES[mode] for mode in modes_km_2050]
+        
+        fig_km_2050 = go.Figure()
+        fig_km_2050.add_trace(go.Bar(
+            x=modes_km_2050,
+            y=valeurs_km_2050,
+            marker_color=couleurs_km_2050,
+            text=[f"{v:.0f}" for v in valeurs_km_2050],
+            textposition='outside',
+            showlegend=False
+        ))
+        
+        fig_km_2050.update_layout(
+            showlegend=False,
+            height=400,
+            yaxis=dict(
+                title="km/an/habitant",
+                range=[0, max_km_hab]
+            ),
+            xaxis=dict(title="Mode de transport")
+        )
+        st.plotly_chart(fig_km_2050, use_container_width=True, key="fig_km_2050")
         
         for mode, km in resultats['km_2050_territoire'].items():
             delta = km - st.session_state.km_2025_territoire[mode]
@@ -290,23 +386,37 @@ with tab3:
     
     with col1:
         st.markdown("##### 2025")
-        df_parts_2025 = pd.DataFrame({
-            'Mode': list(parts_modales_2025.keys()),
-            'Part (%)': list(parts_modales_2025.values())
-        })
-        fig_parts_2025 = px.pie(df_parts_2025, values='Part (%)', names='Mode', hole=0.3)
+        
+        # Créer le graphique avec couleurs fixes
+        modes_parts_2025 = list(parts_modales_2025.keys())
+        valeurs_parts_2025 = list(parts_modales_2025.values())
+        couleurs_parts_2025 = [COULEURS_MODES[mode] for mode in modes_parts_2025]
+        
+        fig_parts_2025 = go.Figure(data=[go.Pie(
+            labels=modes_parts_2025,
+            values=valeurs_parts_2025,
+            marker=dict(colors=couleurs_parts_2025),
+            hole=0.3
+        )])
         fig_parts_2025.update_layout(height=400)
-        st.plotly_chart(fig_parts_2025, use_container_width=True,key="fig_parts2025")
+        st.plotly_chart(fig_parts_2025, use_container_width=True, key="fig_parts2025")
     
     with col2:
         st.markdown("##### 2050")
-        df_parts_2050 = pd.DataFrame({
-            'Mode': list(parts_modales_2050.keys()),
-            'Part (%)': list(parts_modales_2050.values())
-        })
-        fig_parts_2050 = px.pie(df_parts_2050, values='Part (%)', names='Mode', hole=0.3)
+        
+        # Créer le graphique avec couleurs fixes
+        modes_parts_2050 = list(parts_modales_2050.keys())
+        valeurs_parts_2050 = list(parts_modales_2050.values())
+        couleurs_parts_2050 = [COULEURS_MODES[mode] for mode in modes_parts_2050]
+        
+        fig_parts_2050 = go.Figure(data=[go.Pie(
+            labels=modes_parts_2050,
+            values=valeurs_parts_2050,
+            marker=dict(colors=couleurs_parts_2050),
+            hole=0.3
+        )])
         fig_parts_2050.update_layout(height=400)
-        st.plotly_chart(fig_parts_2050, use_container_width=True,key="figparts2050")
+        st.plotly_chart(fig_parts_2050, use_container_width=True, key="figparts2050")
     
     st.markdown("##### Évolution des parts modales")
     for mode in parts_modales_2025:
@@ -341,7 +451,7 @@ with tab4:
     fig_emissions.add_trace(go.Bar(name='2025', x=df_emissions_moy['Mode'], y=df_emissions_moy['2025 (gCO₂/km)']))
     fig_emissions.add_trace(go.Bar(name='2050', x=df_emissions_moy['Mode'], y=df_emissions_moy['2050 (gCO₂/km)']))
     fig_emissions.update_layout(barmode='group', height=400, yaxis_title="gCO₂/km")
-    st.plotly_chart(fig_emissions, use_container_width=True,key="emission")
+    st.plotly_chart(fig_emissions, use_container_width=True, key="emission")
     
     for mode in emissions_moyennes_2025:
         delta = emissions_moyennes_2050[mode] - emissions_moyennes_2025[mode]
@@ -398,92 +508,148 @@ bilan_elec = calculer_bilan_territoire(
     reduction_poids=0
 )
 
-co2_elec = bilan_elec['co2_total_territoire']
-contrib_elec_voiture = (co2_2025_base - co2_elec) * (st.session_state.scenario['part_ve'] / 100) if st.session_state.scenario['part_ve'] > st.session_state.parc_2025['part_ve'] else 0
-contrib_elec_bus = (co2_2025_base - co2_elec) * (st.session_state.scenario['part_bus_elec'] / 100) if st.session_state.scenario['part_bus_elec'] > st.session_state.parc_bus_2025['part_elec'] else 0
-contrib_elec_velo = (co2_2025_base - co2_elec) * (st.session_state.scenario['part_velo_elec'] / 100) if st.session_state.scenario['part_velo_elec'] > st.session_state.parc_velo_2025['part_elec'] else 0
-contrib_elec = co2_2025_base - co2_elec
+co2_elec = bilan_elec['co2_total']
+contrib_elec_voiture = co2_2025_base - co2_elec
 
-# 2️⃣ Après sobriété (MODIFIÉ : utilise les km après sobriété voiture ET avion)
-km_apres_sobriete = resultats['km_2025_apres_sobriete']
-
-bilan_sobriete = calculer_bilan_territoire(
-    km_apres_sobriete,
+# 2️⃣ Électrification bus
+co2_avant_bus = co2_elec
+parc_bus_only_thermique = {
+    'part_elec': st.session_state.parc_bus_2025['part_elec'],
+    'part_thermique': st.session_state.parc_bus_2025['part_thermique']
+}
+bilan_sans_elec_bus = calculer_bilan_territoire(
+    st.session_state.km_2025_territoire,
     {**st.session_state.emissions, 'emission_thermique': st.session_state.parc_2025['emission_thermique']},
     parc_elec,
     parc_velo_elec,
-    parc_bus_elec,
+    parc_bus_only_thermique,
     reduction_poids=0
 )
+co2_sans_elec_bus = bilan_sans_elec_bus['co2_total']
+contrib_elec_bus = co2_sans_elec_bus - co2_elec
 
-co2_sobriete = bilan_sobriete['co2_total_territoire']
-contrib_sobriete = co2_elec - co2_sobriete
-
-# 3️⃣ Après report modal
-bilan_report = calculer_bilan_territoire(
-    resultats['km_2050_territoire'],
+# 3️⃣ Électrification vélo
+parc_velo_only_classique = {
+    'part_elec': st.session_state.parc_velo_2025['part_elec'],
+    'part_classique': st.session_state.parc_velo_2025['part_classique']
+}
+bilan_sans_elec_velo = calculer_bilan_territoire(
+    st.session_state.km_2025_territoire,
     {**st.session_state.emissions, 'emission_thermique': st.session_state.parc_2025['emission_thermique']},
     parc_elec,
-    parc_velo_elec,
+    parc_velo_only_classique,
     parc_bus_elec,
     reduction_poids=0
 )
+co2_sans_elec_velo = bilan_sans_elec_velo['co2_total']
+contrib_elec_velo = co2_sans_elec_velo - co2_elec
 
-co2_report = bilan_report['co2_total_territoire']
-contrib_report = co2_sobriete - co2_report
-
-# 4️⃣ Après taux de remplissage
-parc_remplissage = parc_elec.copy()
-parc_remplissage['taux_occupation'] = st.session_state.scenario['taux_remplissage']
-
-bilan_remplissage = calculer_bilan_territoire(
-    resultats['km_2050_territoire'],
-    {**st.session_state.emissions, 'emission_thermique': st.session_state.parc_2025['emission_thermique']},
-    parc_remplissage,
-    parc_velo_elec,
-    parc_bus_elec,
-    reduction_poids=0
+# 4️⃣ Sobriété
+from utils.calculations import calculer_km_2050_avec_scenario
+km_sans_sobriete = calculer_km_2050_avec_scenario(
+    st.session_state.km_2025_territoire,
+    reduction_km_voiture=0,
+    reduction_km_avion=0,
+    report_velo=st.session_state.scenario['report_velo'],
+    report_marche=st.session_state.scenario['report_marche'],
+    report_bus=st.session_state.scenario['report_bus'],
+    report_train=st.session_state.scenario['report_train'],
+    report_train_avion=st.session_state.scenario['report_train_avion']
 )
 
-co2_remplissage = bilan_remplissage['co2_total_territoire']
-contrib_remplissage = co2_report - co2_remplissage
-
-# 5️⃣ Après allègement
-bilan_allegement = calculer_bilan_territoire(
-    resultats['km_2050_territoire'],
+bilan_sans_sobriete = calculer_bilan_territoire(
+    km_sans_sobriete,
     {**st.session_state.emissions, 'emission_thermique': st.session_state.parc_2025['emission_thermique']},
-    parc_remplissage,
+    parc_elec,
     parc_velo_elec,
     parc_bus_elec,
     reduction_poids=st.session_state.scenario['reduction_poids']
 )
 
-co2_allegement = bilan_allegement['co2_total_territoire']
-contrib_allegement = co2_remplissage - co2_allegement
+co2_sans_sobriete = bilan_sans_sobriete['co2_total']
+contrib_sobriete = co2_sans_sobriete - resultats['bilan_2050']['co2_total_territoire']
 
-# Graphique en cascade
-if True:  # Toujours afficher
+# 5️⃣ Report modal
+km_sans_report = calculer_km_2050_avec_scenario(
+    st.session_state.km_2025_territoire,
+    reduction_km_voiture=st.session_state.scenario['reduction_km_voiture'],
+    reduction_km_avion=st.session_state.scenario['reduction_km_avion'],
+    report_velo=0,
+    report_marche=0,
+    report_bus=0,
+    report_train=0,
+    report_train_avion=0
+)
+
+bilan_sans_report = calculer_bilan_territoire(
+    km_sans_report,
+    {**st.session_state.emissions, 'emission_thermique': st.session_state.parc_2025['emission_thermique']},
+    parc_elec,
+    parc_velo_elec,
+    parc_bus_elec,
+    reduction_poids=st.session_state.scenario['reduction_poids']
+)
+
+co2_sans_report = bilan_sans_report['co2_total']
+contrib_report = co2_sans_report - resultats['bilan_2050']['co2_total_territoire']
+
+# 6️⃣ Taux de remplissage
+parc_sans_remplissage = {
+    'part_thermique': st.session_state.scenario['part_thermique'],
+    'part_ve': st.session_state.scenario['part_ve'],
+    'taux_occupation': st.session_state.parc_2025['taux_occupation']
+}
+
+bilan_sans_remplissage = calculer_bilan_territoire(
+    resultats['km_2050_territoire'],
+    {**st.session_state.emissions, 'emission_thermique': st.session_state.parc_2025['emission_thermique']},
+    parc_sans_remplissage,
+    parc_velo_elec,
+    parc_bus_elec,
+    reduction_poids=st.session_state.scenario['reduction_poids']
+)
+
+co2_sans_remplissage = bilan_sans_remplissage['co2_total']
+contrib_remplissage = co2_sans_remplissage - resultats['bilan_2050']['co2_total_territoire']
+
+# 7️⃣ Allègement
+bilan_sans_allegement = calculer_bilan_territoire(
+    resultats['km_2050_territoire'],
+    {**st.session_state.emissions, 'emission_thermique': st.session_state.parc_2025['emission_thermique']},
+    {
+        'part_thermique': st.session_state.scenario['part_thermique'],
+        'part_ve': st.session_state.scenario['part_ve'],
+        'taux_occupation': st.session_state.scenario['taux_remplissage']
+    },
+    parc_velo_elec,
+    parc_bus_elec,
+    reduction_poids=0
+)
+
+co2_sans_allegement = bilan_sans_allegement['co2_total']
+contrib_allegement = co2_sans_allegement - resultats['bilan_2050']['co2_total_territoire']
+
+co2_allegement = resultats['bilan_2050']['co2_total_territoire']
+
+# Affichage
+col1, col2 = st.columns([2, 1])
+
+with col1:
+    # Graphique en cascade
     fig_cascade = go.Figure(go.Waterfall(
-        name="Contributions",
+        name="Contribution",
         orientation="v",
-        measure=["absolute", "relative", "relative", "relative", "relative", "relative", "relative", "relative", "total"],
-        x=["CO₂ 2025", 
-           "Électrif. voiture", 
-           "Électrif. bus", 
-           "Électrif. vélo",
-           "Sobriété", 
-           "Report modal", 
-           "Taux remplissage", 
-           "Allègement",
-           "CO₂ 2050"],
+        measure=["absolute",
+                 "relative", "relative", "relative",
+                 "relative", "relative", "relative", "relative",
+                 "total"],
+        x=["2025",
+           "Élec. voitures", "Élec. bus", "Élec. vélos",
+           "Sobriété", "Report modal", "Remplissage", "Allègement",
+           "2050"],
         y=[co2_2025_base,
-           -contrib_elec_voiture,
-           -contrib_elec_bus,
-           -contrib_elec_velo,
-           -contrib_sobriete,
-           -contrib_report,
-           -contrib_remplissage,
-           -contrib_allegement,
+           -contrib_elec_voiture, -contrib_elec_bus, -contrib_elec_velo,
+           -contrib_sobriete, -contrib_report, -contrib_remplissage, -contrib_allegement,
            co2_allegement],
         text=[f"{co2_2025_base:.0f}",
               f"-{contrib_elec_voiture:.0f}" if contrib_elec_voiture > 0 else f"+{abs(contrib_elec_voiture):.0f}",
@@ -508,7 +674,17 @@ if True:  # Toujours afficher
         yaxis_title="Émissions CO₂ (tonnes/an)"
     )
     
-    st.plotly_chart(fig_cascade, use_container_width=True,key="fig_cascade")
+    st.plotly_chart(fig_cascade, use_container_width=True, key="fig_cascade")
+
+with col2:
+    st.markdown("##### 🔍 Détail des contributions")
+    st.metric("Électrification voitures", f"-{contrib_elec_voiture:.0f} t/an")
+    st.metric("Électrification bus", f"-{contrib_elec_bus:.0f} t/an")
+    st.metric("Électrification vélos", f"-{contrib_elec_velo:.0f} t/an")
+    st.metric("Sobriété", f"-{contrib_sobriete:.0f} t/an")
+    st.metric("Report modal", f"-{contrib_report:.0f} t/an")
+    st.metric("Taux remplissage", f"-{contrib_remplissage:.0f} t/an")
+    st.metric("Allègement", f"-{contrib_allegement:.0f} t/an")
 
 st.divider()
 
@@ -557,7 +733,7 @@ fig_jauge = go.Figure(go.Indicator(
     title={'text': "Réduction des émissions (%)"}
 ))
 fig_jauge.update_layout(height=300, font={'size': 16})
-st.plotly_chart(fig_jauge, use_container_width=True,key="fig_jauge")
+st.plotly_chart(fig_jauge, use_container_width=True, key="fig_jauge")
 
 st.divider()
 
