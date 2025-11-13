@@ -186,7 +186,7 @@ st.divider()
 
 # ==================== INDICATEURS PAR HABITANT ====================
 
-st.subheader("👤 Indicateurs par habitant")
+st.subheader("👤 Indicateurs par habitant.e")
 
 col1, col2 = st.columns(2)
 
