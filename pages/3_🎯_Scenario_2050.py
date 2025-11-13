@@ -33,7 +33,7 @@ if not st.session_state.get('bilan_2025_valide', False):
 
 st.set_page_config(page_title="🎯 Scénario 2050", page_icon="", layout="wide")
 
-st.title("🎯 Construire le scénario 2050")
+st.title("🎯 Construire le scénario 2050 pour le territoire Pays Basque")
 st.header("A vous de jouer!")
 
 # Avertissement de non-navigation
