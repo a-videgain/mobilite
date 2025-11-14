@@ -64,7 +64,7 @@ with st.expander("🔧 **LEVIER 1 : Électrification** - Décarboner les parcs",
     st.markdown("##### 🚗 Parc automobile")
     part_ve_temp = st.slider(
         "Part véhicules électriques (%)",
-        0, 100, st.session_state.scenario['part_ve'], 5
+        0, 100, st.session_state.parc_2025['part_ve'], 5
     )
     st.success(f"✅ Part thermique : **{100 - part_ve_temp}%**")
 
