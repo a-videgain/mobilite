@@ -29,7 +29,7 @@ st.session_state.population = st.number_input(
 st.divider()
 
 # Mobilités par habitant
-st.subheader("🛣️ Mobilités d'un.e habitant.e moyen")
+st.subheader("🛣️ Mobilités d'un.e habitant.e moyen du Pays Basque")
 st.caption("Entrez les distances parcourues PAR HABITANT.E et PAR AN")
 
 header_cols = st.columns([2, 2, 2])
