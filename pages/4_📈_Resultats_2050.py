@@ -857,7 +857,7 @@ col1, col2 = st.columns(2)
 
 with col1:
     if st.button("⬅️ Modifier le scénario", use_container_width=True):
-        st.session_state.scenario_2050_valide = False
+        #st.session_state.scenario_2050_valide = False
         st.switch_page("pages/3_🎯_Scenario_2050.py")
 
 with col2:
