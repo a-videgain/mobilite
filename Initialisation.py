@@ -41,7 +41,7 @@ Consultez la [fiche INSEE CAPB](https://www.insee.fr/fr/statistiques/2011101?geo
 - Évaluer l'impact de vos choix sur les émissions de CO₂
 - Comprendre quels leviers sont les plus efficaces pour décarboner la mobilité
 
-### 🔧 Les 5 leviers disponibles
+### Les 5 leviers disponibles
 
 1. **⚡ Électrification** : Remplacer les véhicules thermiques (voitures, bus) par des électriques
 2. **📉 Sobriété** : Réduire le nombre total de km parcourus
