@@ -61,37 +61,35 @@ if 'scenario' not in st.session_state:
 with st.expander("🔧 **LEVIER 1 : Électrification** - Décarboner les parcs", expanded=False):
     st.markdown("**Objectif :** Remplacer les véhicules thermiques par des électriques")
 
-    # 🔑 LOGIQUE : Si scénario jamais validé → partir de 2025, sinon garder valeurs scénario
-    valeur_depart_ve = (st.session_state.parc_2025['part_ve'] 
-                        if not st.session_state.get('scenario_2050_valide', False) 
-                        else st.session_state.scenario['part_ve'])
-    
-    valeur_depart_bus = (st.session_state.parc_bus_2025['part_elec']
-                         if not st.session_state.get('scenario_2050_valide', False)
-                         else st.session_state.scenario['part_bus_elec'])
-    
-    valeur_depart_velo = (st.session_state.parc_velo_2025['part_elec']
-                          if not st.session_state.get('scenario_2050_valide', False)
-                          else st.session_state.scenario['part_velo_elec'])
+    # 🔑 Si scénario jamais validé, initialiser avec valeurs 2025
+    if not st.session_state.get('scenario_2050_valide', False):
+        # Mettre à jour scenario avec valeurs 2025 (ne s'exécute qu'avant première validation)
+        st.session_state.scenario['part_ve'] = st.session_state.parc_2025['part_ve']
+        st.session_state.scenario['part_thermique'] = st.session_state.parc_2025['part_thermique']
+        st.session_state.scenario['part_bus_elec'] = st.session_state.parc_bus_2025['part_elec']
+        st.session_state.scenario['part_bus_thermique'] = st.session_state.parc_bus_2025['part_thermique']
+        st.session_state.scenario['part_velo_elec'] = st.session_state.parc_velo_2025['part_elec']
+        st.session_state.scenario['part_velo_classique'] = st.session_state.parc_velo_2025['part_classique']
+        st.session_state.scenario['taux_remplissage'] = st.session_state.parc_2025['taux_occupation']
 
     st.markdown("##### 🚗 Parc automobile")
     part_ve_temp = st.slider(
         "Part véhicules électriques (%)",
-        0, 100, valeur_depart_ve, 5
+        0, 100, st.session_state.scenario['part_ve'], 5
     )
     st.success(f"✅ Part thermique : **{100 - part_ve_temp}%**")
 
     st.markdown("##### 🚌 Parc bus")
     part_bus_elec_temp = st.slider(
         "Part bus électriques (%)",
-        0, 100, valeur_depart_bus, 5
+        0, 100, st.session_state.scenario['part_bus_elec'], 5
     )
     st.success(f"✅ Part bus thermiques : **{100 - part_bus_elec_temp}%**")
 
     st.markdown("##### 🚴 Parc vélo")
     part_velo_elec_temp = st.slider(
         "Part vélos électriques (%)",
-        0, 100, valeur_depart_velo, 5
+        0, 100, st.session_state.scenario['part_velo_elec'], 5
     )
     st.success(f"✅ Part vélos classiques : **{100 - part_velo_elec_temp}%**")
 
@@ -248,6 +246,7 @@ with col1:
         
 with col3:
     if st.button("✅ Valider le scénario", type="primary", use_container_width=True):
+        # ⚠️ IMPORTANT : Sauvegarder les valeurs AVANT de mettre scenario_2050_valide à True
         st.session_state.scenario.update({
             'part_ve': part_ve_temp,
             'part_thermique': 100 - part_ve_temp,
@@ -260,13 +259,14 @@ with col3:
             'report_velo': report_velo_temp,
             'report_bus': report_bus_temp,
             'report_train': report_train_temp,
-            'report_marche': report_marche_temp,  # NOUVEAU
+            'report_marche': report_marche_temp,
             'report_train_avion': report_train_avion_temp,
             'taux_remplissage': taux_remplissage_temp,
             'reduction_poids': reduction_poids_temp
         })
+        # Mettre le flag APRÈS la sauvegarde
         st.session_state.scenario_2050_valide = True
-        st.rerun()
+        # Ne PAS faire st.rerun() ici - laisser Streamlit continuer
     
 # Si validé, afficher bouton navigation
 if st.session_state.scenario_2050_valide:
