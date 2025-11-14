@@ -32,7 +32,6 @@ if not st.session_state.get('bilan_2025_valide', False):
     st.stop()
 
 st.set_page_config(page_title="🎯 Scénario 2050", page_icon="", layout="wide")
-print(scenario_2050_valide)
 st.title("🎯 Construire le scénario 2050 pour le territoire Pays Basque")
 st.header("A vous de jouer!")
 
@@ -63,6 +62,7 @@ with st.expander("🔧 **LEVIER 1 : Électrification** - Décarboner les parcs",
 
     # 🔑 Si scénario jamais validé, initialiser avec valeurs 2025
     if not st.session_state.get('scenario_2050_valide', False):
+        st.markdown("scénario jamais validé")
         # Mettre à jour scenario avec valeurs 2025 (ne s'exécute qu'avant première validation)
         st.session_state.scenario['part_ve'] = st.session_state.parc_2025['part_ve']
         st.session_state.scenario['part_thermique'] = st.session_state.parc_2025['part_thermique']
