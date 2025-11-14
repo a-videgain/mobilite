@@ -52,7 +52,7 @@ Consultez la [fiche INSEE CAPB](https://www.insee.fr/fr/statistiques/2011101?geo
 
 ###  Livrable attendu
 
-À la fin de ce projet, vous devrez produire un rapport (format docx ou pdf) présentant :
+À la fin de ce projet, vous devrez produire un rapport (format docx ou pdf) de 8 à 12 pages, présentant :
 - **Un scénario 2050** cohérent et justifié permettant d'atteindre l'objectif de -70% d'émissions. Ce scénario sera propre au groupe de travail.
 - **Une analyse** de votre scénario : quels leviers sont les plus efficaces ? Le niveau de chaque levier est-il réaliste ?
 - **Une synthèse** présentant vos choix sur chaque levier
@@ -60,8 +60,9 @@ Consultez la [fiche INSEE CAPB](https://www.insee.fr/fr/statistiques/2011101?geo
 - **Une critique** de cet outil interactif: les limites des hypothèses simplificatrices
 
 
-💡 L'outil permet un **export des données** (fichier .txt) contenant l'ensemble des résultats.
+💡 L'outil permet un **export des données** (fichier .txt) contenant l'ensemble des résultats. 
 Pensez à **sauvegarder régulièrement** vos données en exportant vos résultats !
+Les graphiques peuvent également être exportés et intégrés dans votre rapport.
 
 ###  📰 Bibliographie
 
