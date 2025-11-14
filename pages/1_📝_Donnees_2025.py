@@ -211,13 +211,13 @@ with col1:
 with col2:
     st.session_state.emissions['bus_thermique'] = st.number_input(
         "Émission bus thermique (gCO₂/km/passager ACV)", 0, 300,
-        st.session_state.emissions['bus_thermique'], 5
+        st.session_state.emissions['bus_thermique'], 1
     )
 
 with col3:
     st.session_state.emissions['bus_electrique'] = st.number_input(
         "Émission bus électrique (gCO₂/km/passage ACV)", 0, 100,
-        st.session_state.emissions['bus_electrique'], 5
+        st.session_state.emissions['bus_electrique'], 1
     )
 
 st.divider()
