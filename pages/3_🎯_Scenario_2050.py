@@ -32,7 +32,7 @@ if not st.session_state.get('bilan_2025_valide', False):
     st.stop()
 
 st.set_page_config(page_title="🎯 Scénario 2050", page_icon="", layout="wide")
-
+st.markdown(session_state.scenario_2050_valide) ##test
 st.title("🎯 Construire le scénario 2050 pour le territoire Pays Basque")
 st.header("A vous de jouer!")
 
