@@ -253,7 +253,6 @@ with col2:
 
 if st.session_state.donnees_2025_validees:
     st.success("✅ Données 2025 validées !")
-    st.rerun()
     col1, col2, col3 = st.columns([1, 1, 1])
     with col2:
         if st.button("➡️ Voir le bilan 2025", type="primary", use_container_width=True):
