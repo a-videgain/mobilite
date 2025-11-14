@@ -65,7 +65,7 @@ Pensez à **sauvegarder régulièrement** vos données en exportant vos résulta
 
 ###  📰 Bibliographie
 
-#### 📊 Les chiffres et objectifs nationaux
+#### Les chiffres et objectifs nationaux
 
 - **La consommation d’énergie des transports (2022)** — Ministère de la Transition écologique et de la Cohésion des territoires    👉 [Bilan énergétique 2022](https://www.statistiques.developpement-durable.gouv.fr/edition-numerique/bilan-energetique-2022/30-55-transports--poursuite-de)
 - **Les émissions de gaz à effet de serre du secteur des transports (février 2021)** — Ministère de la Transition écologique et de la Cohésion des territoires    👉 [Article sur les émissions de GES](https://www.notre-environnement.gouv.fr/themes/climat/les-emissions-de-gaz-a-effet-de-serre-et-l-empreinte-carbone-ressources/article/les-emissions-de-gaz-a-effet-de-serre-du-secteur-des-transports)
@@ -77,7 +77,7 @@ Pensez à **sauvegarder régulièrement** vos données en exportant vos résulta
 
 ---
 
-#### 📰 Articles de presse
+#### Articles de presse
 
 - Bigo Aurélien — *La voiture électrique passée au crible de la soutenabilité*, Institut Polytechnique de Paris, Juin 2022    👉 [Lire l’article](https://www.polytechnique-insights.com/tribunes/planete/la-voiture-electrique-passee-au-crible-de-la-soutenabilite/)
 - Bigo Aurélien — *Les véhicules intermédiaires : l’avenir de la mobilité ?*    👉 [Lire sur Bon Pote](https://bonpote.com/les-vehicules-intermediaires-lavenir-de-la-mobilite/)
