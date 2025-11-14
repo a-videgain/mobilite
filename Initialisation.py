@@ -72,7 +72,7 @@ Pensez à **sauvegarder régulièrement** vos données en exportant vos résulta
 - **Stratégie Nationale Bas Carbone (SNBC)** — Ministère de la Transition écologique et de la Cohésion des territoires (octobre 2024)    👉 [SNBC - Politique publique](https://www.ecologie.gouv.fr/politiques-publiques/strategie-nationale-bas-carbone-snbc)
 - **Voitures particulières immatriculées par commune et par type de recharge** — Agence ORE    👉 [Jeu de données](https://www.data.gouv.fr/fr/datasets/voitures-particulieres-immatriculees-par-commune-et-par-type-de-recharge-jeu-de-donnees-aaadata/#/resources)
 - **Déplacements domicile-travail (comparateur national)** — Agence AGAM    👉 [Outil en ligne](https://spot.agam.org/tb/mobilites)
-- **ADEME — Bouger autrement au quotidien**    👉 [Guide ADEME (PDF)](https://librairie.ademe.fr/ged/7338/guide-bouger-autrement-au-quotidien.pdf)
+- **ADEME — Bouger autrement au quotidien**    👉 [Guide ADEME (PDF)](https://librairie.ademe.fr/mobilite-et-transports/8487-comment-bouger-autrement--9791029725050.html)
 
 
 ---
