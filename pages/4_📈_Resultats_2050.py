@@ -210,6 +210,17 @@ with col2:
 
 st.divider()
 
+# ==================== CALCULS POUR GRAPHIQUES ET EXPORT ====================
+# ⚠️ Définir ici pour disponibilité dans l'export TXT plus bas
+
+# Calcul km/hab/an pour chaque mode
+km_hab_2025 = {mode: (km_mkm * 1e6) / st.session_state.population for mode, km_mkm in st.session_state.km_2025_territoire.items()}
+km_hab_2050 = {mode: (km_mkm * 1e6) / st.session_state.population for mode, km_mkm in resultats['km_2050_territoire'].items()}
+
+# Calcul émissions par habitant (en kg)
+emissions_hab_an_2025 = {mode: (co2/st.session_state.population) * 1000 for mode, co2 in resultats['bilan_2025']['detail_par_mode'].items()}
+emissions_hab_an_2050 = {mode: (co2/st.session_state.population) * 1000 for mode, co2 in resultats['bilan_2050']['detail_par_mode'].items()}
+
 # ==================== GRAPHIQUES COMPARAISONS ====================
 
 st.subheader("📊 Comparaisons 2025 vs 2050")
@@ -218,10 +229,6 @@ tab1, tab2, tab3, tab4 = st.tabs(["CO₂ par mode", "Kilomètres par mode", "Par
 
 with tab1:
     st.markdown("#### Émissions CO₂ par mode (kg CO₂/an/habitant)")
-    
-    # Calcul par habitant (en kg)
-    emissions_hab_an_2025 = {mode: (co2/st.session_state.population) * 1000 for mode, co2 in resultats['bilan_2025']['detail_par_mode'].items()}
-    emissions_hab_an_2050 = {mode: (co2/st.session_state.population) * 1000 for mode, co2 in resultats['bilan_2050']['detail_par_mode'].items()}
     
     # Calcul du max pour échelle commune
     max_emissions_hab = max(
@@ -298,10 +305,6 @@ with tab1:
 
 with tab2:
     st.markdown("#### Kilomètres parcourus par mode (km/an/habitant)")
-    
-    # Calcul km/hab/an pour chaque mode
-    km_hab_2025 = {mode: (km_mkm * 1e6) / st.session_state.population for mode, km_mkm in st.session_state.km_2025_territoire.items()}
-    km_hab_2050 = {mode: (km_mkm * 1e6) / st.session_state.population for mode, km_mkm in resultats['km_2050_territoire'].items()}
     
     # Calcul du max pour échelle commune
     max_km_hab = max(
