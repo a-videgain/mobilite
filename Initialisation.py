@@ -20,7 +20,7 @@ st.set_page_config(
 st.title("🚗 Mobilité Pays Basque 2050  - ESTIA")
 
 
-st.header("🎯 Projet Décarbonation des Mobilités")
+st.header("Projet Décarbonation des Mobilités")
 
 st.markdown("""
 ### 📋 Contexte du projet
@@ -33,13 +33,13 @@ Votre mission : construire un scénario de décarbonation cohérent pour le terr
 Consultez la [fiche INSEE CAPB](https://www.insee.fr/fr/statistiques/2011101?geo=EPCI-200067106).
 
 
-### 🎓 Objectifs pédagogiques
+###  Objectifs pédagogiques
 
 À travers cette application, vous allez :
-- 📊 Analyser les données de mobilité actuelles du territoire
-- 🎯 Construire un scénario 2050 en combinant différents leviers d'action
-- 📈 Évaluer l'impact de vos choix sur les émissions de CO₂
-- 🧩 Comprendre quels leviers sont les plus efficaces pour décarboner la mobilité
+- Analyser les données de mobilité actuelles du territoire
+- Construire un scénario 2050 en combinant différents leviers d'action
+- Évaluer l'impact de vos choix sur les émissions de CO₂
+- Comprendre quels leviers sont les plus efficaces pour décarboner la mobilité
 
 ### 🔧 Les 5 leviers disponibles
 
@@ -50,7 +50,7 @@ Consultez la [fiche INSEE CAPB](https://www.insee.fr/fr/statistiques/2011101?geo
 5. **🪶 Allègement** : Réduire le poids des véhicules
 
 
-### 📦 Livrable attendu
+###  Livrable attendu
 
 À la fin de ce projet, vous devrez produire un rapport (format docx ou pdf) présentant :
 - **Un scénario 2050** cohérent et justifié permettant d'atteindre l'objectif de -70% d'émissions. Ce scénario sera propre au groupe de travail.
@@ -88,7 +88,7 @@ Pensez à **sauvegarder régulièrement** vos données en exportant vos résulta
 - Razemon Olivier — *Le système routier, en manque, pris au piège de sa toute puissance*, *Le Monde*, Octobre 2022    👉 [Lire l’article](https://www.lemonde.fr/blog/transports/2022/10/12/le-systeme-routier-en-manque-pris-au-piege-de-sa-toute-puissance/)
 
 
-### 🚀 Démarrage
+###  Démarrage
 
 Cliquez sur "Commencer" pour accéder aux données de mobilité 2025.
 
