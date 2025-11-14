@@ -56,8 +56,8 @@ Consultez la [fiche INSEE CAPB](https://www.insee.fr/fr/statistiques/2011101?geo
 - **Un scénario 2050** cohérent et justifié permettant d'atteindre l'objectif de -70% d'émissions. Ce scénario sera propre au groupe de travail.
 - **Une analyse** de votre scénario : quels leviers sont les plus efficaces ? Le niveau de chaque levier est-il réaliste ?
 - **Une synthèse** présentant vos choix sur chaque levier
-- **Un plan d'action**: les actions à mettre en place par les pouvoirs publics et par les citoyen.ne.s pour parvenir à atteindre les évolutions de chaque levier.
-- **Une critique** de l'outil utilisé: les limites des hypothèses simplificatrices
+- **Un plan d'action**: les actions à mettre en place par les pouvoirs publics et par les citoyen.ne.s pour parvenir à atteindre les évolutions de chaque levier. 👉 Bien citer les sources utilisées, avec lien, date et page de l'information utilisée.
+- **Une critique** de cet outil interactif: les limites des hypothèses simplificatrices
 
 
 💡 L'outil permet un **export des données** (fichier .txt) contenant l'ensemble des résultats.
