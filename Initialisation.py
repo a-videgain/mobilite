@@ -23,7 +23,7 @@ st.title("🚗 Mobilité Pays Basque 2050  - ESTIA")
 st.header("Projet Décarbonation des Mobilités")
 
 st.markdown("""
-### 📋 Contexte du projet
+### Contexte du projet
 
 Dans le cadre de la **Stratégie Nationale Bas-Carbone (SNBC)**, la France s'est fixée un objectif ambitieux : 
 **réduire d'environ 70% les émissions du secteur transport d'ici 2050** par rapport à la situation actuelle. [Stratégie SNBC Transports](https://www.ecologie.gouv.fr/sites/default/files/documents/Fiche%20SNBC%20Transports_0.pdf).
