@@ -40,25 +40,25 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     La **marche à pied** est utilisé pour **0,6 déplacement quotidien** sur des distances très courtes de **1000 mètres en moyenne** par trajet. 
     Le **vélo**, malgré une forte croissance ces dernières années (usage multiplié par 2 en 5 ans), reste peu utilisé avec **0,1 déplacement par jour** sur environ **3,1 km par trajet** en moyenne.
     
-    Sources : Enquête Mobilité des Personnes 2019 ; 
-    Enquêtes Ménages et Déplacements (EMD)  basco-landaise 2010 [EDM2009](https://www.calameo.com/books/000191469aa6d36f2cc24)
-    Déplacements domicile-travail (comparateur national) — Agence AGAM [Outil en ligne](https://spot.agam.org/tb/mobilites)
+    Source : Enquête Mobilité des Personnes 2019 [EMP2019](https://www.statistiques.developpement-durable.gouv.fr/resultats-detailles-de-lenquete-mobilite-des-personnes-de-2019)
+    Enquêtes Ménages et Déplacements (EMD)  basco-landaise 2010 [EMD2009](https://www.calameo.com/books/000191469aa6d36f2cc24)
+   Comparateur national de déplacements domicile-travail — Agence AGAM [Outil en ligne](https://spot.agam.org/tb/mobilites)
 
     ---
     
     ### Mobilité en train et en avion
     
     Pour les **déplacements ferroviaires**, les habitant.e.s du Pays Basque effectuent en moyenne **54,75 trajets en train par an**, avec une distance moyenne de **11 km par trajet**.
-    Concernant le **transport aérien**, les données  indiquent une fréquentation moyenne de **3 vols par habitant.e et par an**, avec une distance moyenne de **950 km par vol**, principalement pour des trajets internationaux.
-    
-    *Sources : 
+    Concernant le **transport aérien**, les données  indiquent une fréquentation moyenne de **2,48 vols par habitant.e et par an**, avec une distance moyenne de **1100 km par vol**, principalement pour des trajets internationaux.
+    Ce chiffre moyen cache des disparités: car seuls 5% utilisent régulièrement l'avion et une majorité (59%) de la population ne le prend jamais ou presque jamais (strictement moins d'une fois par an).
+    *Sources* : Part des personnes prenant l'avion en France en 2024, selon la fréquence d'utilisation [lien](https://fr.statista.com/statistiques/478796/part-des-francais-voyageant-en-avion/)
     
     ---
     
     ### 🚗 État du parc de véhicules (2025)
     
     Au 1er janvier 2025, le parc automobile du territoire compte **3% de véhicules 100% électriques** et **97% de véhicules 
-    thermiques** (par hypothèse, les véhicules hybrides sont considérés ici comme des véhicules thermiques), selon les données du fichier national des immatriculations. Le **taux d'occupation 
+    thermiques** (par hypothèse, les véhicules hybrides sont considérés comme des véhicules thermiques), selon les données du fichier national des immatriculations. Le **taux d'occupation 
     moyen des voitures particulières** est de **1,1 personne par véhicule** pour les déplacements quotidiens. 
     La part de temps passé à l'arrêt par voiture (stationnement) peut être calculé à partir de la distance totale parcourue par une voiture et une estimation de vitesse moyenne. 
     
@@ -67,11 +67,9 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     Concernant les **vélos**, les ventes récentes montrent que **15% du parc est constitué de vélos à assistance électrique (VAE)** 
     et **85% de vélos classiques**. 
     
-    *Sources : ADEME Base Carbone v13.0 (2024) ; AAA Data (immatriculations) ; GART, Observatoire des transports 2024 ; 
-    Union Sport & Cycle*
-    - **Voitures particulières immatriculées par commune et par type de recharge** — Agence ORE    👉 [Jeu de données](https://www.data.gouv.fr/fr/datasets/voitures-particulieres-immatriculees-par-commune-et-par-type-de-recharge-jeu-de-donnees-aaadata/#/resources)
+    *Sources : 
+    - **Voitures particulières immatriculées par commune et par type de recharge** — Agence ORE  [Jeu de données](https://www.data.gouv.fr/fr/datasets/voitures-particulieres-immatriculees-par-commune-et-par-type-de-recharge-jeu-de-donnees-aaadata/#/resources)
     - **Part des bus électriques TXIK TXAK** [Electrification bus CAPB](https://www.communaute-paysbasque.fr/actualites/toutes-les-actualites/actualite/le-trambus-colonne-vertebrale-du-reseau-txik-txak-transforme-la-ville-et-arrive-a-bassussarry-en-2026)
-
 
     ---
     
