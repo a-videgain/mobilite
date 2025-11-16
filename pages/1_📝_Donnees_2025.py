@@ -42,7 +42,7 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     
     Source : Enquête Mobilité des Personnes 2019 [EMP2019](https://www.statistiques.developpement-durable.gouv.fr/resultats-detailles-de-lenquete-mobilite-des-personnes-de-2019)
     Enquêtes Ménages et Déplacements (EMD)  basco-landaise 2010 [EMD2009](https://www.calameo.com/books/000191469aa6d36f2cc24)
-   Comparateur national de déplacements domicile-travail — Agence AGAM [Outil en ligne](https://spot.agam.org/tb/mobilites)
+    Comparateur national de déplacements domicile-travail — Agence AGAM [Outil en ligne](https://spot.agam.org/tb/mobilites)
 
     ---
     
@@ -51,8 +51,10 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     Pour les **déplacements ferroviaires**, les habitant.e.s du Pays Basque effectuent en moyenne **20 trajets en train par an**, avec une distance moyenne de **80 km par trajet**.
     Concernant le **transport aérien**, les données  indiquent une fréquentation moyenne de **2,48 vols par habitant.e et par an**, avec une distance moyenne de **1100 km par vol**, principalement pour des trajets internationaux.
     Ce chiffre moyen cache des disparités: car seuls 5% utilisent régulièrement l'avion et une majorité (59%) de la population ne le prend jamais ou presque jamais (strictement moins d'une fois par an).
-    *Sources* : Part des personnes prenant l'avion en France en 2024, selon la fréquence d'utilisation [lien](https://fr.statista.com/statistiques/478796/part-des-francais-voyageant-en-avion/)
-    Autorité de Régulation des Transports [bilan ferrivoiaire 2023](https://www.autorite-transports.fr/wp-content/uploads/2024/07/art_bilan-ferroviaire-france-2023-a-mi-2024.pdf)
+    *Sources* : 
+    - Part des personnes prenant l'avion en France en 2024, selon la fréquence d'utilisation [lien](https://fr.statista.com/statistiques/478796/part-des-francais-voyageant-en-avion/)
+    - Autorité de Régulation des Transports [bilan ferrivoiaire 2023](https://www.autorite-transports.fr/wp-content/uploads/2024/07/art_bilan-ferroviaire-france-2023-a-mi-2024.pdf)
+   
     ---
     
     ### 🚗 État du parc de véhicules (2025)
