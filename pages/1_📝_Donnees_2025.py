@@ -16,7 +16,6 @@ if 'initialized' not in st.session_state:
     initialiser_session()
     
 st.title("🚗 Décarboner les mobilités au Pays Basque \n **Quelle est la situation de départ** ? ")
-st.header("📝 Étape 1 : Saisie des données 2025")
 
 
 # NOUVEAU BLOC - Sources pour les étudiants
@@ -39,7 +38,7 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     
     Sources : CEREMA, Enquête Mobilité des Personnes 2019 ; INSEE, données mobilité Nouvelle-Aquitaine 2022, 
     Enquêtes Ménages et Déplacements (EMD)  basco-landaise 2010 [EDM2009](https://www.calameo.com/books/000191469aa6d36f2cc24)
-    Déplacements domicile-travail (comparateur national)** — Agence AGAM    👉 [Outil en ligne](https://spot.agam.org/tb/mobilites)
+    Déplacements domicile-travail (comparateur national) — Agence AGAM [Outil en ligne](https://spot.agam.org/tb/mobilites)
 
     ---
     
@@ -90,6 +89,7 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     """)
 
 
+st.header("📝 Étape 1 : Saisie des données 2025")
 
 st.info("Cette étape consiste à établir le bilan mobilités du Pays Basque")
 # Population
