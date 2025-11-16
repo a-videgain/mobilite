@@ -50,7 +50,7 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     ### Mobilité en train et en avion
     
      Pour les **déplacements ferroviaires**, les habitant.e.s du Pays Basque effectuent en moyenne **20 trajets en train par an**, avec une distance moyenne de **80 km par trajet**.
-     Concernant le **transport aérien**, les données  indiquent une fréquentation moyenne de **2,48 vols par habitant.e et par an**, avec une distance moyenne de **1100 km par vol**, principalement pour des trajets internationaux.
+         Concernant le **transport aérien**, les données  indiquent une fréquentation moyenne de **2,48 vols par habitant.e et par an**, avec une distance moyenne de **1100 km par vol**, principalement pour des trajets internationaux.
     Ce chiffre moyen cache des disparités: car seuls 5% utilisent régulièrement l'avion et une majorité (59%) de la population ne le prend jamais ou presque jamais (strictement moins d'une fois par an).
     
     *Sources* :
