@@ -68,7 +68,7 @@ Les graphiques peuvent également être exportés et intégrés dans votre rappo
 
 #### Les chiffres et objectifs nationaux
 
-- **La consommation d’énergie des transports (2023)** — Ministère de la Transition écologique et de la Cohésion des territoires    👉 [Bilan énergétique 2022](https://www.statistiques.developpement-durable.gouv.fr/edition-numerique/bilan-energetique-2022/30-55-transports--poursuite-de)
+- **La consommation d’énergie des transports (2023)** — Ministère de la Transition écologique et de la Cohésion des territoires    👉 [Bilan énergétique 2023](https://www.statistiques.developpement-durable.gouv.fr/edition-numerique/bilan-energetique-2022/30-55-transports--poursuite-de)
 - **Les émissions de gaz à effet de serre du secteur des transports (février 2021)** — Ministère de la Transition écologique et de la Cohésion des territoires    👉 [Article sur les émissions de GES](https://www.notre-environnement.gouv.fr/themes/climat/les-emissions-de-gaz-a-effet-de-serre-et-l-empreinte-carbone-ressources/article/les-emissions-de-gaz-a-effet-de-serre-du-secteur-des-transports)
 - **Stratégie Nationale Bas Carbone (SNBC)** — Ministère de la Transition écologique et de la Cohésion des territoires (août 2025)    👉 [SNBC - Politique publique](https://www.ecologie.gouv.fr/politiques-publiques/strategie-nationale-bas-carbone-snbc)
 - **ADEME — Bouger autrement au quotidien**    👉 [Guide ADEME (PDF)](https://librairie.ademe.fr/mobilite-et-transports/8487-comment-bouger-autrement--9791029725050.html)
