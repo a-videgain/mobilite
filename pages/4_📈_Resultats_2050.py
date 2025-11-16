@@ -768,6 +768,7 @@ else:
     """)
 
 st.divider()
+
 # ==================== EXPORT DES DONNÉES ====================
 
 st.subheader("💾 Export des données")
@@ -880,7 +881,6 @@ with col1:
         use_container_width=True
     )
 
-st.divider()
 st.divider()
 # ==================== NAVIGATION ====================
 
