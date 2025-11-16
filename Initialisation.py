@@ -30,7 +30,7 @@ Dans le cadre de la **Stratégie Nationale Bas-Carbone (SNBC)**, la France s'est
 
 Vous êtes des **consultant.e.s en mobilités**.
 Votre mission : construire un scénario de décarbonation cohérent pour le territoire Pays Basque en mobilisant différents leviers d'action et évaluer la capacité de votre scénario à atteindre l'objectif national.
-Consultez la [fiche INSEE CAPB](https://www.insee.fr/fr/statistiques/2011101?geo=EPCI-200067106).
+
 
 
 ###  Objectifs pédagogiques
