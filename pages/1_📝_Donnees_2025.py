@@ -81,9 +81,10 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     ---
     ###  Les facteurs d'émissions
     
-    Les émissions sont considérées par km, sur l'ensemble du cycle de vie (ACV) de chaque mode.
+    - Les émissions sont considérées par km, sur l'ensemble du cycle de vie (ACV) de chaque mode.
     Il est recommandé d'utiliser les valeurs de références de l'Agence de l'environnement et de la maîtrise de l'énergie (ADEME) pour les émissions pour chaque mode: [Impact CO2 ADEME](https://impactco2.fr/outils/transport).
-    Attention aux unités. Les données doivent ici être entrées en gCO₂/km.
+    
+    - Attention aux unités. Les données doivent ici être entrées en gCO₂/km.
     Par hypothèse, seuls les principaux modes de transport sont considérés: marche, vélo, bus, train, avion, voiture.
     
     """)
