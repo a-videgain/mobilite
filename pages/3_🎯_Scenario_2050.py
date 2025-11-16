@@ -163,11 +163,19 @@ with st.expander("🔧 **LEVIER 3 : Report modal** - Transférer vers modes déc
     report_marche_temp = st.slider("🚶 Voiture → Marche (%)", 0, 50, st.session_state.scenario.get('report_marche', 0), 1)  # NOUVEAU
 
     report_total_voiture = report_velo_temp + report_bus_temp + report_train_temp + report_marche_temp  # MODIFIÉ
-    if report_total_voiture > 0:
+
+    if report_total_voiture > 100:
+    st.error(f"❌ **ATTENTION : Report total = {report_total_voiture}% (> 100%) - Impossible !**")
+    elif report_total_voiture > 0:
         st.success(f"✅ **Report total depuis voiture : {report_total_voiture}%**")
     else:
         st.info("**Report total depuis voiture : 0%**")
 
+
+
+
+
+    
     st.markdown("##### ✈️ Report depuis l'avion")
     report_train_avion_temp = st.slider("🚆 Avion → Train (%)", 0, 100, st.session_state.scenario['report_train_avion'], 1)
     if report_train_avion_temp > 0:
