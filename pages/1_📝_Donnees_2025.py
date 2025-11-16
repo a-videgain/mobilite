@@ -41,9 +41,9 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     Le **vélo**, malgré une forte croissance ces dernières années (usage multiplié par 2 en 5 ans), reste peu utilisé avec **0,1 déplacement par jour** sur environ **3,1 km par trajet** en moyenne.
     
     *Sources* :
-    -Enquête Mobilité des Personnes 2019 [EMP2019](https://www.statistiques.developpement-durable.gouv.fr/resultats-detailles-de-lenquete-mobilite-des-personnes-de-2019)
-    -Enquête Ménages et Déplacements (EMD) basco-landaise 2010 [EMD2010](https://www.calameo.com/books/000191469aa6d36f2cc24)
-    -Comparateur national de déplacements domicile-travail — Agence AGAM [Outil en ligne](https://spot.agam.org/tb/mobilites)
+    - Enquête Mobilité des Personnes 2019 [EMP2019](https://www.statistiques.developpement-durable.gouv.fr/resultats-detailles-de-lenquete-mobilite-des-personnes-de-2019)
+    - Enquête Ménages et Déplacements (EMD) basco-landaise 2010 [EMD2010](https://www.calameo.com/books/000191469aa6d36f2cc24)
+    - Comparateur national de déplacements domicile-travail — Agence AGAM [Outil en ligne](https://spot.agam.org/tb/mobilites)
 
     ---
     
@@ -54,8 +54,8 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     Ce chiffre moyen cache des disparités: car seuls 5% utilisent régulièrement l'avion et une majorité (59%) de la population ne le prend jamais ou presque jamais (strictement moins d'une fois par an).
     
     *Sources* :
-    -Part des personnes prenant l'avion en France en 2024, selon la fréquence d'utilisation [lien](https://fr.statista.com/statistiques/478796/part-des-francais-voyageant-en-avion/).
-    -Bilan ferroviaire 203 [Autorité de Régulation des Transports](https://www.autorite-transports.fr/wp-content/uploads/2024/07/art_bilan-ferroviaire-france-2023-a-mi-2024.pdf)
+    - Part des personnes prenant l'avion en France en 2024, selon la fréquence d'utilisation [lien](https://fr.statista.com/statistiques/478796/part-des-francais-voyageant-en-avion/).
+    - Bilan ferroviaire 203 [Autorité de Régulation des Transports](https://www.autorite-transports.fr/wp-content/uploads/2024/07/art_bilan-ferroviaire-france-2023-a-mi-2024.pdf)
    
     ---
     
