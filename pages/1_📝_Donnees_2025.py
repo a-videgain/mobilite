@@ -24,6 +24,9 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
 
     ### La Communauté d'Agglomération Pays Basque (CAPB)
     Ce travail se concentre sur les habitant.e.s de la Communauté d'Agglomération Pays Basque.
+    La Communauté Pays Basque est née le 1er janvier 2017 de la fusion des dix anciennes intercommunalités du Pays Basque. Sa création est le fruit de l’élan collectif des élus et de la société civile, mobilisés de longue date pour la reconnaissance institutionnelle du Pays Basque.  
+    Elle fédère 158 communes sur un territoire de près de 3000 km2 ce qui en fait la plus grande Communauté d’Agglomération de France en nombre de communes et en superficie ! 
+    Elle est aussi la 5ème Communauté d'Agglomération la plus peuplée de France et le 2ème bassin de population de Nouvelle-Aquitaine, après Bordeaux Métropole.
     Pour les données de population, consultez la [fiche INSEE CAPB](https://www.insee.fr/fr/statistiques/2011101?geo=EPCI-200067106).
     
     
