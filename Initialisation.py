@@ -29,7 +29,7 @@ Dans le cadre de la **Stratégie Nationale Bas-Carbone (SNBC)**, la France s'est
 **réduire d'environ 70% les émissions du secteur transport d'ici 2050** par rapport à la situation actuelle. [Stratégie SNBC Transports](https://www.ecologie.gouv.fr/sites/default/files/documents/Fiche%20SNBC%20Transports_0.pdf).
 
 Vous êtes des **consultant.e.s en mobilités**.
-Votre mission : construire un scénario de décarbonation cohérent pour le territoire Pays Basque en mobilisant différents leviers d'action et évaluer la capacité de votre scénario à atteindre l'objectif national.
+Votre mission : construire un scénario de décarbonation cohérent pour le territoire Pays Basque en mobilisant différents leviers d'action, évaluer la capacité de votre scénario à atteindre l'objectif national et indiquer les actions à mettre en oeuvre pour réaliser votre scénario.
 
 
 
