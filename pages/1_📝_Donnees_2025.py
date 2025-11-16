@@ -41,7 +41,6 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     Le **vélo**, malgré une forte croissance ces dernières années (usage multiplié par 2 en 5 ans), reste peu utilisé avec **0,1 déplacement par jour** sur environ **3,1 km par trajet** en moyenne.
     
     *Sources* : Enquête Mobilité des Personnes 2019 [EMP2019](https://www.statistiques.developpement-durable.gouv.fr/resultats-detailles-de-lenquete-mobilite-des-personnes-de-2019)
-    
     Enquêtes Ménages et Déplacements (EMD) basco-landaise 2010 [EMD2009](https://www.calameo.com/books/000191469aa6d36f2cc24)
     Comparateur national de déplacements domicile-travail — Agence AGAM [Outil en ligne](https://spot.agam.org/tb/mobilites)
 
