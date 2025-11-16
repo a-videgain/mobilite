@@ -221,7 +221,8 @@ for mode, part in parts_2025.items():
 
 # Convertir en DataFrame et exporter
 df_export = pd.DataFrame(data_export)
-csv = df_export.to_csv(index=False, header=False, sep=';', decimal=',').encode('utf-8')
+csv = df_export.to_csv(index=False, sep=';', decimal=',').encode('utf-8-sig')  # MODIFIÉ
+
 
 st.download_button(
     label="📥 Télécharger le diagnostic 2025 (CSV)",
