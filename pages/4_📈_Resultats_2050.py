@@ -858,14 +858,6 @@ for mode in ['voiture', 'bus', 'train', 'velo', 'avion', 'marche']:
     ])
 data_export.append(['', ''])
 
-# Contribution des leviers
-data_export.append(['CONTRIBUTION DES LEVIERS (% de réduction)', ''])
-data_export.append(['Sobriété', f"{gain_sobriete:.1f}"])
-data_export.append(['Report modal', f"{gain_report:.1f}"])
-data_export.append(['Électrification', f"{gain_electrification:.1f}"])
-data_export.append(['Taux remplissage', f"{gain_remplissage:.1f}"])
-data_export.append(['Allègement', f"{gain_allegement:.1f}"])
-data_export.append(['TOTAL', f"{gain_sobriete + gain_report + gain_electrification + gain_remplissage + gain_allegement:.1f}"])
 
 # Convertir en DataFrame et exporter
 df_export = pd.DataFrame(data_export)
