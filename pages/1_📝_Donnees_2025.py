@@ -27,22 +27,22 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     Pour les données de population, consultez la [fiche INSEE CAPB](https://www.insee.fr/fr/statistiques/2011101?geo=EPCI-200067106).
     
     
-    ### Mobilité du quotidien (courtes distances)
+    ### Les pratiques des habitants du territoire
     
     Selon l'Enquête Mobilité des Personnes (EMP) française de 2019 et l'Enquête Ménages et Déplacements (EMD) de 2010,
-    il est estimé que les habitant.e.s de la Communauté d'Agglomération Pays Basque effectuent en moyenne **1,1 déplacements quotidiens 
-    en voiture** sur une distance moyenne de **23,3 km par trajet**.
-    L'usage des **transports en commun urbains** (bus, trambus) représente **0,2 déplacements par jour** avec une distance moyenne par trajet de **4,5 km**. Il est le plus élevé pour les déplacements entre le domicile et le lieu de scolarité (école, université).
-    La **marche à pied** reste le mode le plus fréquent avec **1,4 déplacements quotidiens** sur des distances très courtes de **390 mètres en moyenne**. 
-    Le **vélo** est utilisé pour **0,7 déplacements par jour** sur environ **1,57 km par trajet** en moyenne.
+    il est estimé que les habitant.e.s de la Communauté d'Agglomération Pays Basque effectuent en moyenne **2,1 déplacements quotidiens 
+    en voiture** sur une distance moyenne de **12,5 km par trajet**.
+    L'usage des **transports en commun urbains** (bus, trambus) représente **0,2 déplacement par jour** avec une distance moyenne par trajet de **4,5 km**. Il est le plus élevé pour les déplacements entre le domicile et le lieu de scolarité (école, université).
+    La **marche à pied** est utilisé pour **0,6 déplacement quotidien** sur des distances très courtes de **1000 mètres en moyenne** par trajet. 
+    Le **vélo** est utilisé pour **0,1 déplacement par jour** sur environ **3,1 km par trajet** en moyenne.
     
-    Sources : CEREMA, Enquête Mobilité des Personnes 2019 ; INSEE, données mobilité Nouvelle-Aquitaine 2022, 
+    Sources : Enquête Mobilité des Personnes 2019 ; 
     Enquêtes Ménages et Déplacements (EMD)  basco-landaise 2010 [EDM2009](https://www.calameo.com/books/000191469aa6d36f2cc24)
     Déplacements domicile-travail (comparateur national) — Agence AGAM [Outil en ligne](https://spot.agam.org/tb/mobilites)
 
     ---
     
-    ### ✈️ Mobilité longue distance (train, avion)
+    ### Mobilité en train et en avion
     
     Pour les **déplacements ferroviaires**, les habitants des territoires côtiers du Pays Basque effectuent 
     en moyenne **54,75 trajets en train par an**, principalement sur les liaisons Hendaye-Bayonne et vers Bordeaux, 
