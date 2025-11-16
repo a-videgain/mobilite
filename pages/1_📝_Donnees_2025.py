@@ -74,7 +74,8 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     ---
     
     ⚠️ **Consignes :** Utilisez ces informations pour remplir les champs ci-dessous. Certaines données nécessitent 
-    des calculs simples (par exemple : déplacements/jour × distance/déplacement × 365 jours = km/an).
+    des calculs simples (par exemple : déplacements/jour × distance/déplacement × 365 jours = km/an)
+    Conseil: faire les calculs dans un fichier à part (Excel par exemple) avant de les insérer ici.
 
     ---
     ###  Les facteurs d'émissions
