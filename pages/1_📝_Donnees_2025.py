@@ -24,12 +24,11 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     st.markdown("""
     ### 🚶 Mobilité du quotidien (courtes distances)
     
-    Selon l'Enquête Mobilité des Personnes (EMP) de 2019 adaptée aux territoires périurbains du Sud-Ouest, 
-    les habitants des agglomérations comparables au Pays Basque effectuent en moyenne **1,1 déplacements quotidiens 
+    Selon l'Enquête Mobilité des Personnes (EMP) française de 2019 et l'Enquête Ménages Déplacement (EMD) de 2009-2010,
+    il est estimé que les habitant.e.s de la Communauté d'Agglomération Pays Basque effectuent en moyenne **1,1 déplacements quotidiens 
     en voiture** sur une distance moyenne de **23,3 km par trajet**. L'usage des **transports en commun urbains** 
-    (bus, trambus) représente **0,6 déplacements par jour** avec une distance moyenne de **0,72 km**, 
-    reflétant principalement des trajets de rabattement. La **marche à pied** reste le mode le plus fréquent 
-    avec **1,4 déplacements quotidiens** sur des distances très courtes de **390 mètres en moyenne**. 
+    (bus, trambus) représente **0,2 déplacements par jour** avec une distance moyenne par trajet de **4,5 km**. L'usage des transports en commune est le plus élevé pour les déplacements entre le domicile et le lieu de scolarité.
+    La **marche à pied** reste le mode le plus fréquent avec **1,4 déplacements quotidiens** sur des distances très courtes de **390 mètres en moyenne**. 
     Le **vélo** est utilisé pour **0,7 déplacements par jour** sur environ **1,57 km par trajet** en moyenne.
     
     *Sources : CEREMA, Enquête Mobilité des Personnes 2019 ; INSEE, données mobilité Nouvelle-Aquitaine 2022*
