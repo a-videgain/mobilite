@@ -27,13 +27,14 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     La Communauté Pays Basque est née le 1er janvier 2017 de la fusion des dix anciennes intercommunalités du Pays Basque. Sa création est le fruit de l’élan collectif des élus et de la société civile, mobilisés de longue date pour la reconnaissance institutionnelle du Pays Basque.  
     Elle fédère 158 communes sur un territoire de près de 3000 km2 ce qui en fait la plus grande Communauté d’Agglomération de France en nombre de communes et en superficie ! 
     Elle est aussi la 5ème Communauté d'Agglomération la plus peuplée de France et le 2ème bassin de population de Nouvelle-Aquitaine, après Bordeaux Métropole.
-    Pour les données de population, consultez la [fiche INSEE CAPB](https://www.insee.fr/fr/statistiques/2011101?geo=EPCI-200067106).
+    
+    *Sources:* Pour les données de population, consultez la [fiche INSEE CAPB](https://www.insee.fr/fr/statistiques/2011101?geo=EPCI-200067106).
     
     
-    ### Les pratiques des habitants du territoire
+    ### Les pratiques des habitant.e.s du territoire
     
     Selon l'Enquête Mobilité des Personnes (EMP) française de 2019 et l'Enquête Ménages et Déplacements (EMD) de 2010,
-    il est estimé que les habitant.e.s de la Communauté d'Agglomération Pays Basque effectuent en moyenne **2,1 déplacements quotidiens 
+    il est estimé qu'un.e habitant.e.s de la Communauté d'Agglomération Pays Basque effectue en moyenne **2,1 déplacements quotidiens 
     en voiture** sur une distance moyenne de **12,5 km par trajet**.
     L'usage des **transports en commun urbains** (bus, trambus) représente **0,2 déplacement par jour** avec une distance moyenne par trajet de **4,5 km**. Il est le plus élevé pour les déplacements entre le domicile et le lieu de scolarité (école, université).
     La **marche à pied** est utilisé pour **0,6 déplacement quotidien** sur des distances très courtes de **1000 mètres en moyenne** par trajet. 
@@ -47,12 +48,8 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     
     ### Mobilité en train et en avion
     
-    Pour les **déplacements ferroviaires**, les habitants des territoires côtiers du Pays Basque effectuent 
-    en moyenne **54,75 trajets en train par an**, principalement sur les liaisons Hendaye-Bayonne et vers Bordeaux, 
-    avec une distance moyenne de **11 km par trajet** pour les déplacements régionaux. Concernant le **transport aérien**, 
-    les données de l'aéroport Biarritz-Pays-Basque indiquent une fréquentation moyenne de **5,11 vols par habitant et par an** 
-    (incluant allers et retours), avec une distance moyenne de **503 km par vol** (destinations principales : Paris, 
-    capitales européennes).
+    Pour les **déplacements ferroviaires**, les habitant.e.s du Pays Basque effectuent en moyenne **54,75 trajets en train par an**, avec une distance moyenne de **11 km par trajet**.
+    Concernant le **transport aérien**, les données  indiquent une fréquentation moyenne de **3 vols par habitant.e et par an**, avec une distance moyenne de **950 km par vol**, principalement pour des trajets internationaux.
     
     *Sources : 
     
@@ -63,7 +60,7 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     Au 1er janvier 2025, le parc automobile du territoire compte **3% de véhicules 100% électriques** et **97% de véhicules 
     thermiques** (par hypothèse, les véhicules hybrides sont considérés ici comme des véhicules thermiques), selon les données du fichier national des immatriculations. Le **taux d'occupation 
     moyen des voitures particulières** est de **1,1 personne par véhicule** pour les déplacements quotidiens. 
-    La part de temps passé à l'arrêt par voiture (stationnement) peut être calculé à partir de la distance totale parcourue par une voiture et une estimation de vitesse moyenne . 
+    La part de temps passé à l'arrêt par voiture (stationnement) peut être calculé à partir de la distance totale parcourue par une voiture et une estimation de vitesse moyenne. 
     
     Pour les **transports collectifs urbains**, la flotte de bus TXIK TXAK compte **43% de bus électriques**.
     
