@@ -31,7 +31,8 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     La **marche à pied** reste le mode le plus fréquent avec **1,4 déplacements quotidiens** sur des distances très courtes de **390 mètres en moyenne**. 
     Le **vélo** est utilisé pour **0,7 déplacements par jour** sur environ **1,57 km par trajet** en moyenne.
     
-    *Sources : CEREMA, Enquête Mobilité des Personnes 2019 ; INSEE, données mobilité Nouvelle-Aquitaine 2022*
+    *Sources : CEREMA, Enquête Mobilité des Personnes 2019 ; INSEE, données mobilité Nouvelle-Aquitaine 2022*, 
+    Enquête Ménages Déplacement basco-landais (https://www.calameo.com/books/000191469aa6d36f2cc24)
     
     ---
     
