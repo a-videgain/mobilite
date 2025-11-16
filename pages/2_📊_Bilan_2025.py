@@ -139,99 +139,97 @@ with col2:
 st.divider()
 
 # ==================== EXPORT DONNÉES DIAGNOSTIC 2025 ====================
-
 st.subheader("💾 Export du diagnostic 2025")
 st.info("📥 Sauvegardez vos données avant de passer à l'étape suivante")
 
-# Calcul km par habitant par mode
-km_hab_2025 = {mode: (km_mkm * 1e6) / st.session_state.population for mode, km_mkm in st.session_state.km_2025_territoire.items()}
+# Préparer les données pour export CSV
+data_export = []
 
-# Préparer le contenu texte
-export_diagnostic = f"""==============================================
-MOBILITÉ PAYS BASQUE - DIAGNOSTIC 2025
-Date export ; {pd.Timestamp.now().strftime('%Y-%m-%d %H:%M')}
-==============================================
+# Territoire
+data_export.append(['TERRITOIRE', ''])
+data_export.append(['Population (habitants)', st.session_state.population])
+data_export.append(['', ''])
 
---- TERRITOIRE ---
-Population;{format_nombre(st.session_state.population)} habitants
+# Mobilités par habitant
+data_export.append(['MOBILITÉS PAR HABITANT (km/an/hab)', ''])
+for mode, km in st.session_state.km_2025_habitant.items():
+    data_export.append([mode.capitalize(), km])
+data_export.append(['TOTAL', sum(st.session_state.km_2025_habitant.values())])
+data_export.append(['', ''])
 
---- MOBILITÉS PAR HABITANT (km/an/hab) ---
-Voiture;{st.session_state.km_2025_habitant['voiture']:>6} km/an
-Bus/TC;{st.session_state.km_2025_habitant['bus']:>6} km/an
-Train;{st.session_state.km_2025_habitant['train']:>6} km/an
-Vélo;{st.session_state.km_2025_habitant['velo']:>6} km/an
-Avion;{st.session_state.km_2025_habitant['avion']:>6} km/an
-Marche;{st.session_state.km_2025_habitant['marche']:>6} km/an
-TOTAL;{sum(st.session_state.km_2025_habitant.values()):>6} km/an
+# Déplacements par habitant
+data_export.append(['DÉPLACEMENTS PAR HABITANT (dépl/an/hab)', ''])
+for mode, nb in st.session_state.nb_depl_hab.items():
+    data_export.append([mode.capitalize(), f"{nb:.1f}"])
+data_export.append(['TOTAL', f"{sum(st.session_state.nb_depl_hab.values()):.1f}"])
+data_export.append(['', ''])
 
---- DÉPLACEMENTS PAR HABITANT (dépl/an/hab) ---
-Voiture;{st.session_state.nb_depl_hab['voiture']:>6.1f} dépl/an
-Bus/TC ;{st.session_state.nb_depl_hab['bus']:>6.1f} dépl/an
-Train; {st.session_state.nb_depl_hab['train']:>6.1f} dépl/an
-Vélo;{st.session_state.nb_depl_hab['velo']:>6.1f} dépl/an
-Avion;{st.session_state.nb_depl_hab['avion']:>6.1f} dépl/an
-Marche;{st.session_state.nb_depl_hab['marche']:>6.1f} dépl/an
-TOTAL;{sum(st.session_state.nb_depl_hab.values()):>6.1f} dépl/an
+# Parc automobile
+data_export.append(['PARC AUTOMOBILE 2025', ''])
+data_export.append(['Part véhicules électriques (%)', st.session_state.parc_2025['part_ve']])
+data_export.append(['Part véhicules thermiques (%)', st.session_state.parc_2025['part_thermique']])
+data_export.append(['Émission voiture thermique (gCO₂/km ACV)', st.session_state.parc_2025['emission_thermique']])
+data_export.append(['Émission voiture électrique (gCO₂/km ACV)', st.session_state.emissions['voiture_electrique']])
+data_export.append(['Taux d\'occupation moyen (pers/véh)', f"{st.session_state.parc_2025['taux_occupation']:.1f}"])  # CORRIGÉ
+data_export.append(['Temps stationné (%)', st.session_state.parc_2025['temps_stationnement']])
+data_export.append(['', ''])
 
---- PARC AUTOMOBILE 2025 ---
-Part véhicules électriques;{st.session_state.parc_2025['part_ve']}%
-Part véhicules thermiques;{st.session_state.parc_2025['part_thermique']}%
-Émission voiture thermique;{st.session_state.parc_2025['emission_thermique']} gCO₂/km ACV
-Émission voiture électrique;{st.session_state.emissions['voiture_electrique']} gCO₂/km ACV
-Taux d'occupation moyen;{st.session_state.parc_2025['taux_occupation']} pers/véh
-Temps stationné;{st.session_state.parc_2025['temps_stationnement']}%
+# Parc vélo
+data_export.append(['PARC VÉLO 2025', ''])
+data_export.append(['Part vélos électriques (%)', st.session_state.parc_velo_2025['part_elec']])
+data_export.append(['Part vélos classiques (%)', st.session_state.parc_velo_2025['part_classique']])
+data_export.append(['Émission vélo électrique (gCO₂/km ACV)', st.session_state.emissions['velo_elec']])
+data_export.append(['Émission vélo classique (gCO₂/km ACV)', st.session_state.emissions['velo_classique']])
+data_export.append(['', ''])
 
---- PARC VÉLO 2025 ---
-Part vélos électriques;{st.session_state.parc_velo_2025['part_elec']}%
-Part vélos classiques;{st.session_state.parc_velo_2025['part_classique']}%
-Émission vélo électrique;{st.session_state.emissions['velo_elec']} gCO₂/km ACV
-Émission vélo classique;{st.session_state.emissions['velo_classique']} gCO₂/km ACV
+# Parc bus
+data_export.append(['PARC BUS 2025', ''])
+data_export.append(['Part bus électriques (%)', st.session_state.parc_bus_2025['part_elec']])
+data_export.append(['Part bus thermiques (%)', st.session_state.parc_bus_2025['part_thermique']])
+data_export.append(['Émission bus thermique (gCO₂/km/pass ACV)', st.session_state.emissions['bus_thermique']])
+data_export.append(['Émission bus électrique (gCO₂/km/pass ACV)', st.session_state.emissions['bus_electrique']])
+data_export.append(['', ''])
 
---- PARC BUS 2025 ---
-Part bus électriques;{st.session_state.parc_bus_2025['part_elec']}%
-Part bus thermiques;{st.session_state.parc_bus_2025['part_thermique']}%
-Émission bus thermique;{st.session_state.emissions['bus_thermique']} gCO₂/km/passager ACV
-Émission bus électrique;{st.session_state.emissions['bus_electrique']} gCO₂/km/passager ACV
+# Autres modes
+data_export.append(['AUTRES MODES', ''])
+data_export.append(['Émission train (gCO₂/km/pass)', st.session_state.emissions['train']])
+data_export.append(['Émission avion (gCO₂/km/pass)', st.session_state.emissions['avion']])
+data_export.append(['Émission marche (gCO₂/km)', st.session_state.emissions['marche']])
+data_export.append(['', ''])
 
---- AUTRES MODES ---
-Émission train;{st.session_state.emissions['train']} gCO₂/km/passager
-Émission avion;{st.session_state.emissions['avion']} gCO₂/km/passager
-Émission marche;{st.session_state.emissions['marche']} gCO₂/km
+# Bilan territoire
+data_export.append(['BILAN TERRITOIRE 2025', ''])
+data_export.append(['CO₂ total territoire (tonnes/an)', f"{bilan_2025['co2_total_territoire']:.0f}"])
+data_export.append(['CO₂ par habitant (tonnes/an)', f"{co2_par_hab:.2f}"])
+data_export.append(['Km totaux territoire (Mkm/an)', f"{bilan_2025['km_total_territoire']:.1f}"])
+data_export.append(['Km par habitant par jour (km/jour)', f"{km_par_hab_jour:.1f}"])
+data_export.append(['Déplacements par habitant/jour', f"{depl_par_hab_jour:.2f}"])
+data_export.append(['', ''])
 
---- BILAN TERRITOIRE 2025 ---
-CO₂ total territoire;{format_nombre(bilan_2025['co2_total_territoire'])} tonnes/an
-CO₂ par habitant;{format_nombre(co2_par_hab, 2)} tonnes/an
-Km totaux territoire;{format_nombre(bilan_2025['km_total_territoire'])} millions km/an
-Km par habitant par jour;{format_nombre(km_par_hab_jour, 1)} km/jour
-Déplacements par habitant/jour ; {depl_par_hab_jour:.2f} dépl/jour
+# Émissions par mode
+data_export.append(['ÉMISSIONS PAR MODE', 'tonnes CO₂/an', 'kg/hab/an'])
+for mode in ['voiture', 'bus', 'train', 'velo', 'avion', 'marche']:
+    co2_mode = bilan_2025['detail_par_mode'][mode]
+    co2_hab_mode = (co2_mode / st.session_state.population) * 1000
+    data_export.append([mode.capitalize(), f"{co2_mode:.0f}", f"{co2_hab_mode:.1f}"])
+data_export.append(['', ''])
 
---- ÉMISSIONS PAR MODE (tonnes CO₂/an) ---
-Voiture;{format_nombre(bilan_2025['detail_par_mode']['voiture']):>10} tonnes/an ;{format_nombre((bilan_2025['detail_par_mode']['voiture']/st.session_state.population)*1000, 1):>8} kg/hab/an
-Bus;{format_nombre(bilan_2025['detail_par_mode']['bus']):>10} tonnes/an ;{format_nombre((bilan_2025['detail_par_mode']['bus']/st.session_state.population)*1000, 1):>8} kg/hab/an
-Train;{format_nombre(bilan_2025['detail_par_mode']['train']):>10} tonnes/an ;{format_nombre((bilan_2025['detail_par_mode']['train']/st.session_state.population)*1000, 1):>8} kg/hab/an
-Vélo;{format_nombre(bilan_2025['detail_par_mode']['velo']):>10} tonnes/an ;{format_nombre((bilan_2025['detail_par_mode']['velo']/st.session_state.population)*1000, 1):>8} kg/hab/an
-Avion;{format_nombre(bilan_2025['detail_par_mode']['avion']):>10} tonnes/an ;{format_nombre((bilan_2025['detail_par_mode']['avion']/st.session_state.population)*1000, 1):>8} kg/hab/an
-Marche;{format_nombre(bilan_2025['detail_par_mode']['marche']):>10} tonnes/an ;{format_nombre((bilan_2025['detail_par_mode']['marche']/st.session_state.population)*1000, 1):>8} kg/hab/an
+# Parts modales
+data_export.append(['PARTS MODALES 2025 (% des km)', ''])
+for mode, part in parts_2025.items():
+    data_export.append([mode.capitalize(), f"{part:.1f}"])
 
---- PARTS MODALES 2025 (% des km parcourus) ---
-Voiture;{parts_2025['voiture']:>6.1f}%
-Bus;{parts_2025['bus']:>6.1f}%
-Train;{parts_2025['train']:>6.1f}%
-Vélo;{parts_2025['velo']:>6.1f}%
-Avion;{parts_2025['avion']:>6.1f}%
-Marche;{parts_2025['marche']:>6.1f}%
-
-==============================================
-"""
+# Convertir en DataFrame et exporter
+df_export = pd.DataFrame(data_export)
+csv = df_export.to_csv(index=False, header=False, sep=';', decimal=',').encode('utf-8')
 
 st.download_button(
-    label="📥 Télécharger le diagnostic 2025 (csv)",
-    data=export_diagnostic,
+    label="📥 Télécharger le diagnostic 2025 (CSV)",
+    data=csv,
     file_name=f"diagnostic_2025_PB.csv",
-    mime="text/plain",
+    mime="text/csv",
     use_container_width=True
 )
-
 st.divider()
 
 # ==================== QUESTIONS PÉDAGOGIQUES ====================
