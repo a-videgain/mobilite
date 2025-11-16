@@ -28,7 +28,7 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     Elle fédère 158 communes sur un territoire de près de 3000 km2 ce qui en fait la plus grande Communauté d’Agglomération de France en nombre de communes et en superficie ! 
     Elle est aussi la 5ème Communauté d'Agglomération la plus peuplée de France et le 2ème bassin de population de Nouvelle-Aquitaine, après Bordeaux Métropole.
     
-    *Sources:* Pour les données de population, consultez la [fiche INSEE CAPB](https://www.insee.fr/fr/statistiques/2011101?geo=EPCI-200067106).
+    Pour les **données de population**, consultez la [fiche INSEE CAPB](https://www.insee.fr/fr/statistiques/2011101?geo=EPCI-200067106).
     
     
     ### Les pratiques des habitant.e.s du territoire
@@ -37,11 +37,12 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     il est estimé qu'un.e habitant.e.s de la Communauté d'Agglomération Pays Basque effectue en moyenne **2,1 déplacements quotidiens 
     en voiture** sur une distance moyenne de **12,5 km par trajet**.
     L'usage des **transports en commun urbains** (bus, trambus) représente **0,2 déplacement par jour** avec une distance moyenne par trajet de **4,5 km**. Il est le plus élevé pour les déplacements entre le domicile et le lieu de scolarité (école, université).
-    La **marche à pied** est utilisé pour **0,6 déplacement quotidien** sur des distances très courtes de **1000 mètres en moyenne** par trajet. 
+    La **marche à pied** est utilisé pour **0,6 déplacement quotidien** sur des distances courtes de **1000 mètres en moyenne** par trajet. 
     Le **vélo**, malgré une forte croissance ces dernières années (usage multiplié par 2 en 5 ans), reste peu utilisé avec **0,1 déplacement par jour** sur environ **3,1 km par trajet** en moyenne.
     
     *Sources* : Enquête Mobilité des Personnes 2019 [EMP2019](https://www.statistiques.developpement-durable.gouv.fr/resultats-detailles-de-lenquete-mobilite-des-personnes-de-2019)
-    Enquêtes Ménages et Déplacements (EMD)  basco-landaise 2010 [EMD2009](https://www.calameo.com/books/000191469aa6d36f2cc24)
+    
+    Enquêtes Ménages et Déplacements (EMD) basco-landaise 2010 [EMD2009](https://www.calameo.com/books/000191469aa6d36f2cc24)
     Comparateur national de déplacements domicile-travail — Agence AGAM [Outil en ligne](https://spot.agam.org/tb/mobilites)
 
     ---
