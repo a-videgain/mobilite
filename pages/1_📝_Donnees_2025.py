@@ -22,7 +22,13 @@ st.header("📝 Étape 1 : Saisie des données 2025")
 # NOUVEAU BLOC - Sources pour les étudiants
 with st.expander("📚 **Sources de données - À lire attentivement**", expanded=False):
     st.markdown("""
-    ### 🚶 Mobilité du quotidien (courtes distances)
+
+    ### La Communauté d'Agglomération Pays Basque (CAPB)
+    Ce travail se concentre sur les habitant.e.s de la Communauté d'Agglomération Pays Basque.
+    Pour les données de population, consultez la [fiche INSEE CAPB](https://www.insee.fr/fr/statistiques/2011101?geo=EPCI-200067106).
+    
+    
+    ### Mobilité du quotidien (courtes distances)
     
     Selon l'Enquête Mobilité des Personnes (EMP) française de 2019 et l'Enquête Ménages et Déplacements (EMD) de 2010,
     il est estimé que les habitant.e.s de la Communauté d'Agglomération Pays Basque effectuent en moyenne **1,1 déplacements quotidiens 
