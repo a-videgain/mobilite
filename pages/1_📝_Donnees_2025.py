@@ -24,19 +24,18 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     st.markdown("""
     ### 🚶 Mobilité du quotidien (courtes distances)
     
-    Selon l'Enquête Mobilité des Personnes (EMP) française de 2019 et l'Enquête Ménages Déplacement (EMD) de 2009-2010,
+    Selon l'Enquête Mobilité des Personnes (EMP) française de 2019 et l'Enquête Ménages et Déplacements (EMD) de 2010,
     il est estimé que les habitant.e.s de la Communauté d'Agglomération Pays Basque effectuent en moyenne **1,1 déplacements quotidiens 
-    en voiture** sur une distance moyenne de **23,3 km par trajet**. L'usage des **transports en commun urbains** 
-    (bus, trambus) représente **0,2 déplacements par jour** avec une distance moyenne par trajet de **4,5 km**. L'usage des transports en commune est le plus élevé pour les déplacements entre le domicile et le lieu de scolarité.
+    en voiture** sur une distance moyenne de **23,3 km par trajet**.
+    L'usage des **transports en commun urbains** (bus, trambus) représente **0,2 déplacements par jour** avec une distance moyenne par trajet de **4,5 km**. Il est le plus élevé pour les déplacements entre le domicile et le lieu de scolarité (école, université).
     La **marche à pied** reste le mode le plus fréquent avec **1,4 déplacements quotidiens** sur des distances très courtes de **390 mètres en moyenne**. 
     Le **vélo** est utilisé pour **0,7 déplacements par jour** sur environ **1,57 km par trajet** en moyenne.
     
     *Sources : CEREMA, Enquête Mobilité des Personnes 2019 ; INSEE, données mobilité Nouvelle-Aquitaine 2022*, 
-    Enquête Ménages Déplacement basco-landais (https://www.calameo.com/books/000191469aa6d36f2cc24)
-    
+    Enquêtes Ménages et Déplacements (EMD)  basco-landaise 2010 (https://www.calameo.com/books/000191469aa6d36f2cc24)
     ---
     
-    ### ✈️ Mobilité longue distance
+    ### ✈️ Mobilité longue distance (train, avion)
     
     Pour les **déplacements ferroviaires**, les habitants des territoires côtiers du Pays Basque effectuent 
     en moyenne **54,75 trajets en train par an**, principalement sur les liaisons Hendaye-Bayonne et vers Bordeaux, 
@@ -45,50 +44,44 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     (incluant allers et retours), avec une distance moyenne de **503 km par vol** (destinations principales : Paris, 
     capitales européennes).
     
-    *Sources : SNCF Open Data 2023 ; DGAC, Statistiques aéroport Biarritz 2023 ; Union des Aéroports Français*
+    *Sources : 
     
     ---
     
     ### 🚗 État du parc de véhicules (2025)
     
-    Au 1er janvier 2025, le parc automobile français compte **3% de véhicules 100% électriques** et **97% de véhicules 
-    thermiques** (essence et diesel), selon les données du fichier national des immatriculations. Le **taux d'occupation 
+    Au 1er janvier 2025, le parc automobile du territoire compte **3% de véhicules 100% électriques** et **97% de véhicules 
+    thermiques** (par hypothèse, les véhicules hybrides sont considérés ici comme des véhicules thermiques), selon les données du fichier national des immatriculations. Le **taux d'occupation 
     moyen des voitures particulières** est de **1,1 personne par véhicule** pour les déplacements quotidiens. 
-    Les véhicules passent en moyenne **95% de leur temps à l'arrêt** (stationnement). L'**émission moyenne d'une voiture 
-    thermique** en Analyse de Cycle de Vie (ACV) est de **218 gCO₂/km** (incluant fabrication, usage et fin de vie), 
-    tandis qu'une **voiture électrique** émet **103 gCO₂/km en ACV** avec le mix électrique français actuel.
+    La part de temps passé à l'arrêt par voiture (stationnement) peut être calculé à partir de la distance totale parcourue par une voiture et une estimation de vitesse moyenne . 
     
-    Pour les **transports collectifs urbains**, la flotte de bus française compte **5% de bus électriques** et **95% de bus 
-    diesel** (norme Euro 6) en 2025. Un **bus thermique émet en moyenne 127 gCO₂/km par passager** et un **bus électrique 
-    25 gCO₂/km par passager** (source : ADEME Base Carbone 2024, calcul avec taux de remplissage moyen).
+    Pour les **transports collectifs urbains**, la flotte de bus TXIK TXAK compte **43% de bus électriques**.
     
     Concernant les **vélos**, les ventes récentes montrent que **15% du parc est constitué de vélos à assistance électrique (VAE)** 
-    et **85% de vélos classiques**. Un vélo classique émet environ **5 gCO₂/km en ACV** (fabrication et maintenance) 
-    tandis qu'un **VAE émet 22 gCO₂/km** (incluant batterie et recharges).
+    et **85% de vélos classiques**. 
     
     *Sources : ADEME Base Carbone v13.0 (2024) ; AAA Data (immatriculations) ; GART, Observatoire des transports 2024 ; 
     Union Sport & Cycle*
-    
-    ---
-    
-    ### 🌍 Autres facteurs d'émissions
-    
-    Les **trains régionaux** (TER) émettent en moyenne **5,1 gCO₂/km par passager** avec le mix électrique français actuel. 
-    Les **vols moyens courriers** (aéroports régionaux français) émettent **225 gCO₂/km par passager**. 
-    La **marche à pied** n'émet pas de CO₂ direct.
-    
-    *Sources : ADEME Base Carbone 2024 ; SNCF Voyageurs ; DGAC*
-    
+    - **Part des bus électriques TXIK TXAK** 👉 [Electrification bus CAPB](https://www.communaute-paysbasque.fr/actualites/toutes-les-actualites/actualite/le-trambus-colonne-vertebrale-du-reseau-txik-txak-transforme-la-ville-et-arrive-a-bassussarry-en-2026)
+
+
     ---
     
     ⚠️ **Consignes :** Utilisez ces informations pour remplir les champs ci-dessous. Certaines données nécessitent 
     des calculs simples (par exemple : déplacements/jour × distance/déplacement × 365 jours = km/an).
+
+    ---
+    ###  Les facteurs d'émissions
+    
+    Les émissions sont considérées par km, sur l'ensemble du cycle de vie (ACV) de chaque mode.
+    Il est recommandé d'uutiliser la source suivante pour les émissions pour chaque mode: [Impact CO2 ADEME](https://impactco2.fr/outils/transport).
+    Attention aux unités. Les données doivent ici être entrées en gCO₂/km.
+    
     """)
 
 
 
 st.info("Cette étape consiste à établir le bilan mobilités du Pays Basque")
-st.info("Les émissions sont considérées par km, sur l'ensemble du cycle de vie (ACV), utiliser la source suivante: [Impact CO2 ADEME](https://impactco2.fr/outils/transport)")
 # Population
 st.subheader("👥 Population de la Communauté d'Agglomération Pays Basque")
 st.session_state.population = st.number_input(
