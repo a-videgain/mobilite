@@ -59,6 +59,13 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
 
     ---
     
+    ⚠️ **Consignes :** Utilisez ces informations pour remplir les champs ci-dessous. Certaines données nécessitent 
+    des calculs simples (par exemple : déplacements/jour × distance/déplacement × 365 jours = km/an).
+    
+    ⚠️ **Conseil** Faire les calculs dans un fichier à part (Excel par exemple) avant de les insérer ici.
+
+    ---
+    
     ### 🚗 État du parc de véhicules (2025)
     
     Au 1er janvier 2025, le parc automobile du territoire compte **3% de véhicules 100% électriques** et **97% de véhicules 
@@ -68,21 +75,16 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     
     Pour les **transports collectifs urbains**, la flotte de bus TXIK TXAK compte **43% de bus électriques**.
     
-    Concernant les **vélos**, les données ventes montrent que **15% du parc est constitué de vélos à assistance électrique (VAE)** 
-    et **85% de vélos classiques**. 
+    Concernant les **vélos**, les données des enquêtes montrent que **12% des km faits à vélo sont faits par des vélos à assistance électrique (VAE)** 
+    et **88% de vélos classiques**. 
     
     *Sources* : 
     - Voitures particulières immatriculées par commune et par type de recharge — Agence ORE  [Jeu de données](https://www.data.gouv.fr/fr/datasets/voitures-particulieres-immatriculees-par-commune-et-par-type-de-recharge-jeu-de-donnees-aaadata/#/resources)
     - Part des bus électriques TXIK TXAK [Electrification bus CAPB](https://www.communaute-paysbasque.fr/actualites/toutes-les-actualites/actualite/le-trambus-colonne-vertebrale-du-reseau-txik-txak-transforme-la-ville-et-arrive-a-bassussarry-en-2026)
-
+    - Part des vélos électriques parmi les trajets à vélo [CEREMA2022] https://www.cerema.fr/fr/actualites/mobilites-electriques-pratiques-emergentes?
+   
     ---
-    
-    ⚠️ **Consignes :** Utilisez ces informations pour remplir les champs ci-dessous. Certaines données nécessitent 
-    des calculs simples (par exemple : déplacements/jour × distance/déplacement × 365 jours = km/an).
-    
-    ⚠️ **Conseil** Faire les calculs dans un fichier à part (Excel par exemple) avant de les insérer ici.
 
-    ---
     ###  Les facteurs d'émissions
     
     - Les émissions sont considérées par km, sur l'ensemble du cycle de vie (ACV) de chaque mode.
