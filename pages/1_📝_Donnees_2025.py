@@ -33,7 +33,7 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     
     ### Les pratiques des habitant.e.s du territoire
     
-    Selon l'Enquête Mobilité des Personnes (EMP) française de 2019 et l'Enquête Ménages et Déplacements (EMD) de 2010,
+    Selon l'Enquête Mobilité des Personnes (EMP) française de 2019 et l'Enquête Ménages et Déplacements (EMD) basco-landaise de 2010,
     il est estimé qu'un.e habitant.e.s de la Communauté d'Agglomération Pays Basque effectue en moyenne **2,1 déplacements quotidiens 
     en voiture** sur une distance moyenne de **12,5 km par trajet**.
     L'usage des **transports en commun urbains** (bus, trambus) représente **0,2 déplacement par jour** avec une distance moyenne par trajet de **4,5 km**. Il est le plus élevé pour les déplacements entre le domicile et le lieu de scolarité (école, université).
