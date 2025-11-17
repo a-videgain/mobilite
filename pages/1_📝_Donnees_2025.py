@@ -54,8 +54,8 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     Ce chiffre moyen cache des disparités: car seuls 5% utilisent régulièrement l'avion et une majorité (59%) de la population ne le prend jamais ou presque jamais (strictement moins d'une fois par an).
     
     *Sources* :
-    - Bilan ferroviaire 203 [Autorité de Régulation des Transports](https://www.autorite-transports.fr/wp-content/uploads/2024/07/art_bilan-ferroviaire-france-2023-a-mi-2024.pdf)
-    - Part des personnes prenant l'avion en France en 2024, selon la fréquence d'utilisation [lien](https://fr.statista.com/statistiques/478796/part-des-francais-voyageant-en-avion/).
+    - Bilan ferroviaire 2023 [Autorité de Régulation des Transports](https://www.autorite-transports.fr/wp-content/uploads/2024/07/art_bilan-ferroviaire-france-2023-a-mi-2024.pdf)
+    - Trafic de passagers - Aviation - 2024 [lien](https://www.ouest-france.fr/economie/transports/avion/le-trafic-aerien-en-france-en-2024-a-quasiment-retrouve-son-niveau-de-2019-32bf1554-d9b1-11ef-84d8-cc906b107ef4).
 
     ---
     
