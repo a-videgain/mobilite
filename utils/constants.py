@@ -26,7 +26,7 @@ def initialiser_session():
         
         st.session_state.nb_depl_hab = {
             'voiture': 100.0, 'bus': 100.0, 'train': 100.0,
-            'velo': 100.0, 'avion': 1.0, 'marche': 100.0
+            'velo': 100.0, 'avion': 1.00, 'marche': 100.0
         }
         
         st.session_state.parc_2025 = {
