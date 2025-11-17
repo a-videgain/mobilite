@@ -21,15 +21,13 @@ def initialiser_session():
             'marche': 200
         }
         
-        
         # Les km territoire seront calculés automatiquement
         st.session_state.km_2025_territoire = {}
-
+        
         st.session_state.nb_depl_hab = {
             'voiture': 401.5, 'bus': 219.0, 'train': 54.75,
             'velo': 255.5, 'avion': 5.11, 'marche': 511.0
         }
-
         
         st.session_state.parc_2025 = {
             'part_ve': 3, 'part_thermique': 97,
