@@ -13,12 +13,12 @@ def initialiser_session():
         
         # Données PAR HABITANT (en km/an/hab)
         st.session_state.km_2025_habitant = {
-             'voiture': 1000,
-            'bus': 1000,
-            'train': 1000,
-            'velo': 1000,
-            'avion': 1000,
-            'marche': 1000
+            'voiture': 100,
+            'bus': 100,
+            'train': 100,
+            'velo': 100,
+            'avion': 100,
+            'marche': 100
         }
         
         # Les km territoire seront calculés automatiquement
