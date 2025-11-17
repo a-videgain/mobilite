@@ -19,12 +19,12 @@ def initialiser_session():
          #   'velo': 400,
         #    'avion': 2571,
         #    'marche': 200
-            'voiture': 0,
-            'bus': 0,
-            'train': 0,
-            'velo': 0,
-            'avion': 0,
-            'marche': 0
+            'voiture': 100,
+            'bus': 100,
+            'train': 100,
+            'velo': 100,
+            'avion': 100,
+            'marche': 100
         }
         
         # Les km territoire seront calculés automatiquement
@@ -33,8 +33,8 @@ def initialiser_session():
         st.session_state.nb_depl_hab = {
    #         'voiture': 401.5, 'bus': 219.0, 'train': 54.75,
    #         'velo': 255.5, 'avion': 5.11, 'marche': 511.0
-            'voiture': 0, 'bus': 0, 'train': 0,
-            'velo': 0, 'avion': 0, 'marche': 0            
+            'voiture': 100, 'bus': 100, 'train': 100,
+            'velo': 100, 'avion': 100, 'marche': 100            
         }
         
         st.session_state.parc_2025 = {
