@@ -98,7 +98,7 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
 
 st.header("📝 Étape 1 : Saisie des données 2025")
 
-st.info("Cette étape consiste à établir le bilan mobilités du Pays Basque")
+st.info("Cette étape consiste à établir le bilan mobilités du Pays Basque. Les champs sont pré-complétés avec des valeurs inexactes. Compléter avec les valeurs appropriées.")
 # Population
 st.subheader("👥 Population de la Communauté d'Agglomération Pays Basque")
 st.session_state.population = st.number_input(
