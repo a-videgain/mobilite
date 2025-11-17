@@ -46,7 +46,7 @@ def initialiser_session():
         st.session_state.emissions = {
             'voiture_electrique': 100, 'bus_thermique': 100,
             'bus_electrique': 100, 'train': 5.1,
-            'velo_elec': 1, 'velo_classique': 1.0,
+            'velo_elec': 1, 'velo_classique': 0,
             'avion': 225, 'marche': 0
         }
         
