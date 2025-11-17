@@ -25,8 +25,8 @@ def initialiser_session():
         st.session_state.km_2025_territoire = {}
         
         st.session_state.nb_depl_hab = {
-            'voiture': 100, 'bus': 100.0, 'train': 100.0,
-            'velo': 100.0, 'avion': 1, 'marche': 100.0
+            'voiture': 100.0, 'bus': 100.0, 'train': 100.0,
+            'velo': 100.0, 'avion': 1.0, 'marche': 100.0
         }
         
         st.session_state.parc_2025 = {
