@@ -60,7 +60,7 @@ Votre mission : construire un scénario de décarbonation cohérent pour le terr
 - **Une critique** de cet outil interactif: les limites des hypothèses simplificatrices
 
 
-💡 L'outil permet un **export des données** (fichier .txt) contenant l'ensemble des résultats. 
+💡 L'outil permet des **exports de données** (fichier csv/png) de l'ensemble des résultats. 
 Pensez à **sauvegarder régulièrement** vos données en exportant vos résultats !
 Les graphiques peuvent également être exportés et intégrés dans votre rapport.
 
