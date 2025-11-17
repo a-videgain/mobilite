@@ -270,8 +270,8 @@ with col2:
 
 with col3:
     st.session_state.emissions['velo_classique'] = st.number_input(
-        "Émission vélo classique (gCO₂/km ACV)", 0.0, 20.0,
-        st.session_state.emissions['velo_classique'], 0.1, format="%.1f"
+        "Émission vélo classique (gCO₂/km ACV)", 0, 20,
+        st.session_state.emissions['velo_classique'], 1
     )
 
 st.divider()
