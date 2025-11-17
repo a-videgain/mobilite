@@ -13,13 +13,7 @@ def initialiser_session():
         
         # Données PAR HABITANT (en km/an/hab)
         st.session_state.km_2025_habitant = {
-        #    'voiture': 9357,
-        #    'bus': 157,
-        #    'train': 600,
-         #   'velo': 400,
-        #    'avion': 2571,
-        #    'marche': 200
-            'voiture': 1000,
+             'voiture': 1000,
             'bus': 1000,
             'train': 1000,
             'velo': 1000,
@@ -31,8 +25,6 @@ def initialiser_session():
         st.session_state.km_2025_territoire = {}
         
         st.session_state.nb_depl_hab = {
-   #         'voiture': 401.5, 'bus': 219.0, 'train': 54.75,
-   #         'velo': 255.5, 'avion': 5.11, 'marche': 511.0
             'voiture': 100, 'bus': 100, 'train': 100,
             'velo': 100, 'avion': 100, 'marche': 100            
         }
