@@ -68,15 +68,8 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     
     ### 🚗 État du parc de véhicules (2025)
     
-    Au 1er janvier 2025, le parc automobile du territoire compte **3% de véhicules 100% électriques** et **97% de véhicules 
-    thermiques** (par hypothèse, les véhicules hybrides sont considérés comme des véhicules thermiques), selon les données du fichier national des immatriculations. Le **taux d'occupation 
-    moyen des voitures particulières** est de **1,1 personne par véhicule** pour les déplacements quotidiens. 
+    Par hypothèse, les véhicules hybrides sont considérés comme des véhicules thermiques), selon les données du fichier national des immatriculations. 
     La part de temps passé à l'arrêt par voiture (stationnement) peut être calculée à partir de la distance totale parcourue par une voiture et une estimation de vitesse moyenne. 
-    
-    Pour les **transports collectifs urbains**, la flotte de bus TXIK TXAK compte **43% de bus électriques**.
-    
-    Concernant les **vélos**, les données des enquêtes montrent que **12% des km faits à vélo sont faits par des vélos à assistance électrique (VAE)** 
-    et **88% de vélos classiques**. 
     
     *Sources* : 
     - Voitures particulières immatriculées par commune et par type de recharge — Agence ORE  [Jeu de données](https://www.data.gouv.fr/fr/datasets/voitures-particulieres-immatriculees-par-commune-et-par-type-de-recharge-jeu-de-donnees-aaadata/#/resources)
