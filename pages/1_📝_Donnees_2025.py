@@ -68,7 +68,7 @@ with st.expander("📚 **Sources de données - À lire attentivement**", expande
     
     ### 🚗 État du parc de véhicules (2025)
     
-    Par hypothèse, les véhicules hybrides sont considérés comme des véhicules thermiques), selon les données du fichier national des immatriculations. 
+    Par hypothèse, les véhicules hybrides sont considérés comme des véhicules thermiques. 
     La part de temps passé à l'arrêt par voiture (stationnement) peut être calculée à partir de la distance totale parcourue par une voiture et une estimation de vitesse moyenne. 
     
     *Sources* : 
@@ -289,7 +289,7 @@ with col2:
 
 with col3:
     st.session_state.emissions['bus_electrique'] = st.number_input(
-        "Émission bus électrique (gCO₂/km/passage ACV)", 0, 100,
+        "Émission bus électrique (gCO₂/km/passager ACV)", 0, 100,
         st.session_state.emissions['bus_electrique'], 1
     )
 
