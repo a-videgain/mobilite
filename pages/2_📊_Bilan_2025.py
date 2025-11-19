@@ -221,16 +221,26 @@ for mode, part in parts_2025.items():
 
 # Convertir en DataFrame et exporter
 df_export = pd.DataFrame(data_export)
-csv = df_export.to_csv(index=False, sep=';', decimal=',').encode('utf-8-sig')  # MODIFIÉ
 
+# Générer le CSV avec encodage robuste
+csv = df_export.to_csv(
+    index=False, 
+    header=False,  # Pas d'en-tête auto
+    sep=';', 
+    decimal=',',
+    encoding='utf-8-sig',
+    line_terminator='\n'  # Standard Unix
+)
 
 st.download_button(
     label="📥 Télécharger le diagnostic 2025 (CSV)",
     data=csv,
     file_name=f"diagnostic_2025_PB.csv",
-    mime="text/csv",
-    use_container_width=True
+    mime="text/csv;charset=utf-8",  # MIME type explicite
+    use_container_width=True,
+    key="download_diagnostic_2025"  # Clé unique pour éviter conflits
 )
+
 st.divider()
 
 # ==================== QUESTIONS PÉDAGOGIQUES ====================
