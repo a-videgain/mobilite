@@ -782,16 +782,23 @@ def generer_csv_scenario_2050():
     
     # SCÉNARIO 2050
     ajouter('SCÉNARIO 2050')
+    ajouter('Nom du groupe', st.session_state.get('nom_groupe', 'PB'))
     ajouter('')
     
-    # LEVIERS ACTIVÉS
+    # LEVIERS ACTIVÉS - utiliser st.session_state.scenario au lieu de leviers
     ajouter('LEVIERS ACTIVÉS')
-    ajouter('Électrification voitures (%)', st.session_state.leviers['electrification'])
-    ajouter('Réduction km voitures (%)', st.session_state.leviers['sobriete_voiture'])
-    ajouter('Réduction km avions (%)', st.session_state.leviers['sobriete_avion'])
-    ajouter('Report modal (%)', st.session_state.leviers['report_modal'])
-    ajouter('Taux occupation voitures', f"{st.session_state.leviers['taux_occupation']:.1f}")
-    ajouter('Allègement véhicules (%)', st.session_state.leviers['allegement'])
+    ajouter('Électrification voitures (%)', st.session_state.scenario['part_ve'])
+    ajouter('Électrification bus (%)', st.session_state.scenario['part_bus_elec'])
+    ajouter('Électrification vélos (%)', st.session_state.scenario['part_velo_elec'])
+    ajouter('Réduction km voitures (%)', st.session_state.scenario['reduction_km_voiture'])
+    ajouter('Réduction km avions (%)', st.session_state.scenario['reduction_km_avion'])
+    ajouter('Report voiture vers vélo (%)', st.session_state.scenario['report_velo'])
+    ajouter('Report voiture vers bus (%)', st.session_state.scenario['report_bus'])
+    ajouter('Report voiture vers train (%)', st.session_state.scenario['report_train'])
+    ajouter('Report voiture vers marche (%)', st.session_state.scenario.get('report_marche', 0))
+    ajouter('Report avion vers train (%)', st.session_state.scenario['report_train_avion'])
+    ajouter('Taux occupation voitures', f"{st.session_state.scenario['taux_remplissage']:.1f}")
+    ajouter('Allègement véhicules (%)', st.session_state.scenario['reduction_poids'])
     ajouter('')
     
     # MOBILITÉS 2050
