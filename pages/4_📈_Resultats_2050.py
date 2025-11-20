@@ -782,7 +782,6 @@ def generer_csv_scenario_2050():
     
     # SCÉNARIO 2050
     ajouter('SCÉNARIO 2050')
-    ajouter('Nom du groupe', st.session_state.get('nom_groupe', 'PB'))
     ajouter('')
     
     # LEVIERS ACTIVÉS
@@ -861,7 +860,7 @@ try:
     st.download_button(
         label="📥 Télécharger le scénario 2050 (CSV)",
         data=csv_bytes,
-        file_name=f"scenario_2050_{st.session_state.get('nom_groupe', 'PB')}.csv",
+        file_name=f"scenario_2050_PB.csv",
         mime="text/csv",
         use_container_width=True
     )
