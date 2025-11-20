@@ -772,106 +772,111 @@ st.divider()
 # ==================== EXPORT DES DONNÉES ====================
 
 st.subheader("💾 Export des données")
-
 # Préparer les données pour export CSV
-data_export = []
+def generer_csv_resultats():
+    """Génère le CSV complet des résultats"""
+    lignes = []
+    
+    def ajouter(label, val1='', val2=''):
+        if val2:
+            lignes.append(f"{label};{val1};{val2}")
+        elif val1:
+            lignes.append(f"{label};{val1}")
+        else:
+            lignes.append(label)
+    
+    # En-tête
+    ajouter('MOBILITÉ PAYS BASQUE 2050 - EXPORT DONNÉES')
+    ajouter('Date export', pd.Timestamp.now().strftime('%Y-%m-%d %H:%M'))
+    ajouter('Population territoire (habitants)', st.session_state.population)
+    ajouter('')
+    
+    # Situation initiale
+    ajouter('SITUATION INITIALE (km/an/habitant)')
+    for mode, km in st.session_state.km_2025_habitant.items():
+        ajouter(mode.capitalize(), km)
+    ajouter('')
+    
+    # Bilan 2025
+    co2_par_hab_2025 = resultats['bilan_2025']['co2_total_territoire'] / st.session_state.population
+    km_par_hab_an_2025 = (resultats['bilan_2025']['km_total_territoire'] * 1e6) / st.session_state.population
+    
+    ajouter('BILAN 2025')
+    ajouter('CO₂ territoire (tonnes/an)', f"{resultats['bilan_2025']['co2_total_territoire']:.0f}")
+    ajouter('CO₂ par habitant (tonnes/an)', f"{co2_par_hab_2025:.2f}")
+    ajouter('Km totaux territoire (Mkm/an)', f"{resultats['bilan_2025']['km_total_territoire']:.1f}")
+    ajouter('Km par habitant (km/an)', f"{km_par_hab_an_2025:.0f}")
+    ajouter('')
+    
+    # Scénario 2050 - Leviers
+    ajouter('SCÉNARIO 2050 - LEVIERS')
+    ajouter('Électrification voitures (% VE)', st.session_state.scenario['part_ve'])
+    ajouter('Électrification bus (% élec)', st.session_state.scenario['part_bus_elec'])
+    ajouter('Électrification vélos (% élec)', st.session_state.scenario['part_velo_elec'])
+    ajouter('Sobriété voiture (variation km %)', st.session_state.scenario.get('reduction_km_voiture', 0))
+    ajouter('Sobriété avion (variation km %)', st.session_state.scenario.get('reduction_km_avion', 0))
+    ajouter('Report voiture→vélo (%)', st.session_state.scenario['report_velo'])
+    ajouter('Report voiture→marche (%)', st.session_state.scenario.get('report_marche', 0))
+    ajouter('Report voiture→bus (%)', st.session_state.scenario['report_bus'])
+    ajouter('Report voiture→train (%)', st.session_state.scenario['report_train'])
+    ajouter('Report avion→train (%)', st.session_state.scenario['report_train_avion'])
+    ajouter('Taux remplissage (pers/véh)', f"{st.session_state.scenario['taux_remplissage']:.1f}")
+    ajouter('Réduction poids (%)', st.session_state.scenario['reduction_poids'])
+    ajouter('')
+    
+    # Bilan 2050
+    co2_par_hab_2050 = resultats['bilan_2050']['co2_total_territoire'] / st.session_state.population
+    km_par_hab_an_2050 = (resultats['bilan_2050']['km_total_territoire'] * 1e6) / st.session_state.population
+    
+    ajouter('BILAN 2050')
+    ajouter('CO₂ territoire (tonnes/an)', f"{resultats['bilan_2050']['co2_total_territoire']:.0f}")
+    ajouter('CO₂ par habitant (tonnes/an)', f"{co2_par_hab_2050:.2f}")
+    ajouter('Km totaux territoire (Mkm/an)', f"{resultats['bilan_2050']['km_total_territoire']:.1f}")
+    ajouter('Km par habitant (km/an)', f"{km_par_hab_an_2050:.0f}")
+    ajouter('Réduction CO₂ (%)', f"{resultats['reduction_pct']:.1f}")
+    ajouter('Objectif SNBC atteint', 'OUI' if resultats['objectif_atteint'] else 'NON')
+    ajouter('')
+    
+    # Km par mode (comparaison)
+    km_hab_2025 = {mode: (km * 1e6) / st.session_state.population 
+                   for mode, km in st.session_state.km_2025_territoire.items()}
+    km_hab_2050 = {mode: (km * 1e6) / st.session_state.population 
+                   for mode, km in resultats['km_2050_territoire'].items()}
+    
+    ajouter('KM PAR MODE (km/an/habitant)', '2025', '2050')
+    for mode in ['voiture', 'bus', 'train', 'velo', 'avion', 'marche']:
+        ajouter(mode.capitalize(), f"{km_hab_2025[mode]:.0f}", f"{km_hab_2050[mode]:.0f}")
+    ajouter('')
+    
+    # Émissions par mode (comparaison)
+    emissions_hab_an_2025 = {mode: (co2 * 1000) / st.session_state.population 
+                             for mode, co2 in resultats['bilan_2025']['detail_par_mode'].items()}
+    emissions_hab_an_2050 = {mode: (co2 * 1000) / st.session_state.population 
+                             for mode, co2 in resultats['bilan_2050']['detail_par_mode'].items()}
+    
+    ajouter('ÉMISSIONS PAR MODE (kg CO₂/an/habitant)', '2025', '2050')
+    for mode in ['voiture', 'bus', 'train', 'velo', 'avion', 'marche']:
+        ajouter(mode.capitalize(), f"{emissions_hab_an_2025[mode]:.1f}", f"{emissions_hab_an_2050[mode]:.1f}")
+    ajouter('')
+    
+    return '\n'.join(lignes)
 
-# En-tête
-data_export.append(['MOBILITÉ PAYS BASQUE 2050 - EXPORT DONNÉES', ''])
-data_export.append(['Date export', pd.Timestamp.now().strftime('%Y-%m-%d %H:%M')])
-data_export.append(['Population territoire (habitants)', st.session_state.population])
-data_export.append(['', ''])
-
-# Situation initiale
-data_export.append(['SITUATION INITIALE (km/an/habitant)', ''])
-for mode, km in st.session_state.km_2025_habitant.items():
-    data_export.append([mode.capitalize(), km])
-data_export.append(['', ''])
-
-# Bilan 2025
-co2_par_hab_2025 = resultats['bilan_2025']['co2_total_territoire'] / st.session_state.population
-km_par_hab_an_2025 = (resultats['bilan_2025']['km_total_territoire'] * 1e6) / st.session_state.population
-
-data_export.append(['BILAN 2025', ''])
-data_export.append(['CO₂ territoire (tonnes/an)', f"{resultats['bilan_2025']['co2_total_territoire']:.0f}"])
-data_export.append(['CO₂ par habitant (tonnes/an)', f"{co2_par_hab_2025:.2f}"])
-data_export.append(['Km totaux territoire (Mkm/an)', f"{resultats['bilan_2025']['km_total_territoire']:.1f}"])
-data_export.append(['Km par habitant (km/an)', f"{km_par_hab_an_2025:.0f}"])
-data_export.append(['', ''])
-
-# Scénario 2050 - Leviers
-data_export.append(['SCÉNARIO 2050 - LEVIERS', ''])
-data_export.append(['Électrification voitures (% VE)', st.session_state.scenario['part_ve']])
-data_export.append(['Électrification bus (% élec)', st.session_state.scenario['part_bus_elec']])
-data_export.append(['Électrification vélos (% élec)', st.session_state.scenario['part_velo_elec']])
-data_export.append(['Sobriété voiture (variation km %)', st.session_state.scenario.get('reduction_km_voiture', 0)])
-data_export.append(['Sobriété avion (variation km %)', st.session_state.scenario.get('reduction_km_avion', 0)])
-data_export.append(['Report voiture→vélo (%)', st.session_state.scenario['report_velo']])
-data_export.append(['Report voiture→marche (%)', st.session_state.scenario.get('report_marche', 0)])
-data_export.append(['Report voiture→bus (%)', st.session_state.scenario['report_bus']])
-data_export.append(['Report voiture→train (%)', st.session_state.scenario['report_train']])
-data_export.append(['Report avion→train (%)', st.session_state.scenario['report_train_avion']])
-data_export.append(['Taux remplissage (pers/véh)', f"{st.session_state.scenario['taux_remplissage']:.1f}"])
-data_export.append(['Réduction poids (%)', st.session_state.scenario['reduction_poids']])
-data_export.append(['', ''])
-
-# Bilan 2050
-co2_par_hab_2050 = resultats['bilan_2050']['co2_total_territoire'] / st.session_state.population
-km_par_hab_an_2050 = (resultats['bilan_2050']['km_total_territoire'] * 1e6) / st.session_state.population
-
-data_export.append(['BILAN 2050', ''])
-data_export.append(['CO₂ territoire (tonnes/an)', f"{resultats['bilan_2050']['co2_total_territoire']:.0f}"])
-data_export.append(['CO₂ par habitant (tonnes/an)', f"{co2_par_hab_2050:.2f}"])
-data_export.append(['Km totaux territoire (Mkm/an)', f"{resultats['bilan_2050']['km_total_territoire']:.1f}"])
-data_export.append(['Km par habitant (km/an)', f"{km_par_hab_an_2050:.0f}"])
-data_export.append(['Réduction CO₂ (%)', f"{resultats['reduction_pct']:.1f}"])
-data_export.append(['Objectif SNBC atteint', 'OUI' if resultats['objectif_atteint'] else 'NON'])
-data_export.append(['', ''])
-
-# Km par mode (comparaison)
-km_hab_2025 = {mode: (km * 1e6) / st.session_state.population 
-               for mode, km in st.session_state.km_2025_territoire.items()}
-km_hab_2050 = {mode: (km * 1e6) / st.session_state.population 
-               for mode, km in resultats['km_2050_territoire'].items()}
-
-data_export.append(['KM PAR MODE (km/an/habitant)', '2025', '2050'])
-for mode in ['voiture', 'bus', 'train', 'velo', 'avion', 'marche']:
-    data_export.append([
-        mode.capitalize(),
-        f"{km_hab_2025[mode]:.0f}",
-        f"{km_hab_2050[mode]:.0f}"
-    ])
-data_export.append(['', ''])
-
-# Émissions par mode (comparaison)
-emissions_hab_an_2025 = {mode: (co2 * 1000) / st.session_state.population 
-                         for mode, co2 in resultats['bilan_2025']['detail_par_mode'].items()}
-emissions_hab_an_2050 = {mode: (co2 * 1000) / st.session_state.population 
-                         for mode, co2 in resultats['bilan_2050']['detail_par_mode'].items()}
-
-data_export.append(['ÉMISSIONS PAR MODE (kg CO₂/an/habitant)', '2025', '2050'])
-for mode in ['voiture', 'bus', 'train', 'velo', 'avion', 'marche']:
-    data_export.append([
-        mode.capitalize(),
-        f"{emissions_hab_an_2025[mode]:.1f}",
-        f"{emissions_hab_an_2050[mode]:.1f}"
-    ])
-data_export.append(['', ''])
-
-
-# Convertir en DataFrame et exporter
-df_export = pd.DataFrame(data_export)
-csv = df_export.to_csv(index=False, header=False, sep=';', decimal=',').encode('utf-8-sig')
-
-col1, col2 = st.columns([2, 1])
-with col1:
-    st.download_button(
-        label="📥 Télécharger toutes les données (CSV)",
-        data=csv,
-        file_name=f"mobilite_PB_2050_resultats.csv",
-        mime="text/csv",
-        use_container_width=True
-    )
+# Générer et télécharger le CSV
+try:
+    csv_content = generer_csv_resultats()
+    csv_bytes = csv_content.encode('utf-8-sig')
+    
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        st.download_button(
+            label="📥 Télécharger toutes les données (CSV)",
+            data=csv_bytes,
+            file_name=f"mobilite_PB_2050_resultats_{st.session_state.get('nom_groupe', 'PB')}.csv",
+            mime="text/csv",
+            use_container_width=True
+        )
+except Exception as e:
+    st.error(f"Erreur lors de la génération du CSV : {str(e)}")
 
 st.divider()
 # ==================== NAVIGATION ====================
