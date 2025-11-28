@@ -13,40 +13,40 @@ def initialiser_session():
         
         # Données PAR HABITANT (en km/an/hab)
         st.session_state.km_2025_habitant = {
-            'voiture': 100,
-            'bus': 100,
-            'train': 100,
-            'velo': 100,
-            'avion': 100,
-            'marche': 100
+            'voiture': 9851,
+            'bus': 329,
+            'train': 1600,
+            'velo': 113,
+            'avion': 2750,
+            'marche': 219
         }
         
         # Les km territoire seront calculés automatiquement
         st.session_state.km_2025_territoire = {}
         
         st.session_state.nb_depl_hab = {
-            'voiture': 100.0, 'bus': 100.0, 'train': 100.0,
-            'velo': 100.0, 'avion': 1.00, 'marche': 100.0
+            'voiture': 766.5, 'bus': 73.0, 'train': 20.0,
+            'velo': 35.5, 'avion': 2.5, 'marche': 219.0
         }
         
         st.session_state.parc_2025 = {
-            'part_ve': 1, 'part_thermique': 99,
-            'emission_thermique': 100, 'taux_occupation': 1.0,
-            'temps_stationnement': 90
+            'part_ve': 3, 'part_thermique': 97,
+            'emission_thermique': 218, 'taux_occupation': 1.3,
+            'temps_stationnement': 97
         }
         
         st.session_state.parc_velo_2025 = {
-            'part_elec': 5, 'part_classique': 95
+            'part_elec': 12, 'part_classique': 88
         }
         
         st.session_state.parc_bus_2025 = {
-            'part_elec': 5, 'part_thermique': 95
+            'part_elec': 43, 'part_thermique': 57
         }
         
         st.session_state.emissions = {
-            'voiture_electrique': 100, 'bus_thermique': 100,
-            'bus_electrique': 100, 'train': 5.1,
-            'velo_elec': 1, 'velo_classique': 0,
+            'voiture_electrique': 103, 'bus_thermique': 122,
+            'bus_electrique': 22, 'train': 5.1,
+            'velo_elec': 11, 'velo_classique': 0,
             'avion': 225, 'marche': 0
         }
         
@@ -59,10 +59,10 @@ def initialiser_session():
             'report_marche': 0,  # NOUVEAU
             'report_train_avion': 0,
             'taux_remplissage': 1.0,
-            'part_ve': 5,
-            'part_thermique': 95,
-            'part_velo_elec': 5,
-            'part_velo_classique': 95,
+            'part_ve': 3,
+            'part_thermique': 97,
+            'part_velo_elec': 12,
+            'part_velo_classique': 88,
             'part_bus_elec': 5,
             'part_bus_thermique': 95,
             'reduction_poids': 0
