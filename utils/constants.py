@@ -9,7 +9,7 @@ def initialiser_session():
         st.session_state.initialized = True
         
         # Population du territoire (modifiable)
-        st.session_state.population = 350000  # Valeur par défaut
+        st.session_state.population = 330000  # Valeur par défaut
         
         # Données PAR HABITANT (en km/an/hab)
         st.session_state.km_2025_habitant = {
