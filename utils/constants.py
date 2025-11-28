@@ -13,7 +13,7 @@ def initialiser_session():
         
         # Données PAR HABITANT (en km/an/hab)
         st.session_state.km_2025_habitant = {
-            'voiture': 9851,
+            'voiture': 9581,
             'bus': 329,
             'train': 1600,
             'velo': 113,
