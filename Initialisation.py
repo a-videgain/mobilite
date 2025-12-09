@@ -1,6 +1,18 @@
 import streamlit as st
 import pandas as pd
 
+
+ CSS pour empêcher la fermeture de la sidebar + masquer menu
+st.markdown("""
+    <style>
+    /* Empêcher la fermeture de la sidebar */
+    [data-testid="collapsedControl"] {
+        display: none;
+    }
+    section[data-testid="stSidebar"] {
+        width: 300px !important;
+    }
+
 # Masquer le menu hamburger et le footer
 hide_streamlit_style = """
     <style>
