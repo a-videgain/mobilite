@@ -31,7 +31,7 @@ def initialiser_session():
         
         st.session_state.parc_2025 = {
             'part_ve': 3, 'part_thermique': 97,
-            'emission_thermique': 218, 'taux_occupation': 1.3,
+            'emission_thermique': 218, 'taux_occupation': 1.4,
             'temps_stationnement': 97
         }
         
@@ -40,7 +40,7 @@ def initialiser_session():
         }
         
         st.session_state.parc_bus_2025 = {
-            'part_elec': 43, 'part_thermique': 57
+            'part_elec': 10, 'part_thermique': 90
         }
         
         st.session_state.emissions = {
@@ -58,7 +58,7 @@ def initialiser_session():
             'report_train': 0,
             'report_marche': 0,  # NOUVEAU
             'report_train_avion': 0,
-            'taux_remplissage': 1.0,
+            'taux_remplissage': 1.4,
             'part_ve': 3,
             'part_thermique': 97,
             'part_velo_elec': 12,
